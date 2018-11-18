@@ -1,0 +1,6 @@
+README.md
+pathplan.egg-info/PKG-INFO
+pathplan.egg-info/SOURCES.txt
+pathplan.egg-info/dependency_links.txt
+pathplan.egg-info/requires.txt
+pathplan.egg-info/top_level.txt
