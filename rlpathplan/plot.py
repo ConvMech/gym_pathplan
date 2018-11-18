@@ -14,11 +14,7 @@ def compute_ave(x,h):
 		t += h
 	return np.array(ave)
 
-# env = 'SeaHandGraspCubeSingle{}-v1'.format(objindex)
-# env = 'SeaHandGraspCubeRelativeSafeEasy-v0'
-# env = 'SeaHandGraspCubeRelativeSafe-v0'
-# env = 'SeaHandGraspCubeExp-v0'
-env = 'GraspCubeFree-v0'
+env = 'PathHallway-v0'
 
 algo = 'ppo'
 # algo = 'rl2'
