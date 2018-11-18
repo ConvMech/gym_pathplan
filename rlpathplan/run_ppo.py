@@ -68,10 +68,9 @@ class CALLBACK(object):
 
 
 def train(env_id, num_timesteps, seed, lr, entcoef, continue_train, 
-    nsteps, wrapper_index=0, policy_index=0, K=None):
-    assert K is not None
+    nsteps, policy_index=0):
+
     from ppo_utils import ppo2
-    from utils import wrapper, rl2wrapper
 
     from baselines.common import set_global_seeds
     from baselines.common.vec_env.vec_normalize import VecNormalize
@@ -92,36 +91,11 @@ def train(env_id, num_timesteps, seed, lr, entcoef, continue_train,
     # config environment for training 
     def make_env():
         env = gym.make(env_id)
-        env = wrapper.discretizing_wrapper(env, K)
-        # env = rl2wrapper.StickyActionEnv(env, 10) # execute an action 10 steps
-        # env = rl2wrapper.RL2Env(env, 2)
         env = bench.Monitor(env, logger.get_dir())
         return env
-
-    def make_sticky():
-        env = gym.make(env_id)
-        env = wrapper.discretizing_wrapper(env, K)
-        env = rl2wrapper.StickyActionEnv(env, 10) # execute an action 10 steps
-        env = bench.Monitor(env, logger.get_dir())
-        return env
-
-    def make_rl2():
-        env = gym.make(env_id)
-        env = wrapper.discretizing_wrapper(env, K)
-        env = rl2wrapper.StickyActionEnv(env, 10) # execute an action 10 steps
-        env = rl2wrapper.RL2Env(env, 2)
-        env = bench.Monitor(env, logger.get_dir())
-        return env
-
-    if wrapper_index == 0:
-        algo = "ppo"
-        env = DummyVecEnv([make_env for _ in range(4)])
-    elif wrapper_index == 1:
-        algo = "sticky"
-        env = DummyVecEnv([make_sticky for _ in range(4)])
-    elif wrapper_index == 2:
-        algo = "rl2"
-        env = DummyVecEnv([make_rl2 for _ in range(4)])
+    
+    algo = "ppo"
+    env = DummyVecEnv([make_env for _ in range(4)])
     env = VecNormalize(env)
 
 
@@ -133,7 +107,6 @@ def train(env_id, num_timesteps, seed, lr, entcoef, continue_train,
     arg['lr'] = lr
     arg['policy'] = policy_name
     arg['continue-train'] = continue_train
-    arg['K'] = K
     callback = CALLBACK(arg)
 
     # config tensorflow training
@@ -155,22 +128,18 @@ def train(env_id, num_timesteps, seed, lr, entcoef, continue_train,
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--env', help='environment ID', default='GraspCubeFree-v0')
+    parser.add_argument('--env', help='environment ID', default='PathHallway-v0')
     parser.add_argument('--seed', help='RNG seed', type=int, default=0)
     parser.add_argument('--num-timesteps', type=int, default=int(1e6))
     parser.add_argument('--lr', type=float, default=3e-5)
     parser.add_argument('--entcoef', type=float, default=0.0)
     parser.add_argument('--continue-train', type=int, default=0) # 1 for continued training
     parser.add_argument('--nsteps', type=int, default=512) # nenvs * nsteps is a batch
-    parser.add_argument('--bins', type=int, default=11)
     parser.add_argument('--policy', type=int, default=0,
         help="0 for mlp policy; 1 for rnn policy")
-    parser.add_argument('--wrapper', type=int, default=0,
-        help="0 for ppo; 1 for sticky ppo; 2 for rl2")
     args = parser.parse_args()
     logger.configure()
-    train(args.env, nsteps=args.nsteps, entcoef=args.entcoef, K=args.bins, 
-        lr=args.lr, policy_index=args.policy, wrapper_index=args.wrapper,
+    train(args.env, nsteps=args.nsteps, entcoef=args.entcoef, lr=args.lr, policy_index=args.policy,
         num_timesteps=args.num_timesteps, seed=args.seed, continue_train=args.continue_train)
 
 

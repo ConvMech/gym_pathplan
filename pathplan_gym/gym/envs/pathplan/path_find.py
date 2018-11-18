@@ -23,11 +23,17 @@ class PathFinding(object):
 		self.goal = self.map_s.goal
 		return self.get_state()
 
-	def get_state(self):
+	def get_map(self):
 		"""return a (n, n) grid"""
 		state = np.array(self.map_s.dom, copy=True)
 		state[self.player[0], self.player[1]] = 2
 		state[self.goal[0], self.goal[1]] = 3
+		return state
+
+	def get_state(self):
+		"""return a (n, n) grid"""
+		state = self.get_map()
+		state = state.flatten()
 		return state
 
 	def step(self, a):
@@ -50,5 +56,5 @@ class PathFinding(object):
 		return self.step_return(-0.001)
 
 	def step_return(self, reward):
-		return self.get_state(), reward, self.terminal, ""
+		return self.get_state(), reward, self.terminal, {}
 

@@ -8,9 +8,6 @@ from baselines import logger
 from collections import deque
 from baselines.common import explained_variance
 
-OBJDIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + '/object_study/objects'
-print ("OBJDIR:", OBJDIR)
-
 class Model(object):
     def __init__(self, *, policy, ob_space, ac_space, nbatch_act, nbatch_train,
                 nsteps, ent_coef, vf_coef, max_grad_norm):
@@ -113,11 +110,11 @@ class Runner(object):
             mb_neglogpacs.append(neglogpacs)
             mb_dones.append(self.dones)            
             self.obs[:], rewards, self.dones, infos = self.env.step(actions)
-            for info in infos:
-                maybeepinfo = info.get('episode')
-                #if 'episode' in info.keys() and 'pos' in info.keys():
-                #    maybeepinfo['pos'] = np.copy(info['pos'])
-                if maybeepinfo: epinfos.append(maybeepinfo)
+            # for info in infos:
+            #     maybeepinfo = info.get('episode')
+            #     #if 'episode' in info.keys() and 'pos' in info.keys():
+            #     #    maybeepinfo['pos'] = np.copy(info['pos'])
+            #     if maybeepinfo: epinfos.append(maybeepinfo)
             mb_rewards.append(rewards)
         #batch of steps to batch of rollouts
         mb_obs = np.asarray(mb_obs, dtype=self.obs.dtype)
@@ -305,59 +302,30 @@ def render(*, policy, env, nsteps, episodes, ent_coef=0.0,
         ob = np.clip((ob - ob_rms.mean) / np.sqrt(ob_rms.var + 1e-8), -10, 10)
         return ob
 
-    # record something during evaluate
-    success = 0
-    obsdict = []
-    veltotal = []
-    sucrecord = []
-    evaldir = callback.pickledir + '/eval/'
-    if not os.path.exists(evaldir + '/torques_record/'):
-        os.makedirs(evaldir + '/torques_record/')
     assert len(env.venv.envs) == 1
     env_test = env.venv.envs[0]
-    env_test.env._max_episode_steps = 10000
+
     for e in range(episodes):
-        velrecord = []
-        obsrecord = []
         done = False
         rsum = 0
         obs = env_test.reset()
         obs = filter(obs)
         steps = 0
-        zerosvel = 0
-        if episodes < 11:
-            env_test.render()
+        env_test.render()
         while not done:
-            
             obs = np.expand_dims(obs.flatten(), axis=0)
             actions, values, _, neglogpacs = model.step(obs)
             newobs, r, done, _ = env_test.step(actions)
             obsrecord.append(obs[-4:])
             obs = newobs
-            
             obs = filter(obs)
-            if episodes < 11:
-                env_test.render()
+            env_test.render()
             rsum += r
             steps += 1
-            velrecord.append(sum(np.abs(env_test.unwrapped.sim.data.qvel.ravel().copy())))
-
-        
-        np.save(evaldir + '/torques_record/' + 'torque_{}'.format(e), obsrecord) 
-        if rsum > 500 and steps > 5000:
-            success += 1
-        #print(rsum)
-        veltotal.append(velrecord)
-        np.save(evaldir + '/veltotal', veltotal)
-        #obsdict.append(np.array(obsrecord))
-        np.save(evaldir + '/successtuple', [e, success])
-        if episodes < 11:
-            print('episode {}'.format(e))
-
+            velrecord.append(sum(np.abs(env_test.unwrapped.sim.data.qvel.ravel().copy())))  
     if callback is not None:
         pass
         callback(locals(), globals())
-    print ("success %d out of episodes %d, the successful rate is %f"%(success,episodes, success/episodes)) 
     sess = tf.get_default_session()
     sess.close()
 
