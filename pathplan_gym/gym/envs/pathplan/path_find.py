@@ -14,10 +14,11 @@ class PathFinding(object):
 		self.player = None
 		self.goal = None
 		self.terminal = True
+		self.difficulty = 10
 
 	def reset(self):
 		self.terminal = False
-		self.map_s = obstacle_gen.generate_map(self.shape, self.rows//5, 1) # TODO: 10 is the number of obstacles.
+		self.map_s = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty) # TODO: 10 is the number of obstacles.
 		self.player = self.map_s.start
 		self.goal = self.map_s.goal
 		return self.get_state()
