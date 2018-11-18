@@ -26,7 +26,7 @@ class PathFindingEnv(gym.Env):
 		return self.task.step(action)
 
 	def render(self, mode='human'):
-		map_s = self.task.get_state()
+		map_s = self.task.get_map()
 
 		if mode is 'human':
 			self.viewer.draw(map_s)

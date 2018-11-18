@@ -1,0 +1,1726 @@
+Logging to /tmp/openai-2018-11-18-18-08-15-662109
+Logging to /tmp/openai-2018-11-18-18-08-15-662347
+Logging to /tmp/openai-2018-11-18-18-08-15-662621
+pygame 1.9.4
+Hello from the pygame community. https://www.pygame.org/contribute.html
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+training from scratch
+2018-11-18 18:08:16.168173: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+pygame 1.9.4
+Hello from the pygame community. https://www.pygame.org/contribute.html
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+training from scratch
+2018-11-18 18:08:16.190305: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+pygame 1.9.4
+Hello from the pygame community. https://www.pygame.org/contribute.html
+get the map object
+added border
+added obstaclea
+checking if a valid env
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+training from scratch
+2018-11-18 18:08:16.643917: I tensorflow/core/platform/cpu_feature_guard.cc:141] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+/home/xiya/ROAR/code/mobileRobot/rl_pathplan/pathplan_gym/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/distributions.py:136: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+
+Future major versions of TensorFlow will allow gradients to flow
+into the labels input on backprop by default.
+
+See `tf.nn.softmax_cross_entropy_with_logits_v2`.
+
+/home/xiya/ROAR/code/mobileRobot/rl_pathplan/pathplan_gym/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/distributions.py:136: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+
+Future major versions of TensorFlow will allow gradients to flow
+into the labels input on backprop by default.
+
+See `tf.nn.softmax_cross_entropy_with_logits_v2`.
+
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/tf_util.py:32: calling reduce_max (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/tf_util.py:17: calling reduce_sum (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/tf_util.py:32: calling reduce_max (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/tf_util.py:17: calling reduce_sum (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+/home/xiya/ROAR/code/mobileRobot/rl_pathplan/pathplan_gym/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/distributions.py:136: softmax_cross_entropy_with_logits (from tensorflow.python.ops.nn_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+
+Future major versions of TensorFlow will allow gradients to flow
+into the labels input on backprop by default.
+
+See `tf.nn.softmax_cross_entropy_with_logits_v2`.
+
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/tf_util.py:32: calling reduce_max (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+WARNING:tensorflow:From /home/xiya/ROAR/code/rlrobotics/rlrobotics-baselines/baselines/common/tf_util.py:17: calling reduce_sum (from tensorflow.python.ops.math_ops) with keep_dims is deprecated and will be removed in a future version.
+Instructions for updating:
+keep_dims is deprecated, use keepdims instead
+[33mWARN: <class 'baselines.bench.monitor.Monitor'> doesn't implement 'reset' method, but it implements deprecated '_reset' method.[0m
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.2198475e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.0689         |
+| fps                | 609            |
+| nupdates           | 1              |
+| policy_entropy     | 1.3862838      |
+| policy_loss        | -3.2131862e-05 |
+| serial_timesteps   | 512            |
+| time_elapsed       | 3.36           |
+| total_timesteps    | 2048           |
+| value_loss         | 0.9051525      |
+---------------------------------------
+[33mWARN: <class 'baselines.bench.monitor.Monitor'> doesn't implement 'reset' method, but it implements deprecated '_reset' method.[0m
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.9167783e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.0144         |
+| fps                | 562            |
+| nupdates           | 1              |
+| policy_entropy     | 1.3862839      |
+| policy_loss        | -3.8676837e-05 |
+| serial_timesteps   | 512            |
+| time_elapsed       | 3.64           |
+| total_timesteps    | 2048           |
+| value_loss         | 0.8934907      |
+---------------------------------------
+[33mWARN: <class 'baselines.bench.monitor.Monitor'> doesn't implement 'reset' method, but it implements deprecated '_reset' method.[0m
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.1030305e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.0639         |
+| fps                | 516            |
+| nupdates           | 1              |
+| policy_entropy     | 1.3862865      |
+| policy_loss        | -3.2109372e-05 |
+| serial_timesteps   | 512            |
+| time_elapsed       | 3.96           |
+| total_timesteps    | 2048           |
+| value_loss         | 0.8972327      |
+---------------------------------------
+---------------------------------------
+| approxkl           | 1.05813776e-07 |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.433          |
+| fps                | 625            |
+| nupdates           | 2              |
+| policy_entropy     | 1.3862835      |
+| policy_loss        | -2.3671746e-05 |
+| serial_timesteps   | 1024           |
+| time_elapsed       | 7.04           |
+| total_timesteps    | 4096           |
+| value_loss         | 0.26831073     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 1.2042302e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.497          |
+| fps                | 563            |
+| nupdates           | 2              |
+| policy_entropy     | 1.3862817      |
+| policy_loss        | -2.7208991e-05 |
+| serial_timesteps   | 1024           |
+| time_elapsed       | 7.1            |
+| total_timesteps    | 4096           |
+| value_loss         | 0.28016055     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 1.6223876e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.49           |
+| fps                | 549            |
+| nupdates           | 2              |
+| policy_entropy     | 1.3862871      |
+| policy_loss        | -4.5966437e-05 |
+| serial_timesteps   | 1024           |
+| time_elapsed       | 7.84           |
+| total_timesteps    | 4096           |
+| value_loss         | 0.27978423     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 5.9713834e-08  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.389          |
+| fps                | 630            |
+| nupdates           | 3              |
+| policy_entropy     | 1.3862845      |
+| policy_loss        | -1.8791336e-05 |
+| serial_timesteps   | 1536           |
+| time_elapsed       | 10.4           |
+| total_timesteps    | 6144           |
+| value_loss         | 0.38156107     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 1.2172939e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.344          |
+| fps                | 553            |
+| nupdates           | 3              |
+| policy_entropy     | 1.3862813      |
+| policy_loss        | -2.9596215e-05 |
+| serial_timesteps   | 1536           |
+| time_elapsed       | 10.9           |
+| total_timesteps    | 6144           |
+| value_loss         | 0.39488187     |
+---------------------------------------
+--------------------------------------
+| approxkl           | 1.3155022e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.453         |
+| fps                | 558           |
+| nupdates           | 3             |
+| policy_entropy     | 1.3862877     |
+| policy_loss        | -3.269918e-05 |
+| serial_timesteps   | 1536          |
+| time_elapsed       | 11.6          |
+| total_timesteps    | 6144          |
+| value_loss         | 0.39321092    |
+--------------------------------------
+---------------------------------------
+| approxkl           | 1.7059759e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.398          |
+| fps                | 569            |
+| nupdates           | 4              |
+| policy_entropy     | 1.3862864      |
+| policy_loss        | -4.0988303e-05 |
+| serial_timesteps   | 2048           |
+| time_elapsed       | 14.1           |
+| total_timesteps    | 8192           |
+| value_loss         | 0.4999649      |
+---------------------------------------
+---------------------------------------
+| approxkl           | 9.9891636e-08  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.0907         |
+| fps                | 512            |
+| nupdates           | 4              |
+| policy_entropy     | 1.3862802      |
+| policy_loss        | -2.2482214e-05 |
+| serial_timesteps   | 2048           |
+| time_elapsed       | 15             |
+| total_timesteps    | 8192           |
+| value_loss         | 0.52232033     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 1.1730632e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.428          |
+| fps                | 547            |
+| nupdates           | 4              |
+| policy_entropy     | 1.3862884      |
+| policy_loss        | -3.4627115e-05 |
+| serial_timesteps   | 2048           |
+| time_elapsed       | 15.4           |
+| total_timesteps    | 8192           |
+| value_loss         | 0.5143389      |
+---------------------------------------
+---------------------------------------
+| approxkl           | 1.7843004e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.273          |
+| fps                | 565            |
+| nupdates           | 5              |
+| policy_entropy     | 1.3862867      |
+| policy_loss        | -4.2861764e-05 |
+| serial_timesteps   | 2560           |
+| time_elapsed       | 17.8           |
+| total_timesteps    | 10240          |
+| value_loss         | 0.61149323     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 8.438007e-08   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.0742         |
+| fps                | 526            |
+| nupdates           | 5              |
+| policy_entropy     | 1.38628        |
+| policy_loss        | -2.8804905e-05 |
+| serial_timesteps   | 2560           |
+| time_elapsed       | 19             |
+| total_timesteps    | 10240          |
+| value_loss         | 0.6340186      |
+---------------------------------------
+---------------------------------------
+| approxkl           | 3.0691186e-08  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.266          |
+| fps                | 541            |
+| nupdates           | 5              |
+| policy_entropy     | 1.3862888      |
+| policy_loss        | -1.0460321e-05 |
+| serial_timesteps   | 2560           |
+| time_elapsed       | 19.3           |
+| total_timesteps    | 10240          |
+| value_loss         | 0.6363492      |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 1.1907082e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.191         |
+| fps                | 552           |
+| nupdates           | 6             |
+| policy_entropy     | 1.3862847     |
+| policy_loss        | -3.173044e-05 |
+| serial_timesteps   | 3072          |
+| time_elapsed       | 21.6          |
+| total_timesteps    | 12288         |
+| value_loss         | 0.6974332     |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+checking if a valid env
+---------------------------------------
+| approxkl           | 3.7709363e-08  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.245          |
+| fps                | 492            |
+| nupdates           | 6              |
+| policy_entropy     | 1.3862776      |
+| policy_loss        | -2.0592264e-05 |
+| serial_timesteps   | 3072           |
+| time_elapsed       | 23.2           |
+| total_timesteps    | 12288          |
+| value_loss         | 0.69131595     |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 8.583364e-08   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.237          |
+| fps                | 543            |
+| nupdates           | 6              |
+| policy_entropy     | 1.3862873      |
+| policy_loss        | -3.4876884e-05 |
+| serial_timesteps   | 3072           |
+| time_elapsed       | 23.2           |
+| total_timesteps    | 12288          |
+| value_loss         | 0.6978991      |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 2.5089906e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.643          |
+| fps                | 620            |
+| nupdates           | 7              |
+| policy_entropy     | 1.3862741      |
+| policy_loss        | -5.0000486e-05 |
+| serial_timesteps   | 3584           |
+| time_elapsed       | 25             |
+| total_timesteps    | 14336          |
+| value_loss         | 0.19437529     |
+---------------------------------------
+--------------------------------------
+| approxkl           | 6.349488e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.662         |
+| fps                | 557           |
+| nupdates           | 7             |
+| policy_entropy     | 1.3862748     |
+| policy_loss        | -8.458235e-05 |
+| serial_timesteps   | 3584          |
+| time_elapsed       | 26.9          |
+| total_timesteps    | 14336         |
+| value_loss         | 0.6650517     |
+--------------------------------------
+---------------------------------------
+| approxkl           | 1.1324695e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.727          |
+| fps                | 545            |
+| nupdates           | 7              |
+| policy_entropy     | 1.3862747      |
+| policy_loss        | -1.9239367e-05 |
+| serial_timesteps   | 3584           |
+| time_elapsed       | 27.1           |
+| total_timesteps    | 14336          |
+| value_loss         | 0.69307196     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 7.099287e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.936          |
+| fps                | 568            |
+| nupdates           | 8              |
+| policy_entropy     | 1.3862723      |
+| policy_loss        | -9.7236225e-05 |
+| serial_timesteps   | 4096           |
+| time_elapsed       | 28.8           |
+| total_timesteps    | 16384          |
+| value_loss         | 0.028687984    |
+---------------------------------------
+--------------------------------------
+| approxkl           | 2.2323609e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.68          |
+| fps                | 584           |
+| nupdates           | 8             |
+| policy_entropy     | 1.3862759     |
+| policy_loss        | 2.5105778e-06 |
+| serial_timesteps   | 4096          |
+| time_elapsed       | 30.7          |
+| total_timesteps    | 16384         |
+| value_loss         | 0.80376494    |
+--------------------------------------
+---------------------------------------
+| approxkl           | 4.817033e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.538          |
+| fps                | 533            |
+| nupdates           | 8              |
+| policy_entropy     | 1.3862729      |
+| policy_loss        | -1.2785604e-06 |
+| serial_timesteps   | 4096           |
+| time_elapsed       | 30.9           |
+| total_timesteps    | 16384          |
+| value_loss         | 0.7423314      |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 3.8086472e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.446         |
+| fps                | 587           |
+| nupdates           | 9             |
+| policy_entropy     | 1.3862727     |
+| policy_loss        | -9.035206e-05 |
+| serial_timesteps   | 4608          |
+| time_elapsed       | 32.3          |
+| total_timesteps    | 18432         |
+| value_loss         | 0.23601933    |
+--------------------------------------
+---------------------------------------
+| approxkl           | 7.9548975e-08  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.596          |
+| fps                | 504            |
+| nupdates           | 9              |
+| policy_entropy     | 1.386278       |
+| policy_loss        | -1.9088984e-05 |
+| serial_timesteps   | 4608           |
+| time_elapsed       | 34.9           |
+| total_timesteps    | 18432          |
+| value_loss         | 0.88923615     |
+---------------------------------------
+--------------------------------------
+| approxkl           | 6.497964e-08  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.434         |
+| fps                | 504           |
+| nupdates           | 9             |
+| policy_entropy     | 1.3862753     |
+| policy_loss        | -8.184148e-06 |
+| serial_timesteps   | 4608          |
+| time_elapsed       | 35            |
+| total_timesteps    | 18432         |
+| value_loss         | 0.82381326    |
+--------------------------------------
+---------------------------------------
+| approxkl           | 1.333174e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.905          |
+| fps                | 562            |
+| nupdates           | 10             |
+| policy_entropy     | 1.3862733      |
+| policy_loss        | -2.3525301e-05 |
+| serial_timesteps   | 5120           |
+| time_elapsed       | 36.1           |
+| total_timesteps    | 20480          |
+| value_loss         | 0.019549942    |
+---------------------------------------
+---------------------------------------
+| approxkl           | 8.960363e-08   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.546          |
+| fps                | 489            |
+| nupdates           | 10             |
+| policy_entropy     | 1.3862803      |
+| policy_loss        | -1.5745061e-05 |
+| serial_timesteps   | 5120           |
+| time_elapsed       | 39.2           |
+| total_timesteps    | 20480          |
+| value_loss         | 0.9791132      |
+---------------------------------------
+--------------------------------------
+| approxkl           | 7.2971e-08    |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.359         |
+| fps                | 516           |
+| nupdates           | 10            |
+| policy_entropy     | 1.3862765     |
+| policy_loss        | -5.032797e-06 |
+| serial_timesteps   | 5120          |
+| time_elapsed       | 39.1          |
+| total_timesteps    | 20480         |
+| value_loss         | 0.9078604     |
+--------------------------------------
+--------------------------------------
+| approxkl           | 2.0961951e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.892         |
+| fps                | 543           |
+| nupdates           | 11            |
+| policy_entropy     | 1.3862739     |
+| policy_loss        | -3.949136e-05 |
+| serial_timesteps   | 5632          |
+| time_elapsed       | 40            |
+| total_timesteps    | 22528         |
+| value_loss         | 0.017475283   |
+--------------------------------------
+--------------------------------------
+| approxkl           | 4.526105e-08  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.49          |
+| fps                | 497           |
+| nupdates           | 11            |
+| policy_entropy     | 1.3862827     |
+| policy_loss        | -9.513436e-06 |
+| serial_timesteps   | 5632          |
+| time_elapsed       | 43.4          |
+| total_timesteps    | 22528         |
+| value_loss         | 1.0578697     |
+--------------------------------------
+--------------------------------------
+| approxkl           | 7.1513824e-08 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.346         |
+| fps                | 479           |
+| nupdates           | 11            |
+| policy_entropy     | 1.3862784     |
+| policy_loss        | 1.1965376e-05 |
+| serial_timesteps   | 5632          |
+| time_elapsed       | 43.5          |
+| total_timesteps    | 22528         |
+| value_loss         | 0.9877224     |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 7.5842436e-08  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.241          |
+| fps                | 514            |
+| nupdates           | 12             |
+| policy_entropy     | 1.3862723      |
+| policy_loss        | -2.4802579e-05 |
+| serial_timesteps   | 6144           |
+| time_elapsed       | 44             |
+| total_timesteps    | 24576          |
+| value_loss         | 0.4381637      |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 2.370557e-08   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.708          |
+| fps                | 471            |
+| nupdates           | 12             |
+| policy_entropy     | 1.3862827      |
+| policy_loss        | -1.4777307e-05 |
+| serial_timesteps   | 6144           |
+| time_elapsed       | 47.8           |
+| total_timesteps    | 24576          |
+| value_loss         | 1.1704345      |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.1258513e-06  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.933          |
+| fps                | 536            |
+| nupdates           | 13             |
+| policy_entropy     | 1.3862648      |
+| policy_loss        | -0.00011892167 |
+| serial_timesteps   | 6656           |
+| time_elapsed       | 47.9           |
+| total_timesteps    | 26624          |
+| value_loss         | 0.0121104205   |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 3.668377e-08   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.736          |
+| fps                | 471            |
+| nupdates           | 12             |
+| policy_entropy     | 1.3862796      |
+| policy_loss        | -3.2657001e-06 |
+| serial_timesteps   | 6144           |
+| time_elapsed       | 47.9           |
+| total_timesteps    | 24576          |
+| value_loss         | 1.1017278      |
+---------------------------------------
+-------------------------------------
+| approxkl           | 2.640469e-07 |
+| clipfrac           | 0.0          |
+| eplenmean          | nan          |
+| eprewmean          | nan          |
+| explained_variance | 0.902        |
+| fps                | 511          |
+| nupdates           | 14           |
+| policy_entropy     | 1.386262     |
+| policy_loss        | -8.30855e-06 |
+| serial_timesteps   | 7168         |
+| time_elapsed       | 52.1         |
+| total_timesteps    | 28672        |
+| value_loss         | 0.011882163  |
+-------------------------------------
+--------------------------------------
+| approxkl           | 1.0407233e-06 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.617         |
+| fps                | 472           |
+| nupdates           | 13            |
+| policy_entropy     | 1.3862797     |
+| policy_loss        | -8.319157e-05 |
+| serial_timesteps   | 6656          |
+| time_elapsed       | 52.2          |
+| total_timesteps    | 26624         |
+| value_loss         | 1.5220855     |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.4722464e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.48           |
+| fps                | 435            |
+| nupdates           | 13             |
+| policy_entropy     | 1.3862804      |
+| policy_loss        | -3.5448407e-05 |
+| serial_timesteps   | 6656           |
+| time_elapsed       | 52.7           |
+| total_timesteps    | 26624          |
+| value_loss         | 0.3482447      |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.2598964e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.455          |
+| fps                | 571            |
+| nupdates           | 15             |
+| policy_entropy     | 1.3862662      |
+| policy_loss        | -3.2393164e-05 |
+| serial_timesteps   | 7680           |
+| time_elapsed       | 55.7           |
+| total_timesteps    | 30720          |
+| value_loss         | 0.24194264     |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 8.9198545e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.257          |
+| fps                | 475            |
+| nupdates           | 14             |
+| policy_entropy     | 1.3862747      |
+| policy_loss        | -2.4126639e-05 |
+| serial_timesteps   | 7168           |
+| time_elapsed       | 56.6           |
+| total_timesteps    | 28672          |
+| value_loss         | 1.3226466      |
+---------------------------------------
+--------------------------------------
+| approxkl           | 6.3758574e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.85          |
+| fps                | 468           |
+| nupdates           | 14            |
+| policy_entropy     | 1.386285      |
+| policy_loss        | -6.093042e-05 |
+| serial_timesteps   | 7168          |
+| time_elapsed       | 57.2          |
+| total_timesteps    | 28672         |
+| value_loss         | 0.009120892   |
+--------------------------------------
+---------------------------------------
+| approxkl           | 7.67049e-07    |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.925          |
+| fps                | 534            |
+| nupdates           | 16             |
+| policy_entropy     | 1.386265       |
+| policy_loss        | -0.00010237125 |
+| serial_timesteps   | 8192           |
+| time_elapsed       | 59.7           |
+| total_timesteps    | 32768          |
+| value_loss         | 0.014169084    |
+---------------------------------------
+---------------------------------------
+| approxkl           | 2.4514338e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.924          |
+| fps                | 499            |
+| nupdates           | 15             |
+| policy_entropy     | 1.38628        |
+| policy_loss        | -2.2713513e-05 |
+| serial_timesteps   | 7680           |
+| time_elapsed       | 60.9           |
+| total_timesteps    | 30720          |
+| value_loss         | 0.032852624    |
+---------------------------------------
+---------------------------------------
+| approxkl           | 9.1769596e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.757          |
+| fps                | 486            |
+| nupdates           | 15             |
+| policy_entropy     | 1.3862845      |
+| policy_loss        | -9.7143056e-05 |
+| serial_timesteps   | 7680           |
+| time_elapsed       | 61.5           |
+| total_timesteps    | 30720          |
+| value_loss         | 0.0111177545   |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.3140402e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.215          |
+| fps                | 531            |
+| nupdates           | 17             |
+| policy_entropy     | 1.3862661      |
+| policy_loss        | -1.2045074e-05 |
+| serial_timesteps   | 8704           |
+| time_elapsed       | 63.6           |
+| total_timesteps    | 34816          |
+| value_loss         | 0.43126193     |
+---------------------------------------
+--------------------------------------
+| approxkl           | 6.040986e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.893         |
+| fps                | 521           |
+| nupdates           | 16            |
+| policy_entropy     | 1.3862773     |
+| policy_loss        | -6.293775e-05 |
+| serial_timesteps   | 8192          |
+| time_elapsed       | 64.9          |
+| total_timesteps    | 32768         |
+| value_loss         | 0.030401876   |
+--------------------------------------
+-------------------------------------
+| approxkl           | 5.293233e-07 |
+| clipfrac           | 0.0          |
+| eplenmean          | nan          |
+| eprewmean          | nan          |
+| explained_variance | 0.665        |
+| fps                | 528          |
+| nupdates           | 16           |
+| policy_entropy     | 1.3862855    |
+| policy_loss        | -7.08459e-05 |
+| serial_timesteps   | 8192         |
+| time_elapsed       | 65.5         |
+| total_timesteps    | 32768        |
+| value_loss         | 0.010488892  |
+-------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 7.0086054e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.88          |
+| fps                | 585           |
+| nupdates           | 18            |
+| policy_entropy     | 1.3862727     |
+| policy_loss        | -6.745744e-05 |
+| serial_timesteps   | 9216          |
+| time_elapsed       | 67.2          |
+| total_timesteps    | 36864         |
+| value_loss         | 0.010616818   |
+--------------------------------------
+--------------------------------------
+| approxkl           | 5.2521864e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.869         |
+| fps                | 574           |
+| nupdates           | 17            |
+| policy_entropy     | 1.3862698     |
+| policy_loss        | -2.583405e-05 |
+| serial_timesteps   | 8704          |
+| time_elapsed       | 68.6          |
+| total_timesteps    | 34816         |
+| value_loss         | 0.027394388   |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 2.5923083e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.217          |
+| fps                | 525            |
+| nupdates           | 17             |
+| policy_entropy     | 1.3862834      |
+| policy_loss        | -4.4314114e-05 |
+| serial_timesteps   | 8704           |
+| time_elapsed       | 69.5           |
+| total_timesteps    | 34816          |
+| value_loss         | 0.25710526     |
+---------------------------------------
+--------------------------------------
+| approxkl           | 1.4618248e-06 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.925         |
+| fps                | 606           |
+| nupdates           | 19            |
+| policy_entropy     | 1.386276      |
+| policy_loss        | -8.607165e-05 |
+| serial_timesteps   | 9728          |
+| time_elapsed       | 70.7          |
+| total_timesteps    | 38912         |
+| value_loss         | 0.00828095    |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 4.592007e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.873         |
+| fps                | 507           |
+| nupdates           | 18            |
+| policy_entropy     | 1.3862679     |
+| policy_loss        | -6.354124e-05 |
+| serial_timesteps   | 9216          |
+| time_elapsed       | 72.7          |
+| total_timesteps    | 36864         |
+| value_loss         | 0.050941564   |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 3.3017358e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.892          |
+| fps                | 506            |
+| nupdates           | 18             |
+| policy_entropy     | 1.3862797      |
+| policy_loss        | -3.7058326e-05 |
+| serial_timesteps   | 9216           |
+| time_elapsed       | 73.7           |
+| total_timesteps    | 36864          |
+| value_loss         | 0.020630324    |
+---------------------------------------
+--------------------------------------
+| approxkl           | 1.2312984e-06 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.915         |
+| fps                | 646           |
+| nupdates           | 20            |
+| policy_entropy     | 1.386266      |
+| policy_loss        | -8.978868e-05 |
+| serial_timesteps   | 10240         |
+| time_elapsed       | 74            |
+| total_timesteps    | 40960         |
+| value_loss         | 0.009816079   |
+--------------------------------------
+--------------------------------------
+| approxkl           | 6.0405404e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.894         |
+| fps                | 554           |
+| nupdates           | 19            |
+| policy_entropy     | 1.3862644     |
+| policy_loss        | -7.446789e-05 |
+| serial_timesteps   | 9728          |
+| time_elapsed       | 76.5          |
+| total_timesteps    | 38912         |
+| value_loss         | 0.063669965   |
+--------------------------------------
+--------------------------------------
+| approxkl           | 6.1748716e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.912         |
+| fps                | 628           |
+| nupdates           | 21            |
+| policy_entropy     | 1.386255      |
+| policy_loss        | -6.602935e-05 |
+| serial_timesteps   | 10752         |
+| time_elapsed       | 77.3          |
+| total_timesteps    | 43008         |
+| value_loss         | 0.009308335   |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 4.5480928e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.122         |
+| fps                | 553           |
+| nupdates           | 19            |
+| policy_entropy     | 1.38628       |
+| policy_loss        | -4.686627e-05 |
+| serial_timesteps   | 9728          |
+| time_elapsed       | 77.4          |
+| total_timesteps    | 38912         |
+| value_loss         | 0.23794658    |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 3.5808077e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.816          |
+| fps                | 494            |
+| nupdates           | 20             |
+| policy_entropy     | 1.3862617      |
+| policy_loss        | -1.7171154e-05 |
+| serial_timesteps   | 10240          |
+| time_elapsed       | 80.8           |
+| total_timesteps    | 40960          |
+| value_loss         | 0.050579645    |
+---------------------------------------
+--------------------------------------
+| approxkl           | 6.208354e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.901         |
+| fps                | 590           |
+| nupdates           | 22            |
+| policy_entropy     | 1.3862476     |
+| policy_loss        | -6.725361e-05 |
+| serial_timesteps   | 11264         |
+| time_elapsed       | 80.9          |
+| total_timesteps    | 45056         |
+| value_loss         | 0.008937912   |
+--------------------------------------
+---------------------------------------
+| approxkl           | 7.464524e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.811          |
+| fps                | 522            |
+| nupdates           | 20             |
+| policy_entropy     | 1.3862761      |
+| policy_loss        | -7.9431185e-05 |
+| serial_timesteps   | 10240          |
+| time_elapsed       | 81.5           |
+| total_timesteps    | 40960          |
+| value_loss         | 0.016743941    |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 7.1030206e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.936         |
+| fps                | 539           |
+| nupdates           | 23            |
+| policy_entropy     | 1.3862425     |
+| policy_loss        | -8.188547e-05 |
+| serial_timesteps   | 11776         |
+| time_elapsed       | 84.8          |
+| total_timesteps    | 47104         |
+| value_loss         | 0.023582257   |
+--------------------------------------
+---------------------------------------
+| approxkl           | 1.9863153e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.768          |
+| fps                | 493            |
+| nupdates           | 21             |
+| policy_entropy     | 1.3862646      |
+| policy_loss        | -2.9463601e-05 |
+| serial_timesteps   | 10752          |
+| time_elapsed       | 85             |
+| total_timesteps    | 43008          |
+| value_loss         | 0.0409156      |
+---------------------------------------
+---------------------------------------
+| approxkl           | 3.4371527e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.828          |
+| fps                | 529            |
+| nupdates           | 21             |
+| policy_entropy     | 1.3862721      |
+| policy_loss        | -1.4197384e-05 |
+| serial_timesteps   | 10752          |
+| time_elapsed       | 85.4           |
+| total_timesteps    | 43008          |
+| value_loss         | 0.013831273    |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 9.627623e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.941         |
+| fps                | 591           |
+| nupdates           | 24            |
+| policy_entropy     | 1.3862413     |
+| policy_loss        | -7.626493e-05 |
+| serial_timesteps   | 12288         |
+| time_elapsed       | 88.4          |
+| total_timesteps    | 49152         |
+| value_loss         | 0.02636765    |
+--------------------------------------
+---------------------------------------
+| approxkl           | 2.3944966e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.717          |
+| fps                | 537            |
+| nupdates           | 22             |
+| policy_entropy     | 1.3862646      |
+| policy_loss        | -2.8507307e-05 |
+| serial_timesteps   | 11264          |
+| time_elapsed       | 88.9           |
+| total_timesteps    | 45056          |
+| value_loss         | 0.035383157    |
+---------------------------------------
+---------------------------------------
+| approxkl           | 4.2033957e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.75           |
+| fps                | 533            |
+| nupdates           | 22             |
+| policy_entropy     | 1.3862758      |
+| policy_loss        | -4.6774436e-05 |
+| serial_timesteps   | 11264          |
+| time_elapsed       | 89.4           |
+| total_timesteps    | 45056          |
+| value_loss         | 0.013568237    |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 5.203816e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.435          |
+| fps                | 566            |
+| nupdates           | 25             |
+| policy_entropy     | 1.3862374      |
+| policy_loss        | -5.7788486e-05 |
+| serial_timesteps   | 12800          |
+| time_elapsed       | 92.1           |
+| total_timesteps    | 51200          |
+| value_loss         | 0.41715178     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 2.5700584e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.585          |
+| fps                | 560            |
+| nupdates           | 23             |
+| policy_entropy     | 1.3862664      |
+| policy_loss        | -2.6667967e-05 |
+| serial_timesteps   | 11776          |
+| time_elapsed       | 92.7           |
+| total_timesteps    | 47104          |
+| value_loss         | 0.03211943     |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 4.5770716e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.904         |
+| fps                | 554           |
+| nupdates           | 23            |
+| policy_entropy     | 1.3862748     |
+| policy_loss        | -5.429724e-05 |
+| serial_timesteps   | 11776         |
+| time_elapsed       | 93.2          |
+| total_timesteps    | 47104         |
+| value_loss         | 0.01762057    |
+--------------------------------------
+--------------------------------------
+| approxkl           | 7.160161e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.938         |
+| fps                | 617           |
+| nupdates           | 26            |
+| policy_entropy     | 1.3862374     |
+| policy_loss        | -8.316171e-05 |
+| serial_timesteps   | 13312         |
+| time_elapsed       | 95.5          |
+| total_timesteps    | 53248         |
+| value_loss         | 0.012305404   |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 1.4433141e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.911          |
+| fps                | 515            |
+| nupdates           | 24             |
+| policy_entropy     | 1.386275       |
+| policy_loss        | -1.6765087e-05 |
+| serial_timesteps   | 12288          |
+| time_elapsed       | 96.7           |
+| total_timesteps    | 49152          |
+| value_loss         | 0.063809626    |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+-------------------------------------
+| approxkl           | 6.854772e-07 |
+| clipfrac           | 0.0          |
+| eplenmean          | nan          |
+| eprewmean          | nan          |
+| explained_variance | 0.887        |
+| fps                | 530          |
+| nupdates           | 24           |
+| policy_entropy     | 1.3862746    |
+| policy_loss        | -7.41248e-05 |
+| serial_timesteps   | 12288        |
+| time_elapsed       | 97.1         |
+| total_timesteps    | 49152        |
+| value_loss         | 0.019255979  |
+-------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 3.4454905e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.481          |
+| fps                | 593            |
+| nupdates           | 27             |
+| policy_entropy     | 1.3862278      |
+| policy_loss        | -6.3961605e-05 |
+| serial_timesteps   | 13824          |
+| time_elapsed       | 99             |
+| total_timesteps    | 55296          |
+| value_loss         | 0.20650426     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 4.735557e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.946          |
+| fps                | 524            |
+| nupdates           | 25             |
+| policy_entropy     | 1.3862803      |
+| policy_loss        | -4.5728793e-05 |
+| serial_timesteps   | 12800          |
+| time_elapsed       | 101            |
+| total_timesteps    | 51200          |
+| value_loss         | 0.06576327     |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+---------------------------------------
+| approxkl           | 4.803604e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.868          |
+| fps                | 517            |
+| nupdates           | 25             |
+| policy_entropy     | 1.3862731      |
+| policy_loss        | -5.0459057e-05 |
+| serial_timesteps   | 12800          |
+| time_elapsed       | 101            |
+| total_timesteps    | 51200          |
+| value_loss         | 0.01856977     |
+---------------------------------------
+--------------------------------------
+| approxkl           | 6.514508e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.922         |
+| fps                | 556           |
+| nupdates           | 28            |
+| policy_entropy     | 1.3862243     |
+| policy_loss        | -7.188284e-05 |
+| serial_timesteps   | 14336         |
+| time_elapsed       | 103           |
+| total_timesteps    | 57344         |
+| value_loss         | 0.008071164   |
+--------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 3.3416376e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.691         |
+| fps                | 469           |
+| nupdates           | 26            |
+| policy_entropy     | 1.3862803     |
+| policy_loss        | -3.807377e-05 |
+| serial_timesteps   | 13312         |
+| time_elapsed       | 105           |
+| total_timesteps    | 53248         |
+| value_loss         | 0.23480602    |
+--------------------------------------
+---------------------------------------
+| approxkl           | 5.821056e-07   |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.879          |
+| fps                | 513            |
+| nupdates           | 26             |
+| policy_entropy     | 1.3862762      |
+| policy_loss        | -5.1973107e-05 |
+| serial_timesteps   | 13312          |
+| time_elapsed       | 105            |
+| total_timesteps    | 53248          |
+| value_loss         | 0.021408673    |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+get the map object
+added border
+added obstaclea
+checking if a valid env
+checking if a valid env
+checking if a valid env
+---------------------------------------
+| approxkl           | 9.3965684e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.924          |
+| fps                | 511            |
+| nupdates           | 29             |
+| policy_entropy     | 1.3862545      |
+| policy_loss        | -7.4758005e-05 |
+| serial_timesteps   | 14848          |
+| time_elapsed       | 107            |
+| total_timesteps    | 59392          |
+| value_loss         | 0.013017496    |
+---------------------------------------
+--------------------------------------
+| approxkl           | 6.1778985e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.854         |
+| fps                | 520           |
+| nupdates           | 27            |
+| policy_entropy     | 1.3862684     |
+| policy_loss        | -7.107563e-05 |
+| serial_timesteps   | 13824         |
+| time_elapsed       | 109           |
+| total_timesteps    | 55296         |
+| value_loss         | 0.01964433    |
+--------------------------------------
+---------------------------------------
+| approxkl           | 4.4235654e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.942          |
+| fps                | 503            |
+| nupdates           | 27             |
+| policy_entropy     | 1.386278       |
+| policy_loss        | -5.3668202e-05 |
+| serial_timesteps   | 13824          |
+| time_elapsed       | 109            |
+| total_timesteps    | 55296          |
+| value_loss         | 0.032184586    |
+---------------------------------------
+--------------------------------------
+| approxkl           | 5.913777e-07  |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.939         |
+| fps                | 553           |
+| nupdates           | 30            |
+| policy_entropy     | 1.3862612     |
+| policy_loss        | -2.864754e-05 |
+| serial_timesteps   | 15360         |
+| time_elapsed       | 111           |
+| total_timesteps    | 61440         |
+| value_loss         | 0.008504354   |
+--------------------------------------
+---------------------------------------
+| approxkl           | 2.8375092e-07  |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.83           |
+| fps                | 512            |
+| nupdates           | 28             |
+| policy_entropy     | 1.3862618      |
+| policy_loss        | -2.6049534e-05 |
+| serial_timesteps   | 14336          |
+| time_elapsed       | 113            |
+| total_timesteps    | 57344          |
+| value_loss         | 0.01742643     |
+---------------------------------------
+---------------------------------------
+| approxkl           | 3.38971e-07    |
+| clipfrac           | 0.0            |
+| eplenmean          | nan            |
+| eprewmean          | nan            |
+| explained_variance | 0.932          |
+| fps                | 504            |
+| nupdates           | 28             |
+| policy_entropy     | 1.3862721      |
+| policy_loss        | -2.4285144e-05 |
+| serial_timesteps   | 14336          |
+| time_elapsed       | 114            |
+| total_timesteps    | 57344          |
+| value_loss         | 0.027179275    |
+---------------------------------------
+get the map object
+added border
+added obstaclea
+checking if a valid env
+--------------------------------------
+| approxkl           | 6.0047586e-07 |
+| clipfrac           | 0.0           |
+| eplenmean          | nan           |
+| eprewmean          | nan           |
+| explained_variance | 0.908         |
+| fps                | 546           |
+| nupdates           | 31            |
+| policy_entropy     | 1.3862631     |
+| policy_loss        | -6.762291e-05 |
+| serial_timesteps   | 15872         |
+| time_elapsed       | 115           |
+| total_timesteps    | 63488         |
+| value_loss         | 0.010858732   |
+--------------------------------------
