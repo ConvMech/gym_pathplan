@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class obeservation():
-	def __init__ (self,angle=60,lidarRange=50,accuracy=1,beems=100):
+	def __init__ (self,angle=360,lidarRange=50,accuracy=1,beems=1080):
 		# angle: the angular range of lidar
 		# lidarRange: the maximum distance of lidar's capacity
 		# accuracy: increment step size of each laser beem
@@ -40,7 +40,7 @@ class obeservation():
 			# break
 
 			intensity_obs[history==1] = mymap[x[history==1],y[history==1]]
-			history = history * (mymap[x,y]==0)
+			history = history * np.logical_or((mymap[x,y]==0), (mymap[x,y]==2))
 			distance_obs[history==1] = distance
 			
 			beemsLayer = self.drawPoints(beemsLayer,x,y,history=history, value=1)
@@ -74,8 +74,10 @@ class obeservation():
 
 		# 	distanceObs.append(objectDistance)
 		# 	intensityObs.append(intensity)
+		mymap[beemsLayer==1] = 4
+		lidar_map = mymap.copy()
 
-		return distance_obs,intensity_obs,beemsLayer
+		return distance_obs,intensity_obs,beemsLayer, lidar_map
 
 	def findTarget(self,mymap,x,y,value=3):
 		if mymap[int(x)][int(y)] == value:
@@ -96,7 +98,7 @@ class obeservation():
 		mymap[int(x)][int(y)] = value
 		return mymap
 
-	def drawPoints(self,mymap,x,y,history=None, value=2):
+	def drawPoints(self,mymap,x,y,history=None, value=4):
 		#print (history)
 		mymap[x[history==1], y[history==1]] = value
 		return mymap
@@ -108,11 +110,11 @@ def main():
 	mymap[20:50,40:60] = 1
 	mymap[40,20] = 3
 	ob = obeservation()
-	res,intense,beemsLayer = ob.observe(mymap=mymap,location=(0,shape[1]/2),theta=-0.2)
+	res,intense,beemsLayer, lidarmap = ob.observe(mymap=mymap,location=(80,shape[1]/2),theta=-0.2)
 	print(res)
 	print(intense)
 	mymap[beemsLayer==1] = 2
-	plt.imshow(mymap)
+	plt.imshow(lidarmap)
 	plt.show()
 
 if __name__ == "__main__":

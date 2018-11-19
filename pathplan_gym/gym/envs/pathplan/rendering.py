@@ -55,7 +55,7 @@ class MapViewer(object):
  		return x * self.tile_w, y * self.tile_h,  self.tile_w + 1, self.tile_h + 1
 
  	def get_color(self, value):
- 		COLORS = [0xFFFFFF, 0x000000, 0x00FF00, 0xFF0000, 0x0000FF, 0x333333]
+ 		COLORS = [0xFFFFFF, 0x000000, 0x00FF00, 0xFF0000, 0xFFFF00, 0x333333]
  		if value in range(-1, 5):
  			return COLORS[value]
  		return 0xFFFF00

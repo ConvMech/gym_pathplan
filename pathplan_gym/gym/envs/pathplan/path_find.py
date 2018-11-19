@@ -16,14 +16,17 @@ class PathFinding(object):
 		self.player = None
 		self.goal = None
 		self.terminal = True
+		self.lidar_map = None
 		self.difficulty = 10
-		self.obs = discrete_lidar.obeservation(angle=360, lidarRange=60, beems=1080)
+		self.obs = discrete_lidar.obeservation(angle=360, lidarRange=30, beems=1080)
 
 	def reset(self):
 		self.terminal = False
 		self.map_s = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty) # TODO: 10 is the number of obstacles.
 		self.player = self.map_s.start
 		self.goal = self.map_s.goal
+		_, _, _, self.lidar_map = self.obs.observe(mymap=self.get_map(), location=self.player, theta=0)
+		self.lidar_map[self.player] = 2
 		return self.get_state()
 
 	def get_map(self):
@@ -42,7 +45,8 @@ class PathFinding(object):
 	def get_state(self):
 		"""return a (n, n) grid"""
 		state = self.get_map()
-		distances, intensities, beemlayer = self.obs.observe(mymap=state, location=self.player, theta=0)
+		distances, intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player, theta=0)
+		self.lidar_map[self.player] = 2
 		observations = np.array([distances, intensities])
 		return observations.flatten()
 
