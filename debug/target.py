@@ -85,7 +85,7 @@ class target(DynamicObject):
 def main():
 	viewer = MapViewer(1500, 300, 30,150)
 	map_s = obstacle_gen.generate_map((30,150),6,10)
-	goal = target(map_s.goal[0],map_s.goal[1],np.pi * 45/180.0,v=2)
+	goal = target(map_s.goal[0],map_s.goal[1],np.pi * 45/180.0,v=1)
 	for _ in range(10000):
 		#print(goal.xpos,goal.ypos)
 		map_s = goal.update(map_s)
