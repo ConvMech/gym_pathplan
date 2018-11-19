@@ -7,5 +7,10 @@ env = gym.make('PathHallway-v0')
 #for i in range (100):
 env.reset()
 for _ in range(1000):
-	env.render()
-	env.step(env.action_space.sample())
+	env.reset()
+	done = False
+	while not done:
+		env.render()
+		obs, r, done, _ = env.step(env.action_space.sample())
+		# print ("reward:", r)
+		# print ("obs:", obs)
