@@ -103,6 +103,13 @@ class ObstacleGen(object):
             return False
         return self.dom[x,y] == 0
 
+    def is_legal_self(self, x, y,label):
+        if x < 0 or x >= self.dom_size[0]:
+            return False
+        if y < 0 or y >= self.dom_size[1]:
+            return False
+        return self.dom[x,y] == 0 or self.dom[x,y] == label
+
 
 def generate_map(shape, obs_size, num_obstacles):
     # shape[tuple]: (rows, cols) should be cols >> rows rows > 5, cols > 20
