@@ -4,6 +4,8 @@ from gym.envs.pathplan import obstacle_gen
 import numpy as np 
 import scipy.misc
 
+from gym.envs.pathplan import discrete_lidar 
+
 class PathFinding(object):
 	"""value in map: 0: nothing 1: wall 2: player 3: goal"""
 	def __init__(self, rows=200, cols=1000):
@@ -15,6 +17,7 @@ class PathFinding(object):
 		self.goal = None
 		self.terminal = True
 		self.difficulty = 10
+		self.obs = discrete_lidar.obeservation(angle=360, lidarRange=60, beems=1080)
 
 	def reset(self):
 		self.terminal = False
@@ -30,11 +33,18 @@ class PathFinding(object):
 		state[self.goal[0], self.goal[1]] = 3
 		return state
 
-	def get_state(self):
+	def get_state_map(self):
 		"""return a (n, n) grid"""
 		state = self.get_map()
 		state = state.flatten()
 		return state
+
+	def get_state(self):
+		"""return a (n, n) grid"""
+		state = self.get_map()
+		distances, intensities, beemlayer = self.obs.observe(mymap=state, location=self.player, theta=0)
+		observations = np.array([distances, intensities])
+		return observations.flatten()
 
 	def step(self, a):
 		if self.terminal:

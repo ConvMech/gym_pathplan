@@ -21,30 +21,67 @@ class obeservation():
 		angle_end = theta + self.angle/2
 		angles = np.linspace(angle_start,angle_end,num=self.beems)
 		beemsLayer = np.zeros_like(mymap)
-		res = []
-		for angle in angles:
-			objectDistance = 0
-			distance = 0
-			while distance < self.range:
-				distance += self.accuracy
-				x = location[0] + distance * np.cos(angle)
-				y = location[1] + distance * np.sin(angle)
-				if (x >= mymap.shape[0] or x<0 
-					or y>=mymap.shape[1] or y<0):
-					continue
+		distance_obs = np.zeros(self.beems)
+		intensity_obs = np.zeros(self.beems)
+		objects = [1, 3]
+		cosangle = np.cos(angles)
+		sinangle = np.sin(angles)
+		history = np.ones(self.beems)
+		distance = 0
 
-				if self.findObject(mymap,x,y,value=1):
-					objectDistance = distance
-					#mymap = self.drawPoint(mymap,x,y,value=2)
-					break
-				else:
-					objectDistance = max(objectDistance,distance)
+		while distance < self.range:
+			distance += self.accuracy
+			x = np.int32(location[0] + distance * cosangle)
+			y = np.int32(location[1] + distance * sinangle)
+			# print (x, y)
+			x = np.clip(x, 0, mymap.shape[0]-1)
+			y = np.clip(y, 0, mymap.shape[1]-1)
+			# print ("clipped:", x, y)
+			# break
 
-				beemsLayer = self.drawPoint(beemsLayer,x,y,value=1)
+			intensity_obs[history==1] = mymap[x[history==1],y[history==1]]
+			history = history * (mymap[x,y]==0)
+			distance_obs[history==1] = distance
+			
+			beemsLayer = self.drawPoints(beemsLayer,x,y,history=history, value=1)
+		
 
-			res.append(objectDistance)
+		# for angle in range(len(angles)):
+		# 	objectDistance = 0
+		# 	distance = 0
+		# 	intensity = 0
+		# 	flag = True
 
-		return res,beemsLayer
+		# 	while distance < self.range and flag:
+		# 		distance += self.accuracy
+		# 		# x = location[0] + distance * np.cos(angle)
+		# 		# y = location[1] + distance * np.sin(angle)
+		# 		x = location[0] + distance * cosangle[angle]
+		# 		y = location[1] + distance * sinangle[angle]
+		# 		if (x >= mymap.shape[0] or x<0 
+		# 			or y>=mymap.shape[1] or y<0):
+		# 			continue
+
+		# 		for obj in objects:
+		# 			if self.findObject(mymap,x,y,value=obj):
+		# 				objectDistance = distance
+		# 				intensity = obj
+		# 				flag = False
+		# 				break
+		# 			else:
+		# 				objectDistance = max(objectDistance,distance)
+		# 		beemsLayer = self.drawPoint(beemsLayer,x,y,value=1)
+
+		# 	distanceObs.append(objectDistance)
+		# 	intensityObs.append(intensity)
+
+		return distance_obs,intensity_obs,beemsLayer
+
+	def findTarget(self,mymap,x,y,value=3):
+		if mymap[int(x)][int(y)] == value:
+			return True
+		else:
+			return False
 
 	def findObject(self,mymap,x,y,value=1):
 		if mymap[int(x)][int(y)] == value:
@@ -52,8 +89,16 @@ class obeservation():
 		else:
 			return False
 
+	def find_obstacle(self,mymap,x,y,value=1):
+		return mymap[x,y] == value
+
 	def drawPoint(self,mymap,x,y,value=2):
 		mymap[int(x)][int(y)] = value
+		return mymap
+
+	def drawPoints(self,mymap,x,y,history=None, value=2):
+		#print (history)
+		mymap[x[history==1], y[history==1]] = value
 		return mymap
 
 
@@ -61,9 +106,11 @@ def main():
 	shape=(100,100)
 	mymap = np.zeros(shape)
 	mymap[20:50,40:60] = 1
+	mymap[40,20] = 3
 	ob = obeservation()
-	res,beemsLayer = ob.observe(mymap=mymap,location=(0,shape[1]/2),theta=-0.2)
+	res,intense,beemsLayer = ob.observe(mymap=mymap,location=(0,shape[1]/2),theta=-0.2)
 	print(res)
+	print(intense)
 	mymap[beemsLayer==1] = 2
 	plt.imshow(mymap)
 	plt.show()
