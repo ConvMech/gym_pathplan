@@ -60,9 +60,10 @@ class obeservation():
 def main():
 	shape=(100,100)
 	mymap = np.zeros(shape)
-	mymap[20:50,40:60] = 1
-	ob = obeservation()
-	res,beemsLayer = ob.observe(mymap=mymap,location=(0,shape[1]/2),theta=-0.2)
+	mymap[70:90,40:60] = 1
+	mymap[10:30,40:60] = 1
+	ob = obeservation(angle=360,beems=500)
+	res,beemsLayer = ob.observe(mymap=mymap,location=(50,50),theta=0)
 	print(res)
 	mymap[beemsLayer==1] = 2
 	plt.imshow(mymap)
