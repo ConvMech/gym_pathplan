@@ -97,6 +97,10 @@ class ObstacleGen(object):
         return [(next_x, next_y) for next_x, next_y in possible_moves if self.is_legal(next_x, next_y)]
 
     def is_legal(self, x, y):
+        if x < 0 or x >= self.dom_size[0]:
+            return False
+        if y < 0 or y >= self.dom_size[1]:
+            return False
         return self.dom[x,y] == 0
 
 

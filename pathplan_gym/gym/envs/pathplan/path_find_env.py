@@ -10,14 +10,14 @@ class PathFindingEnv(gym.Env):
 	metadata = {'render.modes': ['human', 'array']}
 	#TODO: adjust screen size to the right size
 	def __init__(self, rows, cols, screen_size=(1500, 300)):
+		n_actions = 2
 		self.task = PathFinding(rows, cols)
 		self.task.reset()
-
 		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
-
 		shape = self.task.get_state().shape
 		self.observation_space = spaces.Box(low=0, high=3, shape=shape, dtype=np.int8)
-		self.action_space=spaces.Discrete(4)
+		# self.action_space=spaces.Discrete(4)
+		self.action_space = spaces.Box(-1., 1., shape=(n_actions,), dtype='float32')
 
 	def reset(self):
 		return self.task.reset()

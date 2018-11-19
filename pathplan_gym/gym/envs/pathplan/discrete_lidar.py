@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class obeservation():
-	def __init__ (self,angle=360,lidarRange=50,accuracy=1,beems=1080):
+	def __init__ (self,angle=60,lidarRange=50,accuracy=1,beems=1080):
 		# angle: the angular range of lidar
 		# lidarRange: the maximum distance of lidar's capacity
 		# accuracy: increment step size of each laser beem
@@ -45,35 +45,6 @@ class obeservation():
 			
 			beemsLayer = self.drawPoints(beemsLayer,x,y,history=history, value=1)
 		
-
-		# for angle in range(len(angles)):
-		# 	objectDistance = 0
-		# 	distance = 0
-		# 	intensity = 0
-		# 	flag = True
-
-		# 	while distance < self.range and flag:
-		# 		distance += self.accuracy
-		# 		# x = location[0] + distance * np.cos(angle)
-		# 		# y = location[1] + distance * np.sin(angle)
-		# 		x = location[0] + distance * cosangle[angle]
-		# 		y = location[1] + distance * sinangle[angle]
-		# 		if (x >= mymap.shape[0] or x<0 
-		# 			or y>=mymap.shape[1] or y<0):
-		# 			continue
-
-		# 		for obj in objects:
-		# 			if self.findObject(mymap,x,y,value=obj):
-		# 				objectDistance = distance
-		# 				intensity = obj
-		# 				flag = False
-		# 				break
-		# 			else:
-		# 				objectDistance = max(objectDistance,distance)
-		# 		beemsLayer = self.drawPoint(beemsLayer,x,y,value=1)
-
-		# 	distanceObs.append(objectDistance)
-		# 	intensityObs.append(intensity)
 		mymap[beemsLayer==1] = 4
 		lidar_map = mymap.copy()
 
@@ -110,7 +81,7 @@ def main():
 	mymap[20:50,40:60] = 1
 	mymap[40,20] = 3
 	ob = obeservation()
-	res,intense,beemsLayer, lidarmap = ob.observe(mymap=mymap,location=(80,shape[1]/2),theta=-0.2)
+	res,intense,beemsLayer, lidarmap = ob.observe(mymap=mymap,location=(80,shape[1]/2),theta=np.pi/4)
 	print(res)
 	print(intense)
 	mymap[beemsLayer==1] = 2
