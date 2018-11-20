@@ -1,5 +1,6 @@
 import pygame
-import numpy as np 
+import numpy as np
+import platform 
 class MapViewer(object):
  	def __init__(self, screen_width, screen_height, map_rows, map_cols):
  		self.screen_width = screen_width
@@ -8,6 +9,8 @@ class MapViewer(object):
  		self.map_cols = map_cols
 
  		self.started = False
+
+ 		self.system = platform.system()
 
  	def start(self):
  		pygame.init()
@@ -50,12 +53,20 @@ class MapViewer(object):
 
  		self.screen.blit(self.surface, (0, 0))
  		pygame.display.flip()
+ 		pygame.event.get()
 
  	def screen_quad_position(self, x, y):
  		return x * self.tile_w, y * self.tile_h,  self.tile_w + 1, self.tile_h + 1
 
  	def get_color(self, value):
- 		COLORS = [0xFFFFFF, 0x000000, 0x00FF00, 0xFF0000, 0xFFFF00, 0x333333]
+ 		if self.system == "Darwin":
+ 			COLORS = [pygame.Color(255, 255, 255, 255), 
+ 					  pygame.Color(0,0,0,255),
+ 					  pygame.Color(0,255,0,255),
+ 					  pygame.Color(255,0,0,255),
+ 					  pygame.Color(100,127,130,200)]
+ 		else:
+ 			COLORS = [0xFFFFFF, 0x000000, 0x00FF00, 0xFF0000, 0xFFFF00, 0x333333]
  		if value in range(-1, 5):
  			return COLORS[value]
  		return 0xFFFF00
