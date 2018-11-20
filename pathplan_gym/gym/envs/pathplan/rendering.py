@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 import platform 
+# conda install -c cogsci pygame
 class MapViewer(object):
  	def __init__(self, screen_width, screen_height, map_rows, map_cols):
  		self.screen_width = screen_width
