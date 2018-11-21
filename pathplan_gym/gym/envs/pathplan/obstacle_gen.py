@@ -165,13 +165,15 @@ class ObstacleGen(object):
                     area,start = bfs((x,y))
                     if is_random:
                         ob = obstacle(start[0],start[1],np.random.uniform(-np.pi,np.pi),area,v=v)
+                    else:
+                        ob = obstacle(start[0],start[1],45./180*np.pi,area,v=v)
                     objects.append(ob)
 
         return objects
 
 
 
-def generate_map(shape, obs_size, num_obstacles):
+def generate_map(shape, obs_size, num_obstacles,speed):
     # shape[tuple]: (rows, cols) should be cols >> rows rows > 5, cols > 20
     assert shape[0] > 5
     assert shape[1] > 20
@@ -191,7 +193,7 @@ def generate_map(shape, obs_size, num_obstacles):
     map_s.delete_border()
     print ("delete border")
 
-    objs = map_s.search_object(is_random=True,v=0.2)
+    objs = map_s.search_object(is_random=True,v=speed)
 
     map_s.add_border()
     print ("added border")

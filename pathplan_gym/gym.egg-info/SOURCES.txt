@@ -69,6 +69,7 @@ gym/envs/mujoco/assets/thrower.xml
 gym/envs/mujoco/assets/walker2d.xml
 gym/envs/pathplan/__init__.py
 gym/envs/pathplan/discrete_lidar.py
+gym/envs/pathplan/dynamic_object.py
 gym/envs/pathplan/obstacle_gen.py
 gym/envs/pathplan/path_find.py
 gym/envs/pathplan/path_find_env.py

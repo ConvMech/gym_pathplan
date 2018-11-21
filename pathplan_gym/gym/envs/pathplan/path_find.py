@@ -20,19 +20,52 @@ class PathFinding(object):
 		self.obstacle = []
 		self.terminal = True
 		self.lidar_map = None
-		self.difficulty = 10
-		self.obs = discrete_lidar.obeservation(angle=60, lidarRange=30, beems=1080)
+		self.obs = discrete_lidar.obeservation(angle=30, lidarRange=30, beems=1080)
+		self.steps = 0
+		self.target_speed = 0.5
+		self.ob_speed = 0.5
+		self.speed_low = 0.1
+		self.speed_high = 1
+		self.difficulty = 5
+		self.target_dynamic = False
+		self.obstacle_dynamic = True
+
+
+	def change_obdir(self,ob):
+		ob.theta = np.random.uniform(-np.pi,np.pi)
+		return ob
+
+	def random_dir(self,frequency = 10):
+		if self.steps % frequency == 0:
+			for i in range(self.ob_num):
+				self.obstacle[i] = self.change_obdir(self.obstacle[i])
+
+	def random_speed(self,low,high,randomStatic = True):
+		ob_is_dynamic = np.random.randint(2, size = self.ob_num)
+		for i in range(self.ob_num):
+			self.obstacle[i].vel = np.random.uniform(low,high)
+			if randomStatic:
+				if not ob_is_dynamic[i]:
+					self.obstacle[i].vel = 0
+				
 
 	def reset(self):
 		self.terminal = False
-		self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty) # TODO: 10 is the number of obstacles.
+		self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed) # TODO: 10 is the number of obstacles.
 		self.ob_num = len(self.obstacle)
 		# self.player = self.map_s.start
 		self.player = robot.RobotPlayer(self.map_s.start[0], self.map_s.start[1], 0)
 		#self.goal = self.map_s.goal
-		self.goal = do.target(self.map_s.goal[0],self.map_s.goal[1],np.pi * 45/180.0,v=0.5)
+		if self.target_dynamic:
+			self.goal = do.target(self.map_s.goal[0],self.map_s.goal[1],np.random.uniform(-np.pi,np.pi),v=self.target_speed)
+		else:
+			self.goal = do.target(self.map_s.goal[0],self.map_s.goal[1],0,v=0)
 		_, _, _, self.lidar_map = self.obs.observe(mymap=self.get_map(), location=self.player.position(), theta=self.player.theta)
 		self.lidar_map[self.player.position()] = 2
+		if self.obstacle_dynamic:
+			self.random_speed(self.speed_low,self.speed_high,randomStatic=True)
+		else:
+			self.random_speed(0,0,randomStatic=True)
 		return self.get_state()
 
 	def get_map(self):
@@ -57,10 +90,14 @@ class PathFinding(object):
 		return observations.flatten()
 
 	def step(self, a):
+		self.steps += 1
 		if self.terminal:
 			return self.step_return(1)
 
-		self.map_s = self.goal.update(self.map_s)
+		self.random_dir(10) # random change obstacle direction
+
+		if self.target_dynamic:
+			self.map_s = self.goal.update(self.map_s)
 
 		for i in range(self.ob_num):
 			self.map_s = self.obstacle[i].update(self.map_s)
@@ -96,4 +133,5 @@ class PathFinding(object):
 
 	def step_return(self, reward):
 		return self.get_state(), reward, self.terminal, {}
+		#return self.get_state_map(), reward, self.terminal, {}
 

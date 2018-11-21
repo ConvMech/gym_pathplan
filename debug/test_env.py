@@ -1,7 +1,8 @@
 import gym
 import time
+import matplotlib.pyplot as plt
 
-env = gym.make('PathHallway-v0')
+env = gym.make('PathAngle-v0')
 
 # test
 #for i in range (100):

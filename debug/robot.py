@@ -20,3 +20,9 @@ class RobotPlayer(object):
 
 	def position(self):
 		return self.xpos, self.ypos
+
+class angleRobot(RobotPlayer):
+	def __init__(self, x, y, theta):
+		RobotPlayer.__init__(self, x, y, theta)
+
+	
