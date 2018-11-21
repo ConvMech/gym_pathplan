@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from gym.envs.pathplan import obstacle_gen
 from gym.envs.pathplan.rendering import MapViewer
 
 class DynamicObject(object):
@@ -83,8 +82,8 @@ class target(DynamicObject):
 		DynamicObject.__init__(self,x,y,theta,v)
 
 
-class Object(DynamicObject):
-	def __init__(self,x,y,theta,v=1):
+class obstacle(DynamicObject):
+	def __init__(self,x,y,theta,area,v=1):
 		self.xpos = float(x)
 		self.ypos = float(y)
 		self.theta = float(theta)
@@ -92,17 +91,54 @@ class Object(DynamicObject):
 		self.n_xpos = 0.0
 		self.n_ypos = 0.0
 		self.n_theta = float(theta)
-		self.area = np.array()
+		self.area = area
 
-def main():
-	viewer = MapViewer(1500, 300, 30,150)
-	map_s,obs = obstacle_gen.generate_map((30,150),6,10)
-	goal = target(map_s.goal[0],map_s.goal[1],np.pi * 45/180.0,v=2)
-	for _ in range(10000):
-		#print(goal.xpos,goal.ypos)
-		map_s = goal.update(map_s)
-		viewer.draw(map_s.dom)
-	viewer.stop()
+	def real_cord(self):
+		return [(self.xpos + dx, self.ypos + dy) for dx, dy in self.area]
 
-if __name__ == "__main__":
-	main()
+	def try_cord(self):
+		return [(self.n_xpos + dx, self.n_ypos + dy) for dx, dy in self.area]
+
+	def change_number(self,map_s,num = 4):
+		c = self.real_cord()
+		for i in c:
+			map_s.dom[int(i[0]),int(i[1])] = num
+		return map_s
+
+	def obstacle_legal(self,map_s):
+		c = self.try_cord()
+		for i in c:
+			if not map_s.is_legal(int(i[0]),int(i[1])):
+				return False
+		return True
+
+	def bounce(self,map_s):
+		assert self.theta >-np.pi and self.theta <= np.pi
+		if self.theta == 0:
+			self.n_theta = np.pi
+			self.try_forward()
+			return self.obstacle_legal(map_s)
+		elif self.theta == np.pi:
+			self.n_theta = 0
+			self.try_forward()
+			return self.obstacle_legal(map_s)
+		else:
+			for poss in ['x','y','r']:
+				self.try_bounce(poss)
+				self.try_forward()
+				if self.obstacle_legal(map_s):
+					return True
+			return False
+
+	def update(self,map_s):
+		map_s = self.change_number(map_s,0)
+		self.try_forward()
+		if self.obstacle_legal(map_s):
+			self.forward()
+		else:
+			res = self.bounce(map_s)
+			if res:
+				self.forward()
+				
+		map_s = self.change_number(map_s,1)
+		return map_s
