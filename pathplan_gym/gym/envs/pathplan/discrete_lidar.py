@@ -78,10 +78,10 @@ class obeservation():
 def main():
 	shape=(100,100)
 	mymap = np.zeros(shape)
-	mymap[20:50,40:60] = 1
-	mymap[40,20] = 3
-	ob = obeservation()
-	res,intense,beemsLayer, lidarmap = ob.observe(mymap=mymap,location=(80,shape[1]/2),theta=np.pi/4)
+	mymap[70:90,40:60] = 1
+	mymap[10:30,40:60] = 1
+	ob = obeservation(angle=360,beems=500)
+	res,beemsLayer = ob.observe(mymap=mymap,location=(50,50),theta=0)
 	print(res)
 	print(intense)
 	mymap[beemsLayer==1] = 2

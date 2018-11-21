@@ -28,6 +28,7 @@ class PathFindingEnv(gym.Env):
 	def render(self, mode='human'):
 		# map_s = self.task.get_map()
 		map_s = self.task.lidar_map
+		#print(set(map_s.flatten()))
 		if mode is 'human':
 			self.viewer.draw(map_s)
 		elif mode is 'array':

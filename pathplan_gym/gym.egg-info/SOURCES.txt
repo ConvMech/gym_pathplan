@@ -68,10 +68,12 @@ gym/envs/mujoco/assets/swimmer.xml
 gym/envs/mujoco/assets/thrower.xml
 gym/envs/mujoco/assets/walker2d.xml
 gym/envs/pathplan/__init__.py
+gym/envs/pathplan/discrete_lidar.py
 gym/envs/pathplan/obstacle_gen.py
 gym/envs/pathplan/path_find.py
 gym/envs/pathplan/path_find_env.py
 gym/envs/pathplan/rendering.py
+gym/envs/pathplan/robot.py
 gym/envs/robotics/__init__.py
 gym/envs/robotics/fetch_env.py
 gym/envs/robotics/hand_env.py

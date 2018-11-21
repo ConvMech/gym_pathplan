@@ -1,5 +1,7 @@
 import numpy as np
+import queue
 import random
+from gym.envs.pathplan.dynamic_object import obstacle
 
 MOVEMENT = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 class ObstacleGen(object):
@@ -65,6 +67,14 @@ class ObstacleGen(object):
             self.dom[0,j] = 1
             self.dom[self.dom.shape[0]-1, j] = 1   
 
+    def delete_border(self):
+        for i in range(self.dom.shape[0]):
+            self.dom[i,0] = 0
+            self.dom[i,self.dom.shape[1]-1] = 0
+        for j in range(self.dom.shape[1]):
+            self.dom[0,j] = 0
+            self.dom[self.dom.shape[0]-1, j] = 0
+
     def spawn_start_goal(self):
         # spawn a start point at the first 70% percent
         x, y = np.where(self.dom[:, :int(0.7 * self.dom_size[1])] == 0)
@@ -103,6 +113,63 @@ class ObstacleGen(object):
             return False
         return self.dom[x,y] == 0
 
+    def is_legal_self(self, x, y,label):
+        if x < 0 or x >= self.dom_size[0]:
+            return False
+        if y < 0 or y >= self.dom_size[1]:
+            return False
+        return self.dom[x,y] == 0 or self.dom[x,y] == label
+
+    def search_object(self,is_random=True,v=0.2):
+
+        def is_object(pos_x, pos_y):
+            if pos_x < 0 or pos_x >= self.dom_size[0] or pos_y < 0 or pos_y >= self.dom_size[1]:
+                return False
+            return self.dom[pos_x,pos_y] == 1
+
+        def object_neighbour(pos_x, pos_y):
+            res = []
+            possible_moves = [(pos_x + dx, pos_y + dy) for dx, dy in MOVEMENT]
+            for next_x, next_y in possible_moves:
+                if is_object(next_x, next_y) and ((next_x, next_y) not in self.explored):
+                    res.append((next_x,next_y))
+            return res
+
+        def bfs(start):
+            area = []
+            saved_start = start
+
+            myq = queue.Queue()
+            myq.put(start)
+            self.explored.add(start)
+
+            while not myq.empty():
+                for _ in range(myq.qsize()):
+                    node = myq.get()
+                    area.append((node[0]-saved_start[0],node[1]-saved_start[1]))
+
+                    legal_neighbours = object_neighbour(*node)
+                    for neighbour in legal_neighbours:
+                        self.explored.add(neighbour)
+                        myq.put(neighbour)
+
+            return area,saved_start
+
+        self.explored = set()
+        objects = []
+        i = 0
+        for x in range(self.dom_size[0]):
+            for y in range(self.dom_size[1]):
+                if is_object(x,y) and ((x,y) not in self.explored):
+                    i += 1
+                    area,start = bfs((x,y))
+                    if is_random:
+                        ob = obstacle(start[0],start[1],np.random.uniform(-np.pi,np.pi),area,v=v)
+                    objects.append(ob)
+
+        return objects
+
+
 
 def generate_map(shape, obs_size, num_obstacles):
     # shape[tuple]: (rows, cols) should be cols >> rows rows > 5, cols > 20
@@ -117,10 +184,18 @@ def generate_map(shape, obs_size, num_obstacles):
     # generate a map
     map_s = ObstacleGen(shape, obs_size)
     print ("get the map object")
-    map_s.add_border()
-    print ("added border")
+
     num_obs = map_s.add_N_rand_obs(num_obstacles)
     print ("added obstaclea")
+
+    map_s.delete_border()
+    print ("delete border")
+
+    objs = map_s.search_object(is_random=True,v=0.2)
+
+    map_s.add_border()
+    print ("added border")
+
     #sample start and goal for the map
     while map_s.start is None or map_s.goal is None:
         start, goal = map_s.spawn_start_goal()
@@ -129,4 +204,4 @@ def generate_map(shape, obs_size, num_obstacles):
             map_s.start = start 
             map_s.goal = goal
 
-    return map_s
+    return map_s,objs

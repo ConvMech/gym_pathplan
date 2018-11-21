@@ -5,6 +5,7 @@ import scipy.misc
 from gym.envs.pathplan import obstacle_gen
 from gym.envs.pathplan import discrete_lidar 
 from gym.envs.pathplan import robot
+from gym.envs.pathplan import dynamic_object as do
 
 
 class PathFinding(object):
@@ -16,6 +17,7 @@ class PathFinding(object):
 		self.map_s = None
 		self.player = None
 		self.goal = None
+		self.obstacle = []
 		self.terminal = True
 		self.lidar_map = None
 		self.difficulty = 10
@@ -23,10 +25,12 @@ class PathFinding(object):
 
 	def reset(self):
 		self.terminal = False
-		self.map_s = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty) # TODO: 10 is the number of obstacles.
+		self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty) # TODO: 10 is the number of obstacles.
+		self.ob_num = len(self.obstacle)
 		# self.player = self.map_s.start
 		self.player = robot.RobotPlayer(self.map_s.start[0], self.map_s.start[1], 0)
-		self.goal = self.map_s.goal
+		#self.goal = self.map_s.goal
+		self.goal = do.target(self.map_s.goal[0],self.map_s.goal[1],np.pi * 45/180.0,v=0.5)
 		_, _, _, self.lidar_map = self.obs.observe(mymap=self.get_map(), location=self.player.position(), theta=self.player.theta)
 		self.lidar_map[self.player.position()] = 2
 		return self.get_state()
@@ -35,7 +39,7 @@ class PathFinding(object):
 		"""return a (n, n) grid"""
 		state = np.array(self.map_s.dom, copy=True)
 		state[self.player.position()] = 2
-		state[self.goal[0], self.goal[1]] = 3
+		state[self.goal.position()] = 3
 		return state
 
 	def get_state_map(self):
@@ -56,6 +60,11 @@ class PathFinding(object):
 		if self.terminal:
 			return self.step_return(1)
 
+		self.map_s = self.goal.update(self.map_s)
+
+		for i in range(self.ob_num):
+			self.map_s = self.obstacle[i].update(self.map_s)
+
 		self._set_action(a)
 		self.player.try_forward()
 
@@ -67,7 +76,7 @@ class PathFinding(object):
 			self.terminal = True
 			return self.step_return(-1)
 
-		if self.player == self.goal:
+		if self.player == self.goal.position():
 			self.terminal = True
 			return self.step_return(1)
 
