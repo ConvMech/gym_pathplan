@@ -110,11 +110,11 @@ class Runner(object):
             mb_neglogpacs.append(neglogpacs)
             mb_dones.append(self.dones)            
             self.obs[:], rewards, self.dones, infos = self.env.step(actions)
-            # for info in infos:
-            #     maybeepinfo = info.get('episode')
-            #     #if 'episode' in info.keys() and 'pos' in info.keys():
-            #     #    maybeepinfo['pos'] = np.copy(info['pos'])
-            #     if maybeepinfo: epinfos.append(maybeepinfo)
+            for info in infos:
+                maybeepinfo = info.get('episode')
+                #if 'episode' in info.keys() and 'pos' in info.keys():
+                #    maybeepinfo['pos'] = np.copy(info['pos'])
+                if maybeepinfo: epinfos.append(maybeepinfo)
             mb_rewards.append(rewards)
         #batch of steps to batch of rollouts
         mb_obs = np.asarray(mb_obs, dtype=self.obs.dtype)
