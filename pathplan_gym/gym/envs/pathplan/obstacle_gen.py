@@ -13,6 +13,7 @@ class ObstacleGen(object):
         self.mask = None
         self.size_max = size_max
         self.type = ['circle', 'rect']
+        self.ob_origin = []
 
     def insert_shape(self, type, params):
         img = self.dom.copy()
@@ -164,9 +165,11 @@ class ObstacleGen(object):
                     i += 1
                     area,start = bfs((x,y))
                     if is_random:
-                        ob = obstacle(start[0],start[1],np.random.uniform(-np.pi,np.pi),area,v=v)
+                        angle = np.random.uniform(-np.pi,np.pi)
                     else:
-                        ob = obstacle(start[0],start[1],45./180*np.pi,area,v=v)
+                        angle = 45./180*np.pi
+                    ob = obstacle(start[0],start[1],angle,area,v=v)
+                    self.ob_origin.append((start[0],start[1],angle,v))
                     objects.append(ob)
 
         return objects

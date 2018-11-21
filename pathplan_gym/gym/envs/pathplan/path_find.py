@@ -52,21 +52,29 @@ class PathFinding(object):
 	def reset(self, test=0):
 		self.terminal = False
 		if test == 0:
-			self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed) # TODO: 10 is the number of obstacles.
+			self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed) 
+			self.goal_theta = np.random.uniform(-np.pi,np.pi)
+		else:
+			# reset enviornment to stored origin 
+			self.map_s = self.goal.set_position(self.map_s,self.map_s.goal[0],self.map_s.goal[1],self.goal_theta,v=self.target_speed)
+			for i in range(self.ob_num):
+				x,y,theta,v = self.map_s.ob_origin[i]
+				self.map_s = self.obstacle[i].return_origin(self.map_s,x,y,theta,v)
+
 		self.ob_num = len(self.obstacle)
-		# self.player = self.map_s.start
 		self.player = robot.RobotPlayer(self.map_s.start[0], self.map_s.start[1], 0)
-		#self.goal = self.map_s.goal
 		if self.target_dynamic:
-			self.goal = do.target(self.map_s.goal[0],self.map_s.goal[1],np.random.uniform(-np.pi,np.pi),v=self.target_speed)
+			self.goal = do.target(self.map_s.goal[0],self.map_s.goal[1],self.goal_theta,v=self.target_speed)
 		else:
 			self.goal = do.target(self.map_s.goal[0],self.map_s.goal[1],0,v=0)
 		_, _, _, self.lidar_map = self.obs.observe(mymap=self.get_map(), location=self.player.position(), theta=self.player.theta)
 		self.lidar_map[self.player.position()] = 2
 		if self.obstacle_dynamic:
-			self.random_speed(self.speed_low,self.speed_high,randomStatic=True)
+			# reset obstacles with random speed
+			if test == 0:
+				self.random_speed(self.speed_low,self.speed_high,randomStatic=False)
 		else:
-			self.random_speed(0,0,randomStatic=True)
+			self.random_speed(0,0,randomStatic=False)
 		return self.get_state()
 
 	def get_map(self):
