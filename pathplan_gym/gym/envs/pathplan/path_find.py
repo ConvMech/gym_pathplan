@@ -27,7 +27,7 @@ class PathFinding(object):
 		self.speed_low = 0.1
 		self.speed_high = 1
 		self.difficulty = 5
-		self.target_dynamic = False
+		self.target_dynamic = True
 		self.obstacle_dynamic = True
 
 
@@ -49,9 +49,10 @@ class PathFinding(object):
 					self.obstacle[i].vel = 0
 				
 
-	def reset(self):
+	def reset(self, test=0):
 		self.terminal = False
-		self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed) # TODO: 10 is the number of obstacles.
+		if test == 0:
+			self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed) # TODO: 10 is the number of obstacles.
 		self.ob_num = len(self.obstacle)
 		# self.player = self.map_s.start
 		self.player = robot.RobotPlayer(self.map_s.start[0], self.map_s.start[1], 0)

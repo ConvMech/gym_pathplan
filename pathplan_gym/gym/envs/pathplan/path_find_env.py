@@ -19,8 +19,8 @@ class PathFindingEnv(gym.Env):
 		# self.action_space=spaces.Discrete(4)
 		self.action_space = spaces.Box(-1., 1., shape=(n_actions,), dtype='float32')
 
-	def reset(self):
-		return self.task.reset()
+	def reset(self, test=1):
+		return self.task.reset(test)
 
 	def step(self, action):
 		return self.task.step(action)
