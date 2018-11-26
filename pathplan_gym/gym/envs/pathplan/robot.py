@@ -42,12 +42,12 @@ class RobotPlayer(obeservation):
 		self.w = w
 
 	def set_angle(self, action, angle = 45./180*np.pi):
-		if action == 'left':
+		if action == 1:
 			if self.theta > np.pi/2 and self.theta <= np.pi:
 				self.theta = self.theta + angle - 2*np.pi
 			else:
 				self.theta += angle
-		elif action == 'right':
+		elif action == 2:
 			if self.theta > -np.pi and self.theta <= -np.pi/2:
 				self.theta = self.theta - angle + 2*np.pi
 			else:

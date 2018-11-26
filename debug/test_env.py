@@ -13,7 +13,7 @@ for _ in range(10):
 	done = False
 	while not done:
 		env.render()
-		a = np.random.choice(env.action_space,1)[0]
+		a = env.step(env.action_space.sample())
 		obs, r, done, _ = env.step(a)
 		# print ("reward:", r)
 		# print ("obs:", obs)
