@@ -166,7 +166,7 @@ class PathFindingAngle(PathFinding):
 		self.obstacle = []
 		self.terminal = True
 		self.lidar_map = None
-		self.obs = discrete_lidar.obeservation(angle=30, lidarRange=30, beems=1080)
+		self.obs = discrete_lidar.obeservation(angle=360, lidarRange=300, beems=1080)
 		self.steps = 0
 		self.target_speed = 0.2
 		self.ob_speed = 0.1

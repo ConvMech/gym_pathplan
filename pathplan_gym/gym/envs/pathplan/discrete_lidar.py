@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class obeservation(object):
-	def __init__ (self,angle=60,lidarRange=50,accuracy=1,beems=1080):
+	def __init__ (self,angle=360,lidarRange=300,accuracy=1,beems=1080):
 		# angle: the angular range of lidar
 		# lidarRange: the maximum distance of lidar's capacity
 		# accuracy: increment step size of each laser beem
