@@ -232,7 +232,7 @@ class PathFindingAngle(object):
 		self.this_dist = self.distances
 		self.this_intens = self.intensities
 		
-		return self.get_state()
+		return self.get_simple_state()
 
 	def get_map(self):
 		"""return a (n, n) grid"""
@@ -260,7 +260,11 @@ class PathFindingAngle(object):
 	def get_simple_state(self, split = 4):
 
 		def getMinDis(dis,inten,tp):
-			return min(dis[inten==tp])
+			part = dis[inten==tp]
+			if len(part):
+				return min(part)
+			else:
+				return 30
 
 		state = self.get_map()
 		self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
@@ -277,7 +281,7 @@ class PathFindingAngle(object):
 			res.append(getMinDis(self.distances,self.intensities,3))
 			res.append(np.arange(len(self.intensities))[self.intensities==3][0]/float(self.obs.beems)) # if use, need change
 
-		return res
+		return np.array(res)
 
 
 

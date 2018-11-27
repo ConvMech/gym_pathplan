@@ -45,10 +45,11 @@ class PathFindingEnvA(gym.Env):
 		self.task = PathFindingAngle(rows, cols)
 		self.task.reset()
 		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
-		shape = self.task.get_state().shape
-		self.observation_space = spaces.Box(low=0, high=3, shape=shape, dtype=np.int8)
+		shape = self.task.get_simple_state().shape
+		diag = np.sqrt(screen_size[0] ** 2 + screen_size[1] ** 2)
+		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.int8)
 		# 0: forward, 1: left, 2: right
-		self.action_space = spaces.Discrete(10)
+		self.action_space = spaces.Discrete(3)
 	
 	def reset(self, test=0):
 		return self.task.reset(test)

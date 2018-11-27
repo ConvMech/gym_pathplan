@@ -41,7 +41,7 @@ class RobotPlayer(obeservation):
 		self.vel = vel
 		self.w = w
 
-	'''
+	
 	def set_angle(self, action, angle = 45./180*np.pi):
 		if action == 1:
 			if self.theta > np.pi/2 and self.theta <= np.pi:
@@ -55,12 +55,12 @@ class RobotPlayer(obeservation):
 				self.theta -= angle
 		else:
 			self.theta = self.theta
+	
 	'''
-
 	def set_angle(self, action):
 		action_space = np.linspace(-np.pi, np.pi, 11)
 		self.theta = action_space[action]
-
+	'''
 
 	def position(self):
 		return int(self.xpos), int(self.ypos)
