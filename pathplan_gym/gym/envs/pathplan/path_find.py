@@ -367,7 +367,7 @@ class PathFindingAngle(object):
 		obs_factor = 1
 	
 		#print(target_dis,min_obs)
-		reward = target_factor*1.0/target_dis - obs_factor*1.0/min_obs,False
+		reward = target_factor*1.0/target_dis - obs_factor*1.0/min_obs
 		reward = min(100,max(-100,reward))
-		return reward
+		return reward,False
 

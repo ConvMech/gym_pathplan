@@ -16,6 +16,7 @@ for _ in range(10):
 		a = env.action_space.sample()
 		#print("before")
 		obs, r, done, _ = env.step(a)
+		print(r)
 		#print("out",done)
 		# print ("reward:", r)
 		# print ("obs:", obs)
