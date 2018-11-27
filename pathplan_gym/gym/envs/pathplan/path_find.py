@@ -275,7 +275,6 @@ class PathFindingAngle(object):
 		else:
 			return 'NS'
 
-
 	def step(self, a):
 		'''
 		Safe State => Winning State, reward = 2
@@ -309,7 +308,11 @@ class PathFindingAngle(object):
 		next_dist, next_intens = self.player.n_distances, self.player.n_intensities
 		next_state = self.StateType(next_i, next_j, next_dist, next_intens)
 
-
+		reward,self.terminal = self.trival_reward(next_i, next_j, next_dist, next_intens)
+		if not self.terminal:
+			self.player.forward()
+		#print(reward)
+		#reward = 0
 		'''
 		if self.this_state == 'SS' and next_state == 'WS':
 			self.terminal = True
@@ -332,9 +335,6 @@ class PathFindingAngle(object):
 			else:
 				reward = -1
 		'''
-
-		
-
 		#print(self.this_state,"->",next_state, self.terminal)
 
 		self.this_state = next_state
@@ -348,3 +348,23 @@ class PathFindingAngle(object):
 		#print(self.get_state(), reward, self.terminal, {})
 		return self.get_state(), reward, self.terminal, {}
 		#return self.get_state_map(), reward, self.terminal, {}
+
+	def trival_reward(self, x, y, dist, intens):
+
+		if self.map_s.dom[x, y] == 3:
+			return 100,True
+
+		if not self.map_s.is_legal(x, y):
+			return -100,True
+
+		if 3 not in intens:
+			return 0,False
+
+		min_obs = min(dist[intens==1])
+		target_dis = min(dist[intens==3])
+
+		target_factor = 25
+		obs_factor = 1
+	
+		#print(target_dis,min_obs)
+		return target_factor*1.0/target_dis - obs_factor*1.0/min_obs,False
