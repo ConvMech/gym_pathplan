@@ -13,7 +13,9 @@ for _ in range(10):
 	done = False
 	while not done:
 		env.render()
-		a = env.step(env.action_space.sample())
+		a = env.action_space.sample()
+		#print("before")
 		obs, r, done, _ = env.step(a)
+		#print("out",done)
 		# print ("reward:", r)
 		# print ("obs:", obs)

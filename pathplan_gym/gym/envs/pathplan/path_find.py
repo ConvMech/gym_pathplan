@@ -154,7 +154,7 @@ class PathFinding(object):
 
 
 
-class PathFindingAngle(PathFinding):
+class PathFindingAngle(object):
 	def __init__(self, rows=200, cols=1000):
 		"""value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
 		self.rows = rows
@@ -173,11 +173,9 @@ class PathFindingAngle(PathFinding):
 		self.speed_low = 0.1
 		self.speed_high = 0.5
 		self.player_speed = 0.5
-		self.difficulty = 5
-		self.target_dynamic = True
-		self.obstacle_dynamic = True
-		self.this_state = None
-		self.this_dist = None
+		self.difficulty = 2
+		self.target_dynamic = False
+		self.obstacle_dynamic = False
 
 
 	def change_obdir(self,ob):
@@ -228,6 +226,11 @@ class PathFindingAngle(PathFinding):
 				self.random_speed(self.speed_low,self.speed_high,randomStatic=True)
 		else:
 			self.random_speed(0,0,randomStatic=False)
+
+		this_i, this_j = self.player.position()
+		self.this_state = self.StateType(this_i, this_j, self.distances, self.intensities)
+		self.this_dist = self.distances
+		self.this_intens = self.intensities
 		
 		return self.get_state()
 
@@ -267,7 +270,7 @@ class PathFindingAngle(PathFinding):
 			return 'WS'
 		if not self.map_s.is_legal(x, y):
 			return 'FS'
-		if min(dist) > d_min and intens[np.argmin(dist)]:
+		if dist[np.argmin(dist)] > d_min and intens[np.argmin(dist)] == 1:
 			return 'SS'
 		else:
 			return 'NS'
@@ -306,21 +309,42 @@ class PathFindingAngle(PathFinding):
 		next_dist, next_intens = self.player.n_distances, self.player.n_intensities
 		next_state = self.StateType(next_i, next_j, next_dist, next_intens)
 
-		if next_state == 'WS':
+
+		'''
+		if self.this_state == 'SS' and next_state == 'WS':
 			self.terminal = True
-			return self.step_return(2)
-		if next_state == 'FS':
+			reward = 2
+		if self.this_state == 'NS' and next_state == 'FS':
 			self.terminal = True
-			return self.step_return(-2)
-		if next_state == 'SS':
+			reward = -2
+		if self.this_state == 'NS' and next_state == 'SS':
 			self.player.forward()
-			return self.step_return(1)
-		if next_state == 'NS':
+			reward = 1
+		if self.this_state == 'SS' and next_state == 'SS':
 			self.player.forward()
-			if self.this_state == 'NS' and min(next_dist) > min(self.this_dist):
-				return self.step_return(0)
+			reward = 1
+		if self.this_state == 'SS' and next_state == 'NS':
+			self.player.forward()
+			reward = -1
+		if self.this_state == 'NS' and next_state == 'NS':
+			if min(next_dist) > min(self.this_dist):
+				reward = 0
 			else:
-				return self.step_return(-1)
+				reward = -1
+		'''
+
+		
+
+		#print(self.this_state,"->",next_state, self.terminal)
 
 		self.this_state = next_state
 		self.this_dist = next_dist
+		self.this_intens = next_intens
+
+		return self.step_return(reward)
+
+
+	def step_return(self, reward):
+		#print(self.get_state(), reward, self.terminal, {})
+		return self.get_state(), reward, self.terminal, {}
+		#return self.get_state_map(), reward, self.terminal, {}
