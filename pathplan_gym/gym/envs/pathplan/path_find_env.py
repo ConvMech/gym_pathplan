@@ -48,7 +48,7 @@ class PathFindingEnvA(gym.Env):
 		shape = self.task.get_state().shape
 		self.observation_space = spaces.Box(low=0, high=3, shape=shape, dtype=np.int8)
 		# 0: forward, 1: left, 2: right
-		self.action_space = spaces.Discrete(3)
+		self.action_space = spaces.Discrete(10)
 	
 	def reset(self, test=0):
 		return self.task.reset(test)

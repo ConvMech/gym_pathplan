@@ -257,6 +257,28 @@ class PathFindingAngle(object):
 		observations = np.array([self.distances, self.intensities])
 		return observations.flatten()
 
+	def get_simple_state(self, split = 4):
+
+		def getMinDis(dis,inten,tp):
+			return min(dis[inten==tp])
+
+		state = self.get_map()
+		self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
+		self.lidar_map[self.player.position()] = 2
+		split_dist = np.array_split(self.distances, split)
+		split_intens = np.array_split(self.intensities, split)
+		res = [] 
+		for i in range(split):
+			res.append(getMinDis(split_dist[i],split_intens[i],1))
+		if 3 not in self.intensities:
+			res.append(0)
+			res.append(0)
+		else:
+			res.append(getMinDis(self.distances,self.intensities,3))
+			res.append(np.arange(len(self.intensities))[self.intensities==3][0]/float(self.obs.beems)) # if use, need change
+
+		return res
+
 
 
 	def StateType(self, x, y, dist, intens, d_min = 5):
@@ -285,6 +307,7 @@ class PathFindingAngle(object):
 		Non-safe State => Non-safe State(distance to obstacle increase), reward = 0
 		Non-safe State => Non-safe State(distance to obstacle decrease), reward = -1
 		'''
+		#print(self.player.theta)
 		self.steps += 1
 
 		# In this step
@@ -346,7 +369,7 @@ class PathFindingAngle(object):
 
 	def step_return(self, reward):
 		#print(self.get_state(), reward, self.terminal, {})
-		return self.get_state(), reward, self.terminal, {}
+		return self.get_simple_state(), reward, self.terminal, {}
 		#return self.get_state_map(), reward, self.terminal, {}
 
 	def trival_reward(self, x, y, dist, intens):
