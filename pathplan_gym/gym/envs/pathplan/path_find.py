@@ -58,7 +58,7 @@ class PathFinding(object):
 			self.goal_theta = np.random.uniform(-np.pi,np.pi)
 		else:
 			# reset enviornment to stored origin 
-			self.map_s = self.goal.set_position(self.map_s,self.map_s.goal[0],self.map_s.goal[1],self.goal_theta,v=self.target_speed)
+			self.map_s = self.goal.set_position(self.map_s,self.map_s.goal[0],self.map_s.goal[1],self.goal_theta,self.target_speed)
 			for i in range(self.ob_num):
 				x,y,theta,v = self.map_s.ob_origin[i]
 				self.map_s = self.obstacle[i].return_origin(self.map_s,x,y,theta,v)
@@ -166,7 +166,7 @@ class PathFindingAngle(object):
 		self.obstacle = []
 		self.terminal = True
 		self.lidar_map = None
-		self.obs = discrete_lidar.obeservation(angle=360, lidarRange=300, beems=1080)
+		self.obs = discrete_lidar.obeservation(angle=360, lidarRange=50, beems=1080)
 		self.steps = 0
 		self.target_speed = 0.2
 		self.ob_speed = 0.1
@@ -176,7 +176,7 @@ class PathFindingAngle(object):
 		self.difficulty = 2
 		self.target_dynamic = False
 		self.obstacle_dynamic = False
-
+		self.target_size = 5
 
 	def change_obdir(self,ob):
 		ob.theta = np.random.uniform(-np.pi,np.pi)
@@ -198,9 +198,9 @@ class PathFindingAngle(object):
 
 	def reset(self, test=0):
 		self.terminal = False
-
+		print("target size",self.target_size)
 		if test == 0:
-			self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed) 
+			self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed,self.target_size) 
 			self.goal_theta = np.random.uniform(-np.pi,np.pi)
 		else:
 			# reset enviornment to stored origin 

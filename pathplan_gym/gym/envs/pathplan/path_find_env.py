@@ -77,6 +77,6 @@ class PathFindingHallwayEnv(PathFindingEnv):
 
 class PathFindingAngleEnv(PathFindingEnvA):
 	def __init__(self):
-		PathFindingEnvA.__init__(self, 30, 150)
+		PathFindingEnvA.__init__(self, 30, 40,screen_size=(400, 300))
 
 

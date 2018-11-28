@@ -10,7 +10,7 @@ env = DummyVecEnv([lambda: env])
 
 model = PPO2(MlpPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 # Train the agent
-model.learn(total_timesteps=10000,tb_log_name="first_run")
+model.learn(total_timesteps=5000000,tb_log_name="first_run")
 # Save the agent
 model.save("PathAngle")
 #model.save("ppo2_lunar")
