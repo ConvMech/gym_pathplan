@@ -49,7 +49,7 @@ class PathFindingEnvA(gym.Env):
 		diag = np.sqrt(screen_size[0] ** 2 + screen_size[1] ** 2)
 		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.int8)
 		# 0: forward, 1: left, 2: right
-		self.action_space = spaces.Discrete(3)
+		self.action_space = spaces.Discrete(11)
 	
 	def reset(self, test=0):
 		return self.task.reset(test)
