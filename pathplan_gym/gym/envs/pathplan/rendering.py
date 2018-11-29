@@ -31,7 +31,7 @@ class MapViewer(object):
 		point_1 = [center_c+self.player_size//2,center_r]
 		point_2 = [center_c-self.player_size//2,center_r-self.player_size//2]
 		point_3 = [center_r-self.player_size//2,center_r+self.player_size//2]
-		pygame.draw.line(player, YELLOW,[shape[0],shape[1]//2],[center_c,center_r],2)
+		pygame.draw.line(player, GREEN,[shape[0],shape[1]//2],[center_c,center_r],2)
 		pygame.draw.polygon(player, GREEN, [point_1,point_2,point_3])   
 		#player.set_colorkey(WHITE)   
 		#player.fill(WHITE)
@@ -41,7 +41,7 @@ class MapViewer(object):
 		shape = self.player_shape
 		center_c = self.player_shape[0]//2
 		center_r = self.player_shape[1]//2
-		theta = (-180.0) * angle / np.pi
+		theta = angle
 		destination = [center_c+np.cos(theta)*length,center_r+np.sin(theta)*length]
 		pygame.draw.line(layer,color,[center_c,center_r],destination,3)
 		return layer
@@ -70,7 +70,7 @@ class MapViewer(object):
 		except:
 			pass
 
-	def draw(self, map_s,player):
+	def draw(self, map_s,player,obs):
 		"""map is a numpy array with int value"""
 		if not self.started:
 			self.start()
@@ -91,7 +91,9 @@ class MapViewer(object):
 		self.screen.blit(self.surface, (0, 0))
 
 		splayer = self.spwan_player()
-		splayer = self.add_dash(splayer,np.pi/4,80,ORANGE)
+		#print("final----->",180*obs[1]/np.pi)
+		splayer = self.add_dash(splayer,obs[1],obs[0]*50,ORANGE)
+		splayer = self.add_dash(splayer,obs[3],obs[2]*50,BLACK)
 		rplayer,rect = self.rotate_player(splayer,player.theta,player.position())
 		self.screen.blit(rplayer,rect)
 

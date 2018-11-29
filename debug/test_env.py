@@ -13,11 +13,12 @@ for _ in range(100):
 	env.reset()
 	done = False
 	while not done:
-		env.render()
 		a = env.action_space.sample()
 		#print("before")
+		#print("action",a)
 		obs, r, done, _ = env.step(a)
-		#time.sleep(0.5)
+		env.render()
+		time.sleep(0.1)
 		#print(obs)
 		#print("out",done)
 		# print ("reward:", r)

@@ -47,7 +47,7 @@ class PathFindingEnvA(gym.Env):
 		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
 		shape = self.task.get_simple_state().shape
 		diag = np.sqrt(screen_size[0] ** 2 + screen_size[1] ** 2)
-		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.int8)
+		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.float32)
 		# 0: forward, 1: left, 2: right
 		self.action_space = spaces.Discrete(11)
 	
@@ -62,7 +62,7 @@ class PathFindingEnvA(gym.Env):
 		map_s = self.task.lidar_map
 		#print(set(map_s.flatten()))
 		if mode is 'human':
-			self.viewer.draw(map_s,self.task.player)
+			self.viewer.draw(map_s,self.task.player,self.task.simple_state)
 		elif mode is 'array':
 			return map_s
 
