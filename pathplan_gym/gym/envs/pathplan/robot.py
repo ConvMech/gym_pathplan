@@ -16,7 +16,7 @@ class RobotPlayer(obeservation):
 		self.v_lower = -1
 		self.w_upper = np.pi * 30.0 / 180.0
 		self.w_lower = -np.pi * 30.0 / 180.0
-		obeservation.__init__ (self,angle=360,lidarRange=300,accuracy=1,beems=1080)
+		obeservation.__init__ (self,angle=360,lidarRange=50,accuracy=1,beems=1080)
 		self.n_distances = np.zeros(self.beems)
 		self.n_intensities = np.zeros(self.beems)
 
