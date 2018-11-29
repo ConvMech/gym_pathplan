@@ -2,74 +2,136 @@ import pygame
 import numpy as np
 import platform 
 # conda install -c cogsci pygame
+
+BLACK = (0 , 0 , 0)
+YELLOW = (255 , 255 , 0)  
+GREEN = (0 , 255 , 0)  
+WHITE = (255 , 255 , 255)
+ORANGE = (255,69,0)
+
 class MapViewer(object):
- 	def __init__(self, screen_width, screen_height, map_rows, map_cols):
- 		self.screen_width = screen_width
- 		self.screen_height = screen_height
- 		self.map_rows = map_rows
- 		self.map_cols = map_cols
+	def __init__(self, screen_width, screen_height, map_rows, map_cols):
+		self.screen_width = screen_width
+		self.screen_height = screen_height
+		self.map_rows = map_rows
+		self.map_cols = map_cols
 
- 		self.started = False
+		self.started = False
 
- 		self.system = platform.system()
+		self.system = platform.system()
+		self.player_size = 20
+		self.player_shape = (100,100) #col,row
 
- 	def start(self):
- 		pygame.init()
- 		pygame.font.init()
- 		pygame.display.set_caption("WalkFollower")
+	def spwan_player(self):
+		shape = self.player_shape
+		player = pygame.Surface(shape, pygame.SRCALPHA, 32)
+		player = player.convert_alpha()	
+		center_c = self.player_shape[0]//2
+		center_r = self.player_shape[1]//2
+		point_1 = [center_c+self.player_size//2,center_r]
+		point_2 = [center_c-self.player_size//2,center_r-self.player_size//2]
+		point_3 = [center_r-self.player_size//2,center_r+self.player_size//2]
+		pygame.draw.line(player, YELLOW,[shape[0],shape[1]//2],[center_c,center_r],2)
+		pygame.draw.polygon(player, GREEN, [point_1,point_2,point_3])   
+		#player.set_colorkey(WHITE)   
+		#player.fill(WHITE)
+		return player
 
- 		self.font = pygame.font.SysFont('Arial', size=16)
- 		print("init screen size",self.screen_width ,self.screen_height)
- 		self.screen = pygame.display.set_mode((self.screen_width + 5, self.screen_height + 5), 0, 32)
- 		self.surface = pygame.Surface(self.screen.get_size())
- 		self.surface = self.surface.convert()
- 		self.surface.fill((255, 255, 255))
+	def add_dash(self,layer,angle,length,color):
+		shape = self.player_shape
+		center_c = self.player_shape[0]//2
+		center_r = self.player_shape[1]//2
+		theta = (-180.0) * angle / np.pi
+		destination = [center_c+np.cos(theta)*length,center_r+np.sin(theta)*length]
+		pygame.draw.line(layer,color,[center_c,center_r],destination,3)
+		return layer
 
- 		self.tile_w = (self.screen_height) / self.map_rows
- 		self.tile_h = (self.screen_width) / self.map_cols
+	def start(self):
+		pygame.init()
+		pygame.font.init()
+		pygame.display.set_caption("WalkFollower")
 
- 		self.started = True
+		self.font = pygame.font.SysFont('Arial', size=16)
+		print("init screen size",self.screen_width ,self.screen_height)
+		self.screen = pygame.display.set_mode((self.screen_width + 5, self.screen_height + 5), 0, 32)
+		self.surface = pygame.Surface(self.screen.get_size())
+		self.surface = self.surface.convert()
+		self.surface.fill((255, 255, 255))
 
- 	def stop(self):
- 		try:
- 			pygame.dispaly.quit()
- 			pygame.quit()
- 		except:
- 			pass
+		self.tile_w = (self.screen_height) / self.map_rows
+		self.tile_h = (self.screen_width) / self.map_cols
 
- 	def draw(self, map_s):
- 		"""map is a numpy array with int value"""
- 		if not self.started:
- 			self.start()
+		self.started = True
 
- 		self.surface.fill((0, 0, 0))
+	def stop(self):
+		try:
+			pygame.dispaly.quit()
+			pygame.quit()
+		except:
+			pass
 
- 		for (i, j), value in np.ndenumerate(map_s):
- 			x, y = j, i # TODO: actually I do not know if neccessary
+	def draw(self, map_s,player):
+		"""map is a numpy array with int value"""
+		if not self.started:
+			self.start()
 
- 			quad = self.screen_quad_position(x, y)
- 			# print ("value is:", value)
- 			color = self.get_color(int(value))
+		self.surface.fill((0, 0, 0))
 
- 			pygame.draw.rect(self.surface, color, quad)
+		map_s = self.delete_origin_player(map_s,player)
 
- 		self.screen.blit(self.surface, (0, 0))
- 		pygame.display.flip()
- 		pygame.event.get()
+		for (i, j), value in np.ndenumerate(map_s):
+			x, y = j, i # TODO: actually I do not know if neccessary
 
- 	def screen_quad_position(self, x, y):
- 		return x * self.tile_w, y * self.tile_h,  self.tile_w + 1, self.tile_h + 1
+			quad = self.screen_quad_position(x, y)
+			# print ("value is:", value)
+			color = self.get_color(int(value))
 
- 	def get_color(self, value):
- 		if self.system == "Darwin":
- 			COLORS = [pygame.Color(255, 255, 255, 255), 
- 					  pygame.Color(0,0,0,255),
- 					  pygame.Color(0,255,0,255),
- 					  pygame.Color(255,0,0,255),
- 					  pygame.Color(100,127,130,200)]
- 		else:
- 			COLORS = [0xFFFFFF, 0x000000, 0x00FF00, 0xFF0000, 0xFFFF00, 0x333333]
- 		if value in range(-1, 5):
- 			return COLORS[value]
- 		return 0xFFFF00
+			pygame.draw.rect(self.surface, color, quad)
+
+		self.screen.blit(self.surface, (0, 0))
+
+		splayer = self.spwan_player()
+		splayer = self.add_dash(splayer,np.pi/4,80,ORANGE)
+		rplayer,rect = self.rotate_player(splayer,player.theta,player.position())
+		self.screen.blit(rplayer,rect)
+
+		pygame.display.flip()
+		pygame.event.get()
+
+	def delete_origin_player(self,map_s,player):
+		x,y = player.position()
+		map_s[x][y] = 4
+		return map_s 
+
+	def rotate_player(self,player,angle,position):
+		image = player.copy()
+		#image.set_colorkey(WHITE)
+		old_rect = image.get_rect()  
+		old_rect.center = self.screen_position(position)
+		old_center = old_rect.center
+		angle = angle/np.pi * 180 - 90
+		new_image = pygame.transform.rotate(image,angle)
+		rect = new_image.get_rect()   
+		rect.center = old_center
+		return new_image,rect
+
+	def screen_position(self,position):
+		# first column, then rows
+		return (position[1]*self.tile_h ,position[0]*self.tile_w)
+
+	def screen_quad_position(self, x, y):
+		return x * self.tile_w, y * self.tile_h,  self.tile_w + 1, self.tile_h + 1
+
+	def get_color(self, value):
+		if self.system == "Darwin":
+			COLORS = [pygame.Color(255, 255, 255, 255), 
+					  pygame.Color(0,0,0,255),
+					  pygame.Color(0,255,0,255),
+					  pygame.Color(255,0,0,255),
+					  pygame.Color(100,127,130,200)]
+		else:
+			COLORS = [0xFFFFFF, 0x000000, 0x00FF00, 0xFF0000, 0xFFFF00, 0x333333]
+		if value in range(-1, 5):
+			return COLORS[value]
+		return 0xFFFF00
 

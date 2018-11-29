@@ -9,7 +9,7 @@ env = gym.make('PathAngle-v0')
 # test
 #for i in range (100):
 env.reset()
-for _ in range(10):
+for _ in range(100):
 	env.reset()
 	done = False
 	while not done:

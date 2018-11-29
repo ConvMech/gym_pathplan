@@ -72,8 +72,13 @@ class RobotPlayer(obeservation):
         self.theta = action_space[action]
     '''
 
+<<<<<<< HEAD
     def position(self):
         return int(self.xpos), int(self.ypos)
 
     def nposition(self):
         return int(self.n_xpos), int(self.n_ypos)
+=======
+	def nposition(self):
+		return int(self.n_xpos), int(self.n_ypos)
+>>>>>>> de36c870e9462e7b3acee0788b35da9980b4129b
