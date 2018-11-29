@@ -20,7 +20,7 @@ class PathFinding(object):
 		self.obstacle = []
 		self.terminal = True
 		self.lidar_map = None
-		self.obs = discrete_lidar.obeservation(angle=30, lidarRange=30, beems=1080)
+		self.obs = discrete_lidar.obeservation(angle=360, lidarRange=30, beems=1080)
 		self.steps = 0
 		self.target_speed = 0.2
 		self.ob_speed = 0.1
@@ -387,6 +387,9 @@ class PathFindingAngle(object):
 		if 3 not in intens:
 			return 0,False
 
+		# TODO potential bug: plan/path_find.py", line 390, in trival_reward
+    	# min_obs = min(dist[intens==1])
+    	# ValueError: min() arg is an empty sequence
 		min_obs = min(dist[intens==1])
 		target_dis = min(dist[intens==3])
 

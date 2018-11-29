@@ -9,7 +9,7 @@ env = gym.make('PathAngle-v0')
 # test
 #for i in range (100):
 env.reset()
-for _ in range(10):
+for _ in range(100):
 	env.reset()
 	done = False
 	while not done:
@@ -17,7 +17,7 @@ for _ in range(10):
 		a = env.action_space.sample()
 		#print("before")
 		obs, r, done, _ = env.step(a)
-		time.sleep(0.5)
+		#time.sleep(0.2)
 		#print(obs)
 		#print("out",done)
 		# print ("reward:", r)

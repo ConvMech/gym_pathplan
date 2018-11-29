@@ -52,7 +52,6 @@ class ObstacleGen(object):
 
     def expand_target_size(self,size,type='circle'):
         tx,ty = self.goal
-        print(size)
         im_try = self.insert_shape(type, (size, tx,ty),fill=3)
         self.dom = im_try
 
@@ -200,7 +199,6 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
             map_s.start = start 
             map_s.goal = goal
 
-    print(target_size)
     if target_size:
         map_s.expand_target_size(target_size)
 
