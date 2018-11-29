@@ -2,6 +2,7 @@ import gym
 import time
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
 env = gym.make('PathAngle-v0')
 
@@ -16,6 +17,7 @@ for _ in range(10):
 		a = env.action_space.sample()
 		#print("before")
 		obs, r, done, _ = env.step(a)
+		#time.sleep(0.5)
 		#print(obs)
 		#print("out",done)
 		# print ("reward:", r)

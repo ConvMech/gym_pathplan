@@ -15,7 +15,7 @@ class ObstacleGen(object):
         self.type = ['circle', 'rect']
         self.ob_origin = []
 
-    def insert_shape(self, type, params):
+    def insert_shape(self, type, params,fill=1):
         img = self.dom.copy()
         if type is 'circle':
             r = params[0]
@@ -24,7 +24,7 @@ class ObstacleGen(object):
             for i in range(img.shape[0]):
                 for j in range(img.shape[1]):
                     if (x - i) ** 2 + (y - j) ** 2 < r ** 2:
-                        img[i, j] = 1
+                        img[i, j] = fill
         if type is 'rect':
             cx = params[0]
             cy = params[1]
@@ -32,7 +32,7 @@ class ObstacleGen(object):
             w = params[3]
             for i in range(cx, min(cx + w, img.shape[0])):
                 for j in range(cy, min(cy + h, img.shape[1])):
-                    img[i, j] = 1
+                    img[i, j] = fill
         return img
  
     def add_rand_obs(self, type):
@@ -49,6 +49,12 @@ class ObstacleGen(object):
             im_try = self.insert_shape(type, (rand_x, rand_y, rand_h, rand_w))
         self.dom = im_try
         return 1
+
+    def expand_target_size(self,size,type='circle'):
+        tx,ty = self.goal
+        print(size)
+        im_try = self.insert_shape(type, (size, tx,ty),fill=3)
+        self.dom = im_try
 
     def add_N_rand_obs(self, N):
         res = 0
@@ -169,7 +175,7 @@ class ObstacleGen(object):
 
 
 
-def generate_map(shape, obs_size, num_obstacles,speed):
+def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
     # shape[tuple]: (rows, cols) should be cols >> rows rows > 5, cols > 20
     assert shape[0] > 5
     assert shape[1] > 20
@@ -186,14 +192,6 @@ def generate_map(shape, obs_size, num_obstacles,speed):
     num_obs = map_s.add_N_rand_obs(num_obstacles)
     print ("added obstaclea")
 
-    map_s.delete_border()
-    print ("delete border")
-
-    objs = map_s.search_object(is_random=True,v=speed)
-
-    map_s.add_border()
-    print ("added border")
-
     #sample start and goal for the map
     while map_s.start is None or map_s.goal is None:
         start, goal = map_s.spawn_start_goal()
@@ -201,5 +199,17 @@ def generate_map(shape, obs_size, num_obstacles,speed):
         if map_s.path_exists(start, goal):
             map_s.start = start 
             map_s.goal = goal
+
+    print(target_size)
+    if target_size:
+        map_s.expand_target_size(target_size)
+
+    map_s.delete_border()
+    print ("delete border")
+
+    objs = map_s.search_object(is_random=True,v=speed)
+
+    map_s.add_border()
+    print ("added border")
 
     return map_s,objs

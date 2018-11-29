@@ -19,6 +19,7 @@ class MapViewer(object):
  		pygame.display.set_caption("WalkFollower")
 
  		self.font = pygame.font.SysFont('Arial', size=16)
+ 		print("init screen size",self.screen_width ,self.screen_height)
  		self.screen = pygame.display.set_mode((self.screen_width + 5, self.screen_height + 5), 0, 32)
  		self.surface = pygame.Surface(self.screen.get_size())
  		self.surface = self.surface.convert()
