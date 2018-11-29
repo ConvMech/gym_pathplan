@@ -8,15 +8,6 @@ from stable_baselines.common.vec_env import DummyVecEnv
 env = gym.make('PathAngle-v0')
 env = DummyVecEnv([lambda: env])
 
-model = PPO2(MlpPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
-# Train the agent
-model.learn(total_timesteps=100000,tb_log_name="first_run")
-
-# Save the agent
-model.save("PathAngle")
-#model.save("ppo2_lunar")
-del model  # delete trained model to demonstrate loading
-
 # Load the trained agent
 model = PPO2.load("PathAngle")
 #model = A2C.load("ppo2_lunar")

@@ -173,7 +173,7 @@ class PathFindingAngle(object):
 		self.speed_low = 0.1
 		self.speed_high = 0.5
 		self.player_speed = 0.5
-		self.difficulty = 2
+		self.difficulty = 0
 		self.target_dynamic = False
 		self.obstacle_dynamic = False
 		self.target_size = 5
@@ -335,18 +335,24 @@ class PathFindingAngle(object):
 		next_dist, next_intens = self.player.n_distances, self.player.n_intensities
 		next_state = self.StateType(next_i, next_j, next_dist, next_intens)
 
+		'''
 		reward,self.terminal = self.trival_reward(next_i, next_j, next_dist, next_intens)
 		if not self.terminal:
 			self.player.forward()
 		#print(reward)
-		#reward = 0
 		'''
-		if self.this_state == 'SS' and next_state == 'WS':
+		
+		if next_state == 'WS':
 			self.terminal = True
-			reward = 2
-		if self.this_state == 'NS' and next_state == 'FS':
+			reward = 100
+		elif next_state == 'FS':
 			self.terminal = True
-			reward = -2
+			reward = -100
+		else:
+			self.player.forward()
+			reward = -0.1
+
+		'''
 		if self.this_state == 'NS' and next_state == 'SS':
 			self.player.forward()
 			reward = 1
