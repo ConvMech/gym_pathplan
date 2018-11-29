@@ -198,7 +198,7 @@ class PathFindingAngle(object):
 
     def reset(self, test=0):
         self.terminal = False
-        print("target size",self.target_size)
+        #print("target size",self.target_size)
         if test == 0:
             self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed,self.target_size) 
             self.goal_theta = np.random.uniform(-np.pi,np.pi)

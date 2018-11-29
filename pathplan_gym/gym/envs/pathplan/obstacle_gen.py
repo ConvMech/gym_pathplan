@@ -186,15 +186,15 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
 
     # generate a map
     map_s = ObstacleGen(shape, obs_size)
-    print ("get the map object")
+    #print ("get the map object")
 
     num_obs = map_s.add_N_rand_obs(num_obstacles)
-    print ("added obstaclea")
+    #print ("added obstaclea")
 
     #sample start and goal for the map
     while map_s.start is None or map_s.goal is None:
         start, goal = map_s.spawn_start_goal()
-        print ("checking if a valid env")
+        #print ("checking if a valid env")
         if map_s.path_exists(start, goal):
             map_s.start = start 
             map_s.goal = goal
@@ -203,11 +203,11 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
         map_s.expand_target_size(target_size)
 
     map_s.delete_border()
-    print ("delete border")
+    #print ("delete border")
 
     objs = map_s.search_object(is_random=True,v=speed)
 
     map_s.add_border()
-    print ("added border")
+    #print ("added border")
 
     return map_s,objs
