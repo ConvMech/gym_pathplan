@@ -1,4 +1,4 @@
 pathplan_gym/gym/envs/pathplan/*.pyc
-#pathplan_gym/gym/envs/pathplan/__pycache__/*
+pathplan_gym/gym/envs/pathplan/__pycache__/*
 /rlpathplan/CKPT/
 debug/ppo2_proj_tensorboard
