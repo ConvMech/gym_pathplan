@@ -18,9 +18,11 @@ for _ in range(100):
 		#print("before")
 		#print("action",a)
 		obs, r, done, _ = env.step(a)
-		print(obs.shape)
+		
+		#print(obs.shape)
+
 		env.render()
-		#time.sleep(0.1)
+		#time.sleep(1)
 		#print(obs)
 		#print("out",done)
 		# print ("reward:", r)
