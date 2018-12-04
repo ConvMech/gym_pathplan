@@ -23,7 +23,7 @@ register(
 
 register(
     id='PathObstacle-v0',
-    entry_point='gym.envs.pathplan:PathFindingObstacle',
+    entry_point='gym.envs.pathplan:PathFindingObstacleEnv',
     max_episode_steps=3000,
 )
 

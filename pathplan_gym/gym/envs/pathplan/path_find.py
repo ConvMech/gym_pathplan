@@ -424,6 +424,3 @@ class PathFindingCNN(PathFindingAngle):
         #print(self.get_state(), reward, self.terminal, {})
         return self.get_state(), reward, self.terminal, {}
 
-class PathFindingObstacle(PathFindingAngle):
-    def __init__(self, rows=200, cols=1000):
-        PathFindingAngle.__init__(self,rows=rows,cols=cols,difficulty=5)
