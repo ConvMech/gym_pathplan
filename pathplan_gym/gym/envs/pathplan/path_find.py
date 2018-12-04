@@ -350,9 +350,9 @@ class PathFindingAngle(object):
         elif next_state == 'FS':
             self.terminal = True
             reward = -100
-        elif next_state == 'NS':
-            self.player.forward()
-            reward = -10
+        #elif next_state == 'NS':
+        #    self.player.forward()
+        #    reward = -10
         else:
             self.player.forward()
             reward = -0.1
