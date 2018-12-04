@@ -81,13 +81,13 @@ class ObstacleGen(object):
             self.dom[0,j] = 0
             self.dom[self.dom.shape[0]-1, j] = 0
 
-    def spawn_start_goal(self):
+    def spawn_start_goal(self, start_pos=0.7, goal_pos=0.8):
         # spawn a start point at the first 70% percent
-        x, y = np.where(self.dom[:, :int(0.7 * self.dom_size[1])] == 0)
+        x, y = np.where(self.dom[:, :int(start_pos * self.dom_size[1])] == 0)
         free_pos = list(zip(x, y))
         start = random.sample(free_pos, 1)[0]
         # spawn a start point at the last 20% percent
-        x, y = np.where(self.dom[:, int(0.8 * self.dom_size[1]):] == 0)
+        x, y = np.where(self.dom[:, :int(goal_pos * self.dom_size[1])] == 0)
         free_pos = list(zip(x, y))
         goal = random.sample(free_pos, 1)[0]
         return start, goal
@@ -193,7 +193,7 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
 
     #sample start and goal for the map
     while map_s.start is None or map_s.goal is None:
-        start, goal = map_s.spawn_start_goal()
+        start, goal = map_s.spawn_start_goal(1,1)
         print ("checking if a valid env")
         if map_s.path_exists(start, goal):
             map_s.start = start 

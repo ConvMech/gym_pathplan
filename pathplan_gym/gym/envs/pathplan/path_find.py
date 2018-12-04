@@ -173,7 +173,7 @@ class PathFindingAngle(object):
         self.speed_low = 0.1
         self.speed_high = 0.5
         self.player_speed = 0.5
-        self.difficulty = 5
+        self.difficulty = 0
         self.target_dynamic = False
         self.obstacle_dynamic = False
         self.target_size = 5
@@ -385,6 +385,9 @@ class PathFindingAngle(object):
         elif next_state == 'NWS':
             self.player.forward()
             reward = 50
+        elif next_state == 'NS':
+            self.player.forward()
+            reward = -10
         else:
             self.player.forward()
             reward = -0.1

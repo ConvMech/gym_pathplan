@@ -12,8 +12,18 @@ env = DummyVecEnv([lambda: env])
 model = PPO2.load("PathAngle")
 #model = A2C.load("ppo2_lunar")
 # Enjoy trained agent
+
 obs = env.reset()
-for i in range(10000):
-    action, _states = model.predict(obs)
-    obs, rewards, dones, info = env.step(action)
-    env.render()
+count = 0
+for _ in range(100):
+	env.reset()
+	done = False
+	while not done:
+		action, _states = model.predict(obs)
+		obs, r, done, _ = env.step(action)
+		env.render()
+		#time.sleep(0.1)
+		if r == 100:
+			count += 1
+
+print('success rate:',count/100.0)
