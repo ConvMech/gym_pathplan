@@ -28,7 +28,7 @@ class PathFinding(object):
 		self.speed_low = 0.1
 		self.speed_high = 0.5
 		self.player_speed = 0.5
-		self.difficulty = 5
+		self.difficulty = 0
 		self.target_dynamic = True
 		self.obstacle_dynamic = True
 
@@ -198,7 +198,7 @@ class PathFindingAngle(object):
 
     def reset(self, test=0):
         self.terminal = False
-        print("target size",self.target_size)
+        #print("target size",self.target_size)
         if test == 0:
             self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed,self.target_size) 
             self.goal_theta = np.random.uniform(-np.pi,np.pi)
@@ -264,7 +264,7 @@ class PathFindingAngle(object):
         #buga = bug[intens == tp]
         if len(part):
             min_dist = min(part)
-            angle = np.arange(len(dist))[(dist == min_dist) & (intens == tp)][0] / float(self.obs.beems)
+            angle = np.mean(np.arange(len(dist))[(dist == min_dist) & (intens == tp)]) / float(self.obs.beems)
             #if tp == 3:
             #    print("mean:",360*np.mean(buga)/len(intens))
             angle = - 2*np.pi*angle + self.obs.angle/2.0
