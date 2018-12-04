@@ -198,7 +198,6 @@ class PathFindingAngle(object):
 
     def reset(self, test=0):
         self.terminal = False
-        #print("target size",self.target_size)
         if test == 0:
             self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed,self.target_size) 
             self.goal_theta = np.random.uniform(-np.pi,np.pi)
@@ -251,8 +250,6 @@ class PathFindingAngle(object):
         """return a (n, n) grid"""
         state = self.get_map()
         self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
-        #print('distances:', 'min:',min(distances), 'loc:',np.argmin(distances), distances)
-        #print('intensities:','loc:',np.argmin(distances),'type:',intensities[np.argmin(distances)],intensities)
         self.lidar_map[self.player.position()] = 2
         observations = np.array([self.distances, self.intensities])
         return observations.flatten()
@@ -289,33 +286,6 @@ class PathFindingAngle(object):
         res = [target_dist, target_angle, nearest_obs_dist, nearest_obs_angle]
         self.simple_state = res
         return np.array(res)
-
-        '''
-        def getMinDis(dis,inten,tp):
-            part = dis[inten==tp]
-            if len(part):
-                return min(part)
-            else:
-                return 30
-
-        state = self.get_map()
-        self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
-        self.lidar_map[self.player.position()] = 2
-        split_dist = np.array_split(self.distances, split)
-        split_intens = np.array_split(self.intensities, split)
-        res = [] 
-        for i in range(split):
-            res.append(getMinDis(split_dist[i],split_intens[i],1))
-        if 3 not in self.intensities:
-            res.append(0)
-            res.append(0)
-        else:
-            res.append(getMinDis(self.distances,self.intensities,3))
-            res.append(np.arange(len(self.intensities))[self.intensities==3][0]/float(self.obs.beems)) # if use, need change
-
-        return np.array(res)
-        '''
-
 
     def StateType(self, x, y, dist, intens, d_min = 5, d_win = 3):
         '''
@@ -443,3 +413,18 @@ class PathFindingAngle(object):
         reward = target_factor*1.0/target_dis - obs_factor*1.0/min_obs
         reward = min(100,max(-100,reward))
         return reward,False
+
+class PathFindingCNN(PathFindingAngle):
+    def __init__(self, rows=200, cols=1000):
+        PathFindingAngle.__init__(self,rows=rows,cols=cols)
+
+    def get_state(self):
+        state = self.get_map()
+        self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
+        self.lidar_map[self.player.position()] = 2
+        observations = np.vstack([self.distances, self.intensities])
+        return observations.T
+
+    def step_return(self, reward):
+        #print(self.get_state(), reward, self.terminal, {})
+        return self.get_state(), reward, self.terminal, {}

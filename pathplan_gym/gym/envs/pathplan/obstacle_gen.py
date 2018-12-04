@@ -193,13 +193,8 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
 
     #sample start and goal for the map
     while map_s.start is None or map_s.goal is None:
-<<<<<<< HEAD
         start, goal = map_s.spawn_start_goal(1,1)
         print ("checking if a valid env")
-=======
-        start, goal = map_s.spawn_start_goal()
-        #print ("checking if a valid env")
->>>>>>> b7e61425de01f1712bd7363a8440f3df9289f75e
         if map_s.path_exists(start, goal):
             map_s.start = start 
             map_s.goal = goal

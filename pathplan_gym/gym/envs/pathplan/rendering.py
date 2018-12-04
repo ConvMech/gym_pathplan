@@ -70,14 +70,15 @@ class MapViewer(object):
 		except:
 			pass
 
-	def draw(self, map_s,player,obs):
+	def draw(self, map_s,player=None,obs=None):
 		"""map is a numpy array with int value"""
 		if not self.started:
 			self.start()
 
 		self.surface.fill((0, 0, 0))
 
-		map_s = self.delete_origin_player(map_s,player)
+		if player:
+			map_s = self.delete_origin_player(map_s,player)
 
 		for (i, j), value in np.ndenumerate(map_s):
 			x, y = j, i # TODO: actually I do not know if neccessary
@@ -91,11 +92,13 @@ class MapViewer(object):
 		self.screen.blit(self.surface, (0, 0))
 
 		splayer = self.spwan_player()
-		#print("final----->",180*obs[1]/np.pi)
-		splayer = self.add_dash(splayer,obs[1],obs[0]*50,ORANGE)
-		splayer = self.add_dash(splayer,obs[3],obs[2]*50,BLACK)
-		rplayer,rect = self.rotate_player(splayer,player.theta,player.position())
-		self.screen.blit(rplayer,rect)
+		if obs:
+			splayer = self.add_dash(splayer,obs[1],obs[0]*50,ORANGE)
+			splayer = self.add_dash(splayer,obs[3],obs[2]*50,BLACK)
+			
+		if player:
+			rplayer,rect = self.rotate_player(splayer,player.theta,player.position())
+			self.screen.blit(rplayer,rect)
 
 		pygame.display.flip()
 		pygame.event.get()

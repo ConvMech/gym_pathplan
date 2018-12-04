@@ -5,6 +5,7 @@ from gym import error, spaces, utils
 
 from gym.envs.pathplan.path_find import PathFinding
 from gym.envs.pathplan.path_find import PathFindingAngle
+from gym.envs.pathplan.path_find import PathFindingCNN
 from gym.envs.pathplan.rendering import MapViewer
 
 class PathFindingEnv(gym.Env):
@@ -38,8 +39,12 @@ class PathFindingEnv(gym.Env):
 	def close(self):
 		self.viewer.stop()
 
+class PathFindingHallwayEnv(PathFindingEnv):
+	def __init__(self):
+		PathFindingEnv.__init__(self, 30, 150)
 
-class PathFindingEnvA(gym.Env):
+
+class PathFindingEnvA(PathFindingEnv):
 	def __init__(self, rows, cols, screen_size=(1500, 300)):
 		n_actions = 3
 		self.task = PathFindingAngle(rows, cols)
@@ -50,33 +55,35 @@ class PathFindingEnvA(gym.Env):
 		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.float32)
 		# 0: forward, 1: left, 2: right
 		self.action_space = spaces.Discrete(11)
-	
-	def reset(self, test=0):
-		return self.task.reset(test)
-
-	def step(self, action):
-		return self.task.step(action)
 
 	def render(self, mode='human'):
-		# map_s = self.task.get_map()
 		map_s = self.task.lidar_map
-		#print(set(map_s.flatten()))
 		if mode is 'human':
 			self.viewer.draw(map_s,self.task.player,self.task.simple_state)
 		elif mode is 'array':
 			return map_s
 
-	def close(self):
-		self.viewer.stop()
-
-
-class PathFindingHallwayEnv(PathFindingEnv):
-	def __init__(self):
-		PathFindingEnv.__init__(self, 30, 150)
-
-
 class PathFindingAngleEnv(PathFindingEnvA):
 	def __init__(self):
 		PathFindingEnvA.__init__(self, 30, 40, screen_size=(400,300))
+
+class PathFindingCnnEnv(PathFindingEnvA):
+	def __init__(self, rows=30, cols=40, screen_size=(400,300)):
+		n_actions = 3
+		self.task = PathFindingCNN(rows, cols)
+		self.task.reset()
+		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
+		shape = self.task.get_state().shape
+		diag = np.sqrt(screen_size[0] ** 2 + screen_size[1] ** 2)
+		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.float32)
+		self.action_space = spaces.Discrete(11)
+
+	def render(self, mode='human'):
+		map_s = self.task.lidar_map
+		if mode is 'human':
+			self.viewer.draw(map_s,self.task.player)
+		elif mode is 'array':
+			return map_s
+
 
 

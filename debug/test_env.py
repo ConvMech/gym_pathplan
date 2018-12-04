@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
-env = gym.make('PathAngle-v0')
+#env = gym.make('PathAngle-v0')
+env = gym.make('PathCNN-v0')
 
 # test
 #for i in range (100):
@@ -17,8 +18,9 @@ for _ in range(100):
 		#print("before")
 		#print("action",a)
 		obs, r, done, _ = env.step(a)
+		print(obs.shape)
 		env.render()
-		time.sleep(0.1)
+		#time.sleep(0.1)
 		#print(obs)
 		#print("out",done)
 		# print ("reward:", r)

@@ -15,6 +15,12 @@ register(
     max_episode_steps=3000,
 )
 
+register(
+    id='PathCNN-v0',
+    entry_point='gym.envs.pathplan:PathFindingCnnEnv',
+    max_episode_steps=3000,
+)
+
 
 register(
     id='Copy-v0',
