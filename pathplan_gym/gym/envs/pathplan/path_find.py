@@ -257,17 +257,12 @@ class PathFindingAngle(object):
     def getMinDis(self, dist, intens, tp):
         part = dist[intens == tp]
 
-        #bug = np.arange(len(intens))
-        #buga = bug[intens == tp]
         if len(part):
             min_dist = min(part)
             angle = np.mean(np.arange(len(dist))[(dist == min_dist) & (intens == tp)]) / float(self.obs.beems)
-            #if tp == 3:
-            #    print("mean:",360*np.mean(buga)/len(intens))
-            angle = - 2*np.pi*angle + self.obs.angle/2.0
-            #angle = -2*np.pi*np.mean(buga)/len(intens) + self.obs.angle/2.0
-            #if tp == 3:
-            #    print("angle:", 180*angle/np.pi)
+            # original angle: left big, right small
+            angle = - self.obs.angle*angle + self.obs.angle/2.0
+            # simple angle : left small, right big
         else:
             min_dist = 0
             angle = 0

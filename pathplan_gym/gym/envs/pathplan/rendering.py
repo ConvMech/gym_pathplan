@@ -28,9 +28,10 @@ class MapViewer(object):
 		player = player.convert_alpha()	
 		center_c = self.player_shape[0]//2
 		center_r = self.player_shape[1]//2
+		# 0 degree pointing right
 		point_1 = [center_c+self.player_size//2,center_r]
 		point_2 = [center_c-self.player_size//2,center_r-self.player_size//2]
-		point_3 = [center_r-self.player_size//2,center_r+self.player_size//2]
+		point_3 = [center_c-self.player_size//2,center_r+self.player_size//2]
 		pygame.draw.line(player, GREEN,[shape[0],shape[1]//2],[center_c,center_r],2)
 		pygame.draw.polygon(player, GREEN, [point_1,point_2,point_3])   
 		#player.set_colorkey(WHITE)   
@@ -95,7 +96,7 @@ class MapViewer(object):
 		if obs:
 			splayer = self.add_dash(splayer,obs[1],obs[0]*50,ORANGE)
 			splayer = self.add_dash(splayer,obs[3],obs[2]*50,BLACK)
-			
+
 		if player:
 			rplayer,rect = self.rotate_player(splayer,player.theta,player.position())
 			self.screen.blit(rplayer,rect)
