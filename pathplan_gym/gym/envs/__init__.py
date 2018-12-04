@@ -21,6 +21,12 @@ register(
     max_episode_steps=3000,
 )
 
+register(
+    id='PathObstacle-v0',
+    entry_point='gym.envs.pathplan:PathFindingObstacle',
+    max_episode_steps=3000,
+)
+
 
 register(
     id='Copy-v0',
