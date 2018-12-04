@@ -196,7 +196,7 @@ class PathFindingAngle(object):
                     self.obstacle[i].vel = 0
                 
 
-    def reset(self, test=0):
+    def reset(self, test=0,simple=True):
         self.terminal = False
         if test == 0:
             self.map_s,self.obstacle = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed,self.target_size) 
@@ -231,7 +231,10 @@ class PathFindingAngle(object):
         self.this_dist = self.distances
         self.this_intens = self.intensities
         
-        return self.get_simple_state()
+        if simple:
+            return self.get_simple_state()
+        else:
+            return self.get_state()
 
     def get_map(self):
         """return a (n, n) grid"""

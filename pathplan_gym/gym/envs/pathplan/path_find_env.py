@@ -63,6 +63,9 @@ class PathFindingEnvA(PathFindingEnv):
 		elif mode is 'array':
 			return map_s
 
+	def reset(self, test=0):
+		return self.task.reset(test,simple=True)
+
 class PathFindingAngleEnv(PathFindingEnvA):
 	def __init__(self):
 		PathFindingEnvA.__init__(self, 30, 40, screen_size=(400,300))
@@ -84,6 +87,9 @@ class PathFindingCnnEnv(PathFindingEnvA):
 			self.viewer.draw(map_s,self.task.player)
 		elif mode is 'array':
 			return map_s
+
+	def reset(self, test=0):
+		return self.task.reset(test,simple=False)
 
 
 
