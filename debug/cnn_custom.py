@@ -60,12 +60,12 @@ class CustomPolicy(ActorCriticPolicy):
 env = gym.make('PathCNN-v0')
 env = DummyVecEnv([lambda: env])
 
-model = PPO2(CnnPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+model = PPO2(CustomPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 # Train the agent
 model.learn(total_timesteps=100000,tb_log_name="first_run")
 
 # Save the agent
-model.save("PathAngle_cnn1")
+model.save("PathAngle_cnn_360")
 #model.save("ppo2_lunar")
 '''
 del model  # delete trained model to demonstrate loading

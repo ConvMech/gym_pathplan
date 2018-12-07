@@ -2,16 +2,18 @@ import gym
 import time
 
 from stable_baselines import A2C,PPO2,DQN
-#from stable_baselines.deepq.policies import MlpPolicy
-from stable_baselines.common.policies import CnnPolicy,MlpPolicy
+from stable_baselines.deepq.policies import MlpPolicy
+#from stable_baselines.common.policies import CnnPolicy,MlpPolicy
 from stable_baselines.common.vec_env import DummyVecEnv
 
-env = gym.make('PathObstacle-v0')
+env = gym.make('PathAngle-v0')
 env = DummyVecEnv([lambda: env])
 
-model = PPO2(MlpPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+#model = PPO2(MlpPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+#model = DQN(MlpPolicy, env, verbose=1, tensorboard_log="./ppo2_proj_tensorboard/")
 
-model = PPO2.load("PathAngle_ppo_ob")
+#model = PPO2.load("PathAngle_ppo_ob")
+model = DQN.load("PathAngle_DQN_sm_target")
 #model = A2C.load("ppo2_lunar")
 # Enjoy trained agent
 obs = env.reset()
