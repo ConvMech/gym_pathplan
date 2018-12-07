@@ -155,7 +155,7 @@ class PathFinding(object):
 
 
 class PathFindingAngle(object):
-    def __init__(self, rows=200, cols=1000,difficulty=0):
+    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,lidarAngle=360):
         """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
         self.rows = rows
         self.cols = cols
@@ -166,17 +166,17 @@ class PathFindingAngle(object):
         self.obstacle = []
         self.terminal = True
         self.lidar_map = None
-        self.obs = discrete_lidar.obeservation(angle=360, lidarRange=50, beems=1080)
+        self.obs = discrete_lidar.obeservation(angle=lidarAngle, lidarRange=50, beems=1080)
         self.steps = 0
         self.target_speed = 0.2
         self.ob_speed = 0.1
-        self.speed_low = 0.1
-        self.speed_high = 0.5
+        self.speed_low = 0.05
+        self.speed_high = 0.1
         self.player_speed = 0.5
         self.difficulty = difficulty
         self.target_dynamic = False
-        self.obstacle_dynamic = False
-        self.target_size = 5
+        self.obstacle_dynamic = obdynamic
+        self.target_size = goalSize
 
     def change_obdir(self,ob):
         ob.theta = np.random.uniform(-np.pi,np.pi)
@@ -222,7 +222,7 @@ class PathFindingAngle(object):
         if self.obstacle_dynamic:
             # reset obstacles with random speed
             if test == 0:
-                self.random_speed(self.speed_low,self.speed_high,randomStatic=True)
+                self.random_speed(self.speed_low,self.speed_high,randomStatic=False)
         else:
             self.random_speed(0,0,randomStatic=False)
 

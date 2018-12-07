@@ -5,7 +5,8 @@ import numpy as np
 import time
 
 #env = gym.make('PathAngle-v0')
-env = gym.make('PathObstacle-v0')
+#env = gym.make('PathObstacle-v1')
+env = gym.make('PathPartial-v0')
 
 # test
 #for i in range (100):
@@ -21,7 +22,7 @@ for _ in range(100):
 		
 		#print(obs.shape)
 		env.render()
-		#time.sleep(1)
+		time.sleep(1)
 		#print(obs)
 		#print("out",done)
 		# print ("reward:", r)

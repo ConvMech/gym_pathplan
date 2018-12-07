@@ -27,6 +27,17 @@ register(
     max_episode_steps=3000,
 )
 
+register(
+    id='PathObstacle-v1',
+    entry_point='gym.envs.pathplan:PathFindingObstacleDynamicEnv',
+    max_episode_steps=3000,
+)
+
+register(
+    id='PathPartial-v0',
+    entry_point='gym.envs.pathplan:PathFindingObstaclePartialEnv',
+    max_episode_steps=3000,
+)
 
 register(
     id='Copy-v0',
