@@ -6,7 +6,8 @@ import time
 
 #env = gym.make('PathAngle-v0')
 #env = gym.make('PathObstacle-v1')
-env = gym.make('PathPartial-v0')
+#env = gym.make('PathPartial-v0')
+env = gym.make('PathTarget-v0')
 
 # test
 #for i in range (100):

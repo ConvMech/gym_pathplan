@@ -40,6 +40,12 @@ register(
 )
 
 register(
+    id='PathTarget-v0',
+    entry_point='gym.envs.pathplan:PathFindingTargetDynamicEnv',
+    max_episode_steps=3000,
+)
+
+register(
     id='Copy-v0',
     entry_point='gym.envs.algorithmic:CopyEnv',
     max_episode_steps=200,

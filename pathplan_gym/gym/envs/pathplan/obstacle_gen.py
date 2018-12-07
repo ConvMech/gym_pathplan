@@ -208,6 +208,7 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
     if target_size:
         map_s.expand_target_size(target_size)
         map_s.add_border()
+        
     targets = map_s.search_object(is_random=True,v=speed,objectId=3)
 
     map_s.delete_border()
