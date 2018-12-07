@@ -22,7 +22,7 @@ for _ in range(100):
 		
 		#print(obs.shape)
 		env.render()
-		time.sleep(1)
+		#time.sleep(0.5)
 		#print(obs)
 		#print("out",done)
 		# print ("reward:", r)
