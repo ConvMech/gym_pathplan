@@ -2,6 +2,7 @@ import numpy as np
 import queue
 import random
 from gym.envs.pathplan.dynamic_object import obstacle
+from gym.envs.pathplan.dynamic_object import target
 
 MOVEMENT = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 class ObstacleGen(object):
@@ -119,12 +120,12 @@ class ObstacleGen(object):
             return False
         return self.dom[x,y] == 0
 
-    def search_object(self,is_random=True,v=0.2):
+    def search_object(self,is_random=True,v=0.2,objectId=1):
 
         def is_object(pos_x, pos_y):
             if pos_x < 0 or pos_x >= self.dom_size[0] or pos_y < 0 or pos_y >= self.dom_size[1]:
                 return False
-            return self.dom[pos_x,pos_y] == 1
+            return self.dom[pos_x,pos_y] == objectId
 
         def object_neighbour(pos_x, pos_y):
             res = []
@@ -166,7 +167,12 @@ class ObstacleGen(object):
                         angle = np.random.uniform(-np.pi,np.pi)
                     else:
                         angle = 45./180*np.pi
-                    ob = obstacle(start[0],start[1],angle,area,v=v)
+
+                    if objectId == 1: # create obstacle list
+                        ob = obstacle(start[0],start[1],angle,area,v=v)
+                    elif objectId == 3: #create targte list
+                        ob = target(start[0],start[1],angle,area,v=v)
+
                     self.ob_origin.append((start[0],start[1],angle,v))
                     objects.append(ob)
 
@@ -201,6 +207,8 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
 
     if target_size:
         map_s.expand_target_size(target_size)
+        map_s.add_border()
+    targets = map_s.search_object(is_random=True,v=speed,objectId=3)
 
     map_s.delete_border()
     #print ("delete border")
@@ -210,4 +218,4 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
     map_s.add_border()
     #print ("added border")
 
-    return map_s,objs
+    return map_s,objs,targets[0] #assume using only one target

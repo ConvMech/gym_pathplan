@@ -88,6 +88,30 @@ class PathFindingObstacleEnv(PathFindingEnv):
 	def reset(self, test=0):
 		return self.task.reset(test,simple=True)
 
+class PathFindingObstacleDynamicEnv(PathFindingObstacleEnv):
+	def __init__(self, rows=30, cols=40, screen_size=(400,300)):
+		n_actions = 3
+		self.task = PathFindingAngle(rows, cols,difficulty=5,obdynamic=True,goalSize=5)
+		self.task.reset()
+		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
+		shape = self.task.get_simple_state().shape
+		diag = np.sqrt(screen_size[0] ** 2 + screen_size[1] ** 2)
+		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.float32)
+		# 0: forward, 1: left, 2: right
+		self.action_space = spaces.Discrete(11)
+
+class PathFindingObstaclePartialEnv(PathFindingObstacleEnv):
+	def __init__(self, rows=30, cols=40, screen_size=(400,300)):
+		n_actions = 3
+		self.task = PathFindingAngle(rows, cols,difficulty=3,obdynamic=False,goalSize=5,lidarAngle=180,tarDynamic=True)
+		self.task.reset()
+		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
+		shape = self.task.get_simple_state().shape
+		diag = np.sqrt(screen_size[0] ** 2 + screen_size[1] ** 2)
+		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.float32)
+		# 0: forward, 1: left, 2: right
+		self.action_space = spaces.Discrete(11)
+
 
 class PathFindingCnnEnv(PathFindingAngleEnv):
 	def __init__(self, rows=30, cols=40, screen_size=(400,300)):

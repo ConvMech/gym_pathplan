@@ -89,11 +89,6 @@ class DynamicObject(object):
 		map_s.dom[self.position()] = 3
 		return map_s
 
-class target(DynamicObject):
-	def __init__(self,x,y,theta,v):
-		DynamicObject.__init__(self,x,y,theta,v)
-
-
 class obstacle(DynamicObject):
 	def __init__(self,x,y,theta,area,v=1):
 		self.xpos = float(x)
@@ -162,4 +157,32 @@ class obstacle(DynamicObject):
 		self.theta = float(theta)
 		self.vel = float(v)
 		map_s = self.change_number(map_s,1)
+		return map_s
+
+class target(obstacle):
+	#def __init__(self,x,y,theta,v):
+	#	DynamicObject.__init__(self,x,y,theta,v)
+	def __init__(self,x,y,theta,area,v):
+		obstacle.__init__(self,x,y,theta,area,v)
+
+	def update(self,map_s):
+		map_s = self.change_number(map_s,0)
+		self.try_forward()
+		if self.obstacle_legal(map_s):
+			self.forward()
+		else:
+			res = self.bounce(map_s)
+			if res:
+				self.forward()
+				
+		map_s = self.change_number(map_s,3)
+		return map_s
+
+	def return_origin(self,map_s,x,y,theta,v):
+		map_s = self.change_number(map_s,0)
+		self.xpos = float(x)
+		self.ypos = float(y)
+		self.theta = float(theta)
+		self.vel = float(v)
+		map_s = self.change_number(map_s,3)
 		return map_s
