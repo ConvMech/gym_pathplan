@@ -9,6 +9,7 @@ env = gym.make('PathCNN-v0')
 #env = gym.make('PathPartial-v0')
 env = gym.make('PathTarget-v0')
 
+
 # test
 #for i in range (100):
 env.reset()
@@ -21,7 +22,7 @@ for _ in range(100):
 		#print("action",a)
 		obs, r, done, _ = env.step(a)
 		#print(obs)
-		#print(obs.shape)
+		print(obs.shape)
 		env.render()
 		#time.sleep(10)
 		#exit()

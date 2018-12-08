@@ -174,15 +174,9 @@ class PathFindingAngle(object):
         self.speed_high = 0.1
         self.player_speed = 0.5
         self.difficulty = difficulty
-<<<<<<< HEAD
-        self.target_dynamic = False
-        self.obstacle_dynamic = False
-        self.target_size = 2
-=======
         self.target_dynamic = tarDynamic
         self.obstacle_dynamic = obdynamic
         self.target_size = goalSize
->>>>>>> 8c0c511c2e1f464506cf41e01ccf58a5c131e2a2
 
     def change_obdir(self,ob):
         ob.theta = np.random.uniform(-np.pi,np.pi)
@@ -417,8 +411,28 @@ class PathFindingAngle(object):
         return reward,False
 
 class PathFindingCNN(PathFindingAngle):
-    def __init__(self, rows=200, cols=1000):
-        PathFindingAngle.__init__(self,rows=rows,cols=cols)
+    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,lidarAngle=360,tarDynamic=False):
+        """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
+        self.rows = rows
+        self.cols = cols
+        self.shape = (rows, cols)
+        self.map_s = None
+        self.player = None
+        self.goal = None
+        self.obstacle = []
+        self.terminal = True
+        self.lidar_map = None
+        self.obs = discrete_lidar.obeservation(angle=lidarAngle, lidarRange=50, beems=1080)
+        self.steps = 0
+        self.target_speed = 0.2
+        self.ob_speed = 0.1
+        self.speed_low = 0.05
+        self.speed_high = 0.1
+        self.player_speed = 0.5
+        self.difficulty = difficulty
+        self.target_dynamic = tarDynamic
+        self.obstacle_dynamic = obdynamic
+        self.target_size = goalSize
 
     def get_state(self, interval = 3):
         state = self.get_map()
