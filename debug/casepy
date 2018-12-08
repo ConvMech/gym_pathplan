@@ -1,0 +1,6 @@
+interval = 3
+dist = [0,0,0,1,0,0,3,1,0]
+x = np.linspace(0, len(dist)-1, interval)
+print(x)
+y = np.array([max(dist[x:x+interval]) for t in x])
+print(y)

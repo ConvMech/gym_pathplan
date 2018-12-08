@@ -174,9 +174,15 @@ class PathFindingAngle(object):
         self.speed_high = 0.1
         self.player_speed = 0.5
         self.difficulty = difficulty
+<<<<<<< HEAD
+        self.target_dynamic = False
+        self.obstacle_dynamic = False
+        self.target_size = 2
+=======
         self.target_dynamic = tarDynamic
         self.obstacle_dynamic = obdynamic
         self.target_size = goalSize
+>>>>>>> 8c0c511c2e1f464506cf41e01ccf58a5c131e2a2
 
     def change_obdir(self,ob):
         ob.theta = np.random.uniform(-np.pi,np.pi)
@@ -414,11 +420,25 @@ class PathFindingCNN(PathFindingAngle):
     def __init__(self, rows=200, cols=1000):
         PathFindingAngle.__init__(self,rows=rows,cols=cols)
 
-    def get_state(self):
+    def get_state(self, interval = 3):
         state = self.get_map()
         self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
         self.lidar_map[self.player.position()] = 2
-        observations = np.vstack([self.distances, self.intensities])
+        ind = np.arange(0,len(self.intensities), interval)  
+        transfer_dist = [np.mean(self.distances[i : i+interval]) for i in ind]
+        transfer_intens = [np.max(self.intensities[i : i+interval]) for i in ind]
+
+        # intens either 1 or 3
+        channel1_ind = [i for i in range(len(transfer_intens)) if transfer_intens[i] == 1]
+        channel2_ind = [i for i in range(len(transfer_intens)) if transfer_intens[i] == 3]
+        channel1_dist = [transfer_dist[i] if i in channel1_ind else 0 for i in range(len(transfer_dist))]
+        channel2_dist = [transfer_dist[i] if i in channel2_ind else 0 for i in range(len(transfer_dist))]
+        #channel1_intens = [1 if i in channel1_ind else 0 for i in range(len(transfer_intens))]
+        #channel2_intens = [1 if i in channel2_ind else 0 for i in range(len(transfer_intens))]
+
+
+        observations = np.vstack([np.array(channel1_dist), np.array(channel2_dist)])
+
         return observations.T
 
     def step_return(self, reward):
