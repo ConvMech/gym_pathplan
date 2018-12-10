@@ -411,7 +411,7 @@ class PathFindingAngle(object):
         return reward,False
 
 class PathFindingCNN(PathFindingAngle):
-    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,lidarAngle=360,tarDynamic=False):
+    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,lidarAngle=360,tarDynamic=False,object_speed=0.5):
         """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
         self.rows = rows
         self.cols = cols
@@ -426,8 +426,8 @@ class PathFindingCNN(PathFindingAngle):
         self.steps = 0
         self.target_speed = 0.2
         self.ob_speed = 0.1
-        self.speed_low = 0.05
-        self.speed_high = 0.1
+        self.speed_low = object_speed*0.8
+        self.speed_high = object_speed
         self.player_speed = 0.5
         self.difficulty = difficulty
         self.target_dynamic = tarDynamic

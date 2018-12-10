@@ -13,12 +13,13 @@ register_policy('CustomPolicy', CustomPolicy)
 env = gym.make('PathCNN-v0')
 env = DummyVecEnv([lambda: env])
 
-model = PPO2(CustomPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
-# Train the agent
-model.learn(total_timesteps=100000,tb_log_name="first_run")
+#model = PPO2(CustomPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 
+model = PPO2.load('PathObstacle_cnn_360-5-raw', policy=CustomPolicy,env=env,verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+
+model.learn(total_timesteps=500000,tb_log_name="dynamic_ob")
 # Save the agent
-model.save("PathAngle_cnn_360-1")
+model.save("Pathplan_dynamic_ob")
 #model.save("ppo2_lunar")
 '''
 del model  # delete trained model to demonstrate loading

@@ -7,7 +7,7 @@ import time
 env = gym.make('PathCNN-v0')
 #env = gym.make('PathObstacle-v0')
 #env = gym.make('PathPartial-v0')
-env = gym.make('PathTarget-v0')
+#env = gym.make('PathTarget-v0')
 
 
 # test
