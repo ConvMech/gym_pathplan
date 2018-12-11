@@ -10,7 +10,7 @@ from cnn_policy import CustomPolicy,CustomPolicy2
 env = gym.make('PathCNN-v0')
 env = DummyVecEnv([lambda: env])
 #model = PPO2(CustomPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
-model = PPO2.load('Pathplan_partial', policy=CustomPolicy2)
+model = PPO2.load('Pathplan_partial2', policy=CustomPolicy2)
 
 obs = env.reset()
 
