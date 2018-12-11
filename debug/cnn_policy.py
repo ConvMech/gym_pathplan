@@ -95,7 +95,7 @@ class CustomPolicy(ActorCriticPolicy):
 
 class CustomPolicy2(ActorCriticPolicy):
 	def __init__(self, sess, ob_space, ac_space, n_env, n_steps, n_batch, reuse=False, **kwargs):
-		super(CustomPolicy, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm=256,
+		super(CustomPolicy2, self).__init__(sess, ob_space, ac_space, n_env, n_steps, n_batch, n_lstm=256,
 										   reuse=reuse, scale=True)
 
 		with tf.variable_scope("model", reuse=reuse):
