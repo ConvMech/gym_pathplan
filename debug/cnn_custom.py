@@ -13,13 +13,14 @@ register_policy('CustomPolicy', CustomPolicy)
 env = gym.make('PathCNN-v0')
 env = DummyVecEnv([lambda: env])
 
-model = PPO2(CustomPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+model = PPO2(CustomPolicy2, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 
-#model = PPO2.load('Pathplan_partial', policy=CustomPolicy,env=env,verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 
-model.learn(total_timesteps=200000,tb_log_name="partial")
+model = PPO2.load('Pathplan_partial', policy=CustomPolicy2,env=env,verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+
+model.learn(total_timesteps=200000,tb_log_name="partial2")
 # Save the agent
-model.save("Pathplan_partial")
+model.save("Pathplan_partial2")
 #model.save("ppo2_lunar")
 '''
 del model  # delete trained model to demonstrate loading
