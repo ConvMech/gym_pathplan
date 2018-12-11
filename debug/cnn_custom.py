@@ -13,7 +13,7 @@ register_policy('CustomPolicy', CustomPolicy)
 env = gym.make('PathCNN-v0')
 env = DummyVecEnv([lambda: env])
 
-model = PPO2(CustomPolicy2, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+model = PPO2(CustomPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 
 #model = PPO2.load('Pathplan_partial', policy=CustomPolicy,env=env,verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 

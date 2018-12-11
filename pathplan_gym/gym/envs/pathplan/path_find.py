@@ -366,9 +366,9 @@ class PathFindingAngle(object):
             self.player.forward()
             reward = -0.05
             #if self.TargetInSight():
-            #    reward = 0
+            #    reward = 0.1
             #else:
-            #    reward = 0
+            #    reward = -0.05
 
         '''
         if self.this_state == 'NS' and next_state == 'SS':
