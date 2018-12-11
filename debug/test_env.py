@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
-env = gym.make('PathCNN-v0')
+env = gym.make('PathRandom-v0')
+#env = gym.make('PathCNN-v0')
 #env = gym.make('PathObstacle-v0')
 #env = gym.make('PathPartial-v0')
 #env = gym.make('PathTarget-v0')
@@ -23,9 +24,9 @@ for _ in range(100):
 		obs, r, done, _ = env.step(a)
 		#print(obs)
 		#print(obs.shape)
-		print(obs)
+		#print(obs)
 		env.render()
-		time.sleep(1)
+		#time.sleep(1)
 		#exit()
 		#print(obs)
 		#print("out",done)
