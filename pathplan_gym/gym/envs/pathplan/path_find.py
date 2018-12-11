@@ -155,7 +155,8 @@ class PathFinding(object):
 
 
 class PathFindingAngle(object):
-    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,lidarAngle=360,tarDynamic=False):
+    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,
+        goalSize=5,lidarAngle=360,tarDynamic=False,randomTargetStatic=False,randomObStatic=False):
         """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
         self.rows = rows
         self.cols = cols
@@ -177,6 +178,8 @@ class PathFindingAngle(object):
         self.target_dynamic = tarDynamic
         self.obstacle_dynamic = obdynamic
         self.target_size = goalSize
+        self.randomTargetStatic = randomTargetStatic
+        self.randomObStatic = randomObStatic
 
     def change_obdir(self,ob):
         ob.theta = np.random.uniform(-np.pi,np.pi)
@@ -223,7 +226,7 @@ class PathFindingAngle(object):
         if self.obstacle_dynamic:
             # reset obstacles with random speed
             if test == 0:
-                self.random_speed(self.speed_low,self.speed_high,randomStatic=False)
+                self.random_speed(self.speed_low,self.speed_high,randomStatic=self.randomObStatic)
         else:
             self.random_speed(0,0,randomStatic=False)
 
@@ -231,6 +234,12 @@ class PathFindingAngle(object):
         self.this_state = self.StateType(this_i, this_j, self.distances, self.intensities)
         self.this_dist = self.distances
         self.this_intens = self.intensities
+
+        #TODO random make targte or obstacle still
+        if self.randomTargetStatic:
+            seed = np.random.randint(2, size=1)
+            if seed:
+                self.goal.vel = 0
         
         if simple:
             return self.get_simple_state()
@@ -423,7 +432,8 @@ class PathFindingAngle(object):
         return reward,False
 
 class PathFindingCNN(PathFindingAngle):
-    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,lidarAngle=360,tarDynamic=False,object_speed=0.5):
+    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,
+        lidarAngle=360,tarDynamic=False,object_speed=0.5,randomTargetStatic=False,randomObStatic=False):
         """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
         self.rows = rows
         self.cols = cols
@@ -445,6 +455,8 @@ class PathFindingCNN(PathFindingAngle):
         self.target_dynamic = tarDynamic
         self.obstacle_dynamic = obdynamic
         self.target_size = goalSize
+        self.randomTargetStatic = randomTargetStatic
+        self.randomObStatic = randomObStatic
 
     def get_state(self, interval = 3):
         state = self.get_map()

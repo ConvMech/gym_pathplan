@@ -46,6 +46,13 @@ register(
 )
 
 register(
+    id='PathRandom-v0',
+    entry_point='gym.envs.pathplan:PathFindingCnnRandomEnv',
+    max_episode_steps=2000,
+)
+
+
+register(
     id='Copy-v0',
     entry_point='gym.envs.algorithmic:CopyEnv',
     max_episode_steps=200,
