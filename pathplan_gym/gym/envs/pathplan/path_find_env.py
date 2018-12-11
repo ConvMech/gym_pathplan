@@ -128,7 +128,7 @@ class PathFindingTargetDynamicEnv(PathFindingObstacleEnv):
 class PathFindingCnnEnv(PathFindingAngleEnv):
 	def __init__(self, rows=30, cols=40, screen_size=(400,300)):
 		n_actions = 3
-		self.task = PathFindingCNN(rows, cols,difficulty=0,obdynamic=False,goalSize=2,lidarAngle=60,tarDynamic=True,object_speed=0.4)
+		self.task = PathFindingCNN(rows, cols,difficulty=0,obdynamic=False,goalSize=5,lidarAngle=60,tarDynamic=False,object_speed=0.4)
 		self.task.reset()
 		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
 		shape = self.task.get_state().shape
