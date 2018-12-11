@@ -6,7 +6,7 @@ from stable_baselines.common.policies import ActorCriticPolicy, register_policy
 from stable_baselines.common.vec_env import DummyVecEnv
 from cnn_policy import CustomPolicy,CustomPolicy2
 
-register_policy('CustomPolicy', CustomPolicy)
+register_policy('CustomPolicy2', CustomPolicy2)
 
 
 # Create and wrap the environment
@@ -16,7 +16,7 @@ env = DummyVecEnv([lambda: env])
 model = PPO2(CustomPolicy2, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 
 
-model = PPO2.load('Pathplan_partial', policy=CustomPolicy2,env=env,verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
+model = PPO2(policy=CustomPolicy2,env=env,verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
 
 model.learn(total_timesteps=200000,tb_log_name="partial2")
 # Save the agent
