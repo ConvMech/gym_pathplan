@@ -286,6 +286,14 @@ class PathFindingAngle(object):
         self.simple_state = res
         return np.array(res)
 
+    def TargetInSight(self):
+        state = self.get_map()
+        self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
+        if 3 in self.intensities:
+            return True
+        else:
+            return False
+
     def StateType(self, x, y, dist, intens, d_min = 5, d_win = 3):
         '''
         Winning State: terminal state, if player hits target
@@ -356,7 +364,11 @@ class PathFindingAngle(object):
         #    reward = -10
         else:
             self.player.forward()
-            reward = -0.1
+            reward = -0.05
+            #if self.TargetInSight():
+            #    reward = 0
+            #else:
+            #    reward = 0
 
         '''
         if self.this_state == 'NS' and next_state == 'SS':
@@ -447,11 +459,14 @@ class PathFindingCNN(PathFindingAngle):
         channel2_ind = [i for i in range(len(transfer_intens)) if transfer_intens[i] == 3]
         channel1_dist = [transfer_dist[i] if i in channel1_ind else 0 for i in range(len(transfer_dist))]
         channel2_dist = [transfer_dist[i] if i in channel2_ind else 0 for i in range(len(transfer_dist))]
-        #channel1_intens = [1 if i in channel1_ind else 0 for i in range(len(transfer_intens))]
-        #channel2_intens = [1 if i in channel2_ind else 0 for i in range(len(transfer_intens))]
+        if 3 in self.intensities:
+            flag = 1
+        else:
+            flag = -1
+        channel3 = np.full((len(transfer_intens),), flag)
 
 
-        observations = np.vstack([np.array(channel1_dist), np.array(channel2_dist)])
+        observations = np.vstack([np.array(channel1_dist), np.array(channel2_dist),channel3])
 
         return observations.T
 
