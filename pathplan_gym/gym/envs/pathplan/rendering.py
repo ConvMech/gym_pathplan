@@ -134,7 +134,7 @@ class MapViewer(object):
 					  pygame.Color(0,0,0,255),
 					  pygame.Color(0,255,0,255),
 					  pygame.Color(255,0,0,255),
-					  pygame.Color(100,127,130,200)]
+					  pygame.Color(255,255,0,255)]
 		else:
 			COLORS = [0xFFFFFF, 0x000000, 0x00FF00, 0xFF0000, 0xFFFF00, 0x333333]
 		if value in range(-1, 5):
