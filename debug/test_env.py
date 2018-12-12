@@ -4,8 +4,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
-env = gym.make('PathRandom-v0')
-#env = gym.make('PathCNN-v0')
+#env = gym.make('PathAngleSpeed-v0')
+#env = gym.make('PathRandom-v0')
+env = gym.make('PathCNN-v0')
 #env = gym.make('PathObstacle-v0')
 #env = gym.make('PathPartial-v0')
 #env = gym.make('PathTarget-v0')

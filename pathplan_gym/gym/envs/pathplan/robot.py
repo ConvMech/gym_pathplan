@@ -42,36 +42,30 @@ class RobotPlayer(obeservation):
         self.w = w
 
     
-    def set_angle(self, action):
-        angle = self.theta - np.pi/2 + (action) * (18./180 * np.pi)
+    def set_angle(self, action, min_angle=15):
+        angle = self.theta - np.pi/4 + action * (float(min_angle)/180 * np.pi)
         if angle <= -np.pi:
             self.theta = angle + 2*np.pi
         elif angle > np.pi:
             self.theta = angle - 2*np.pi
         else:
             self.theta = angle
-        #print("delta", -180.0/2 + (action) * (18))
 
-    '''
-    if action == 1:
-        if self.theta > np.pi/2 and self.theta <= np.pi:
-            self.theta = self.theta + angle - 2*np.pi
-        else:
-            self.theta += angle
-    elif action == 2:
-        if self.theta > -np.pi and self.theta <= -np.pi/2:
-            self.theta = self.theta - angle + 2*np.pi
-        else:
-            self.theta -= angle
-    else:
-        self.theta = self.theta
-    '''
-    
-    '''
-    def set_angle(self, action):
-        action_space = np.linspace(-np.pi, np.pi, 11)
-        self.theta = action_space[action]
-    '''
+    def set_speed(self, action, init_speed):
+        if action == 0:
+            self.vel = 0
+        if action == 1:
+            self.vel = 0.2 * init_speed
+        if action == 2:
+            self.vel = 0.5 * init_speed
+        if action == 3:
+            self.vel = 0.8 * init_speed
+        if action == 4:
+            self.vel = 1.0 * init_speed
+        if action == 5:
+            self.vel = 1.2 * init_speed
+        if action == 6:
+            self.vel = 1.5 * init_speed
 
     def position(self):
         return int(self.xpos), int(self.ypos)

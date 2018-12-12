@@ -6,3 +6,4 @@ from gym.envs.pathplan.path_find_env import PathFindingObstacleDynamicEnv
 from gym.envs.pathplan.path_find_env import PathFindingObstaclePartialEnv
 from gym.envs.pathplan.path_find_env import PathFindingTargetDynamicEnv
 from gym.envs.pathplan.path_find_env import PathFindingCnnRandomEnv
+from gym.envs.pathplan.path_find_env import PathFindingAngleSpeedEnv

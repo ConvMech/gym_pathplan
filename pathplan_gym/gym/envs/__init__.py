@@ -51,6 +51,12 @@ register(
     max_episode_steps=2000,
 )
 
+register(
+    id='PathAngleSpeed-v0',
+    entry_point='gym.envs.pathplan:PathFindingAngleSpeedEnv',
+    max_episode_steps=1000,
+)
+
 
 register(
     id='Copy-v0',

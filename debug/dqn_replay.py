@@ -1,20 +1,17 @@
 import gym
-import tensorflow as tf
-from stable_baselines import A2C,PPO2
-from stable_baselines.a2c.utils import linear
-from stable_baselines.common.policies import ActorCriticPolicy, register_policy
+
+from stable_baselines import A2C,PPO2,DQN
+#from stable_baselines.deepq.policies import MlpPolicy
+from stable_baselines.common.policies import register_policy
 from stable_baselines.common.vec_env import DummyVecEnv
-from cnn_policy import CustomPolicy,CustomPolicy2
+from dqn_policy import DQNCustomPolicy
+
 
 # Create and wrap the environment
-env = gym.make('PathRandom-v0')
+env = gym.make('PathCNN-v0')
 env = DummyVecEnv([lambda: env])
 #model = PPO2(CustomPolicy, env, verbose=1,tensorboard_log="./ppo2_proj_tensorboard/")
-<<<<<<< HEAD
-model = PPO2.load('Pathplan_partial3', policy=CustomPolicy2)
-=======
-model = PPO2.load('Pathplan_static-1', policy=CustomPolicy2)
->>>>>>> 293dadf93c687995f32914f1d435a3c893243a52
+model = DQN.load('PathAngle_DQN_cnn-1', policy=DQNCustomPolicy)
 
 obs = env.reset()
 
