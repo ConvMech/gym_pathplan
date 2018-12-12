@@ -155,31 +155,41 @@ class PathFinding(object):
 
 
 class PathFindingAngle(object):
-    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,
-        goalSize=5,lidarAngle=360,tarDynamic=False,randomTargetStatic=False,randomObStatic=False):
-        """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
+    def __init__(self, rows=200, cols=1000, lidarAngle=360,
+        tarSize=5,numObstacle=0,tarDynamic=False,obDynamic=False,
+        playerSpeed=0.5, tarSpeed=0.2, obSpeed=0.1,
+        randTarStatic=False,randObStatic=False):
+        """value in map: 0: nothing 1: wall/obstacle 2: player 3: target"""
+        # map
         self.rows = rows
         self.cols = cols
         self.shape = (rows, cols)
         self.map_s = None
-        self.player = None
-        self.goal = None
-        self.obstacle = []
-        self.terminal = True
         self.lidar_map = None
-        self.obs = discrete_lidar.obeservation(angle=lidarAngle, lidarRange=50, beems=1080)
+        self.lidar_obs = discrete_lidar.obeservation(angle=lidarAngle, lidarRange=50, beems=1080)
+        
+        # player
+        self.player = None
+        self.player_speed = playerSpeed
+        self.terminal = True
         self.steps = 0
-        self.target_speed = 0.2
-        self.ob_speed = 0.1
-        self.speed_low = 0.05
-        self.speed_high = 0.1
-        self.player_speed = 0.5
-        self.difficulty = difficulty
+        
+        # target
+        self.target = None
+        self.target_size = tarSize
         self.target_dynamic = tarDynamic
-        self.obstacle_dynamic = obdynamic
-        self.target_size = goalSize
-        self.randomTargetStatic = randomTargetStatic
-        self.randomObStatic = randomObStatic
+        self.target_speed = tarSpeed
+        self.randTarStatic = randTarStatic
+        
+        # obstacle
+        self.num_obstacle = numObstacle
+        self.obstacle = []
+        self.obstacle_dynamic = obDynamic
+        self.ob_speed = obSpeed
+        self.ob_speed_low = self.ob_speed * 0.5
+        self.ob_speed_high = self.ob_speed * 1.5
+        self.randObStatic = randObStatic
+
 
     def change_obdir(self,ob):
         ob.theta = np.random.uniform(-np.pi,np.pi)
@@ -187,12 +197,12 @@ class PathFindingAngle(object):
 
     def random_dir(self,frequency = 10):
         if self.steps % frequency == 0:
-            for i in range(self.ob_num):
+            for i in range(self.ob_num_merge):
                 self.obstacle[i] = self.change_obdir(self.obstacle[i])
 
     def random_speed(self,low,high,randomStatic = True):
-        ob_is_dynamic = np.random.randint(2, size = self.ob_num)
-        for i in range(self.ob_num):
+        ob_is_dynamic = np.random.randint(2, size = self.ob_num_merge)
+        for i in range(self.ob_num_merge):
             self.obstacle[i].vel = np.random.uniform(low,high)
             if randomStatic:
                 if not ob_is_dynamic[i]:
@@ -201,32 +211,33 @@ class PathFindingAngle(object):
 
     def reset(self, test=0,simple=True):
         self.terminal = False
+        # whether reset the map or not
         if test == 0:
-            self.map_s,self.obstacle,self.goal = obstacle_gen.generate_map(self.shape, self.rows//5, self.difficulty,self.ob_speed,self.target_size) 
-            self.goal_theta = np.random.uniform(-np.pi,np.pi)
+            self.map_s,self.obstacle,self.target = obstacle_gen.generate_map(self.shape, self.rows//5, self.num_obstacle,self.ob_speed,self.target_size) 
+            self.target_theta = np.random.uniform(-np.pi,np.pi)
         else:
             # reset enviornment to stored origin 
-            self.map_s = self.goal.set_position(self.map_s,self.map_s.goal[0],self.map_s.goal[1],self.goal_theta,v=self.target_speed)
-            for i in range(self.ob_num):
+            self.map_s = self.target.set_position(self.map_s,self.map_s.target[0],self.map_s.target[1],self.target_theta,v=self.target_speed)
+            for i in range(self.ob_num_merge):
                 x,y,theta,v = self.map_s.ob_origin[i]
                 self.map_s = self.obstacle[i].return_origin(self.map_s,x,y,theta,v)
 
-        self.ob_num = len(self.obstacle)
+        self.ob_num_merge = len(self.obstacle)
         self.player = robot.RobotPlayer(self.map_s.start[0], self.map_s.start[1], 0, v=self.player_speed)
         
         if self.target_dynamic:
-            self.goal.vel = self.target_speed
-            self.goal.theta = self.goal_theta
+            self.target.vel = self.target_speed
+            self.target.theta = self.target_theta
         else:
-            self.goal.vel = 0
+            self.target.vel = 0
         
-        self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=self.get_map(), location=self.player.position(), theta=self.player.theta)
+        self.distances, self.intensities, _, self.lidar_map = self.lidar_obs.observe(mymap=self.get_map(), location=self.player.position(), theta=self.player.theta)
         self.lidar_map[self.player.position()] = 2
         
         if self.obstacle_dynamic:
             # reset obstacles with random speed
             if test == 0:
-                self.random_speed(self.speed_low,self.speed_high,randomStatic=self.randomObStatic)
+                self.random_speed(self.ob_speed_low,self.ob_speed_high,randomStatic=self.randObStatic)
         else:
             self.random_speed(0,0,randomStatic=False)
 
@@ -235,11 +246,10 @@ class PathFindingAngle(object):
         self.this_dist = self.distances
         self.this_intens = self.intensities
 
-        #TODO random make targte or obstacle still
-        if self.randomTargetStatic:
+        if self.randTarStatic:
             seed = np.random.randint(2, size=1)
             if seed:
-                self.goal.vel = 0
+                self.target.vel = 0
         
         if simple:
             return self.get_simple_state()
@@ -250,7 +260,7 @@ class PathFindingAngle(object):
         """return a (n, n) grid"""
         state = np.array(self.map_s.dom, copy=True)
         state[self.player.position()] = 2
-        state[self.goal.position()] = 3
+        state[self.target.position()] = 3
         return state
 
     def get_state_map(self):
@@ -272,9 +282,9 @@ class PathFindingAngle(object):
 
         if len(part):
             min_dist = min(part)
-            angle = np.mean(np.arange(len(dist))[(dist == min_dist) & (intens == tp)]) / float(self.obs.beems)
+            angle = np.mean(np.arange(len(dist))[(dist == min_dist) & (intens == tp)]) / float(self.lidar_obs.beems)
             # original angle: left big, right small
-            angle = - self.obs.angle*angle + self.obs.angle/2.0
+            angle = - self.lidar_obs.angle*angle + self.lidar_obs.angle/2.0
             # simple angle : left small, right big
         else:
             min_dist = 0
@@ -287,7 +297,7 @@ class PathFindingAngle(object):
         '''
 
         state = self.get_map()
-        self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
+        self.distances, self.intensities, _, self.lidar_map = self.lidar_obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
         self.lidar_map[self.player.position()] = 2
         target_dist, target_angle = self.getMinDis(self.distances, self.intensities, 3)
         nearest_obs_dist, nearest_obs_angle = self.getMinDis(self.distances, self.intensities, 1)
@@ -303,7 +313,7 @@ class PathFindingAngle(object):
         else:
             return False
 
-    def StateType(self, x, y, dist, intens, d_min = 5, d_win = 3):
+    def StateType(self, x, y, dist, intens, d_min = 3, d_win = 3):
         '''
         Winning State: terminal state, if player hits target
         Failure State: terminal state, if player hits obstacle
@@ -339,16 +349,16 @@ class PathFindingAngle(object):
         self.random_dir()
         
         if self.target_dynamic:
-            self.map_s = self.goal.update(self.map_s)
+            self.map_s = self.target.update(self.map_s)
         
-        for i in range(self.ob_num):
+        for i in range(self.ob_num_merge):
             self.map_s = self.obstacle[i].update(self.map_s)
 
         self.player.set_angle(a)
         
         # 2) Try forward player movement, lidar map observation
         self.player.try_forward()
-        self.player.try_forward_lidar(self.get_map(), self.obs)
+        self.player.try_forward_lidar(self.get_map(), self.lidar_obs)
 
         
         next_i, next_j = self.player.nposition()
@@ -368,12 +378,12 @@ class PathFindingAngle(object):
         elif next_state == 'FS':
             self.terminal = True
             reward = -100
-        #elif next_state == 'NS':
-        #    self.player.forward()
-        #    reward = -10
+        elif next_state == 'SS':
+            self.player.forward()
+            reward = 0
         else:
             self.player.forward()
-            reward = -0.05
+            reward = -0.1
             #if self.TargetInSight():
             #    reward = 0.1
             #else:
@@ -432,35 +442,19 @@ class PathFindingAngle(object):
         return reward,False
 
 class PathFindingCNN(PathFindingAngle):
-    def __init__(self, rows=200, cols=1000,difficulty=0,obdynamic=False,goalSize=5,
-        lidarAngle=360,tarDynamic=False,object_speed=0.5,randomTargetStatic=False,randomObStatic=False):
-        """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
-        self.rows = rows
-        self.cols = cols
-        self.shape = (rows, cols)
-        self.map_s = None
-        self.player = None
-        self.goal = None
-        self.obstacle = []
-        self.terminal = True
-        self.lidar_map = None
-        self.obs = discrete_lidar.obeservation(angle=lidarAngle, lidarRange=50, beems=1080)
-        self.steps = 0
-        self.target_speed = 0.2
-        self.ob_speed = 0.1
-        self.speed_low = object_speed*0.8
-        self.speed_high = object_speed
-        self.player_speed = 0.5
-        self.difficulty = difficulty
-        self.target_dynamic = tarDynamic
-        self.obstacle_dynamic = obdynamic
-        self.target_size = goalSize
-        self.randomTargetStatic = randomTargetStatic
-        self.randomObStatic = randomObStatic
+    def __init__(self, rows=200, cols=1000, lidarAngle=360,
+        tarSize=5,numObstacle=0,tarDynamic=False,obDynamic=False,
+        playerSpeed=0.5, tarSpeed=0.2, obSpeed=0.1,
+        randTarStatic=False,randObStatic=False):
+        """value in map: 0: nothing 1: wall/obstacle 2: player 3: target"""
+        super(PathFindingCNN, self).__init__(rows, cols, lidarAngle,
+        tarSize,numObstacle,tarDynamic,obDynamic,
+        playerSpeed, tarSpeed, obSpeed,
+        randTarStatic,randObStatic)
 
     def get_state(self, interval = 3):
         state = self.get_map()
-        self.distances, self.intensities, _, self.lidar_map = self.obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
+        self.distances, self.intensities, _, self.lidar_map = self.lidar_obs.observe(mymap=state, location=self.player.position(), theta=self.player.theta)
         self.lidar_map[self.player.position()] = 2
         ind = np.arange(0,len(self.intensities), interval)  
         transfer_dist = [np.mean(self.distances[i : i+interval]) for i in ind]
@@ -477,7 +471,6 @@ class PathFindingCNN(PathFindingAngle):
             flag = -1
         channel3 = np.full((len(transfer_intens),), flag)
 
-
         observations = np.vstack([np.array(channel1_dist), np.array(channel2_dist),channel3])
 
         return observations.T
@@ -486,3 +479,67 @@ class PathFindingCNN(PathFindingAngle):
         #print(self.get_state(), reward, self.terminal, {})
         return self.get_state(), reward, self.terminal, {}
 
+class PathFindingAngleSpeed(PathFindingCNN):
+    def __init__(self,rows,cols,num_angles,num_speeds,lidarAngle=360,
+        tarSize=5,numObstacle=0,tarDynamic=False,obDynamic=False,
+        playerSpeed=0.5, tarSpeed=0.2, obSpeed=0.1,
+        randTarStatic=False,randObStatic=False):
+        """value in map: 0: nothing 1: wall/obstacle 2: player 3: goal"""
+        super(PathFindingAngleSpeed, self).__init__(rows,cols,lidarAngle,
+        tarSize,numObstacle,tarDynamic,obDynamic,
+        playerSpeed, tarSpeed, obSpeed,
+        randTarStatic,randObStatic)
+        self.num_angles = num_angles
+        self.num_speeds = num_speeds
+
+    def split_action(self, a):
+        angle_action = a % self.num_angles
+        speed_action = a // self.num_angles
+        return angle_action, speed_action
+
+
+    def step(self, action):
+
+        self.steps += 1
+
+        # In this step
+        # 1) Update target, obstacle, map_s, player action
+        self.random_dir()
+        
+        if self.target_dynamic:
+            self.map_s = self.goal.update(self.map_s)
+        
+        for i in range(self.ob_num_merge):
+            self.map_s = self.obstacle[i].update(self.map_s)
+
+        angle_a, speed_a = self.split_action(action)
+        #print(angle_a, speed_a)
+        self.player.set_angle(angle_a)
+        self.player.set_speed(speed_a,self.player_speed)
+        #print(self.player.vel)
+        
+        # 2) Try forward player movement, lidar map observation
+        self.player.try_forward()
+        self.player.try_forward_lidar(self.get_map(), self.lidar_obs)
+
+        
+        next_i, next_j = self.player.nposition()
+        next_dist, next_intens = self.player.n_distances, self.player.n_intensities
+        next_state = self.StateType(next_i, next_j, next_dist, next_intens)
+        
+        if next_state == 'WS':
+            self.terminal = True
+            reward = 100
+        elif next_state == 'FS':
+            self.terminal = True
+            reward = -100
+        else:
+            self.player.forward()
+            #print(self.player.position())
+            reward = -0.1
+
+        self.this_state = next_state
+        self.this_dist = next_dist
+        self.this_intens = next_intens
+
+        return self.step_return(reward)

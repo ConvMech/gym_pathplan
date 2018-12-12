@@ -19,6 +19,22 @@ def nature_cnn1d(scaled_images, **kwargs):
 	mlp = tf.contrib.layers.fully_connected(flatten,16)
 	return mlp
 
+def nature_cnn1d_2(scaled_images, **kwargs):
+    layer1 = tf.layers.conv1d(scaled_images, filters=20, kernel_size=4, strides=4, 
+            padding='valid', data_format='channels_last', activation=tf.nn.relu)
+
+    #max_pool_1 = tf.layers.max_pooling1d(inputs=layer1, pool_size=4, strides=4, padding='same')
+
+    layer2 = tf.layers.conv1d(layer1, filters=64, kernel_size=4, strides=4, 
+        padding='valid', data_format='channels_last', activation=tf.nn.relu)
+
+    #max_pool_2 = tf.layers.max_pooling1d(inputs=layer2, pool_size=2, strides=2, padding='same')
+
+    flatten = tf.contrib.layers.flatten(layer2)
+
+    mlp = tf.contrib.layers.fully_connected(flatten,64)
+    return mlp
+
 class DQNCustomPolicy(DQNPolicy):
     """
     Policy object that implements a DQN policy, using a feed forward neural network.

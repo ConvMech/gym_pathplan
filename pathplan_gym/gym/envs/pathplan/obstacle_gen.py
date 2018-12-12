@@ -1,15 +1,15 @@
 import numpy as np
 import queue
 import random
-from gym.envs.pathplan.dynamic_object import obstacle
-from gym.envs.pathplan.dynamic_object import target
+from gym.envs.pathplan.dynamic_object import ObstacleObject
+from gym.envs.pathplan.dynamic_object import TargetObject
 
 MOVEMENT = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 class ObstacleGen(object):
     def __init__(self, dom_size, size_max):
         self.dom_size = dom_size # dom_size should be a list or tuple with two elements
         self.start = None
-        self.goal = None
+        self.target = None
         self.dom = np.zeros(dom_size)
         self.mask = None
         self.size_max = size_max
@@ -52,7 +52,7 @@ class ObstacleGen(object):
         return 1
 
     def expand_target_size(self,size,type='circle'):
-        tx,ty = self.goal
+        tx,ty = self.target
         im_try = self.insert_shape(type, (size, tx,ty),fill=3)
         self.dom = im_try
 
@@ -82,18 +82,18 @@ class ObstacleGen(object):
             self.dom[0,j] = 0
             self.dom[self.dom.shape[0]-1, j] = 0
 
-    def spawn_start_goal(self, start_pos=0.7, goal_pos=0.8):
+    def spawn_start_target(self, start_pos=0.7, target_pos=0.8):
         # spawn a start point at the first 70% percent
         x, y = np.where(self.dom[:, :int(start_pos * self.dom_size[1])] == 0)
         free_pos = list(zip(x, y))
         start = random.sample(free_pos, 1)[0]
         # spawn a start point at the last 20% percent
-        x, y = np.where(self.dom[:, :int(goal_pos * self.dom_size[1])] == 0)
+        x, y = np.where(self.dom[:, :int(target_pos * self.dom_size[1])] == 0)
         free_pos = list(zip(x, y))
-        goal = random.sample(free_pos, 1)[0]
-        return start, goal
+        target = random.sample(free_pos, 1)[0]
+        return start, target
 
-    def path_exists(self, start, goal):
+    def path_exists(self, start, target):
         """test if there exists a path from start to goal using depth first search"""
         stack = [(start, [start])]
         visited = set()
@@ -104,7 +104,7 @@ class ObstacleGen(object):
             legal_cells = set(self.legal_directions(*vertex)) - visited
 
             for next in legal_cells:
-                if next == goal:
+                if next == target:
                     return True
                 stack.append((next, path + [next]))
         return False
@@ -169,9 +169,9 @@ class ObstacleGen(object):
                         angle = 45./180*np.pi
 
                     if objectId == 1: # create obstacle list
-                        ob = obstacle(start[0],start[1],angle,area,v=v)
+                        ob = ObstacleObject(start[0],start[1],angle,area,v=v)
                     elif objectId == 3: #create targte list
-                        ob = target(start[0],start[1],angle,area,v=v)
+                        ob = TargetObject(start[0],start[1],angle,area,v=v)
 
                     self.ob_origin.append((start[0],start[1],angle,v))
                     objects.append(ob)
@@ -198,12 +198,12 @@ def generate_map(shape, obs_size, num_obstacles,speed,target_size=0):
     #print ("added obstaclea")
 
     #sample start and goal for the map
-    while map_s.start is None or map_s.goal is None:
-        start, goal = map_s.spawn_start_goal(1,1)
+    while map_s.start is None or map_s.target is None:
+        start, target = map_s.spawn_start_target(1,1)
         print ("checking if a valid env")
-        if map_s.path_exists(start, goal):
+        if map_s.path_exists(start, target):
             map_s.start = start 
-            map_s.goal = goal
+            map_s.target = target
 
     if target_size:
         map_s.expand_target_size(target_size)
