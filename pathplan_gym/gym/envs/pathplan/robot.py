@@ -42,8 +42,9 @@ class RobotPlayer(obeservation):
         self.w = w
 
     
-    def set_angle(self, action, min_angle=15):
-        angle = self.theta - np.pi/4 + action * (float(min_angle)/180 * np.pi)
+    def set_angle(self, action, leftRightLimit=45,actionPossible=11):
+        sideDivide = int((actionPossible - 1)//2)
+        angle = self.theta - np.pi*(leftRightLimit/180.0) + action * (float(leftRightLimit/sideDivide)/180 * np.pi)
         if angle <= -np.pi:
             self.theta = angle + 2*np.pi
         elif angle > np.pi:
