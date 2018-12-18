@@ -21,6 +21,7 @@ for _ in range(100):
 	while not done:
 		a = env.action_space.sample()
 		#print("before")
+		#a = 5
 		#print("action",a)
 		obs, r, done, _ = env.step(a)
 		#print(obs)

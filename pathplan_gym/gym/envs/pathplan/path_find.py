@@ -158,7 +158,7 @@ class PathFindingAngle(object):
     def __init__(self, rows=200, cols=1000, lidarAngle=360,
         tarSize=5,numObstacle=0,tarDynamic=False,obDynamic=False,
         playerSpeed=0.5, tarSpeed=0.2, obSpeed=0.1,
-        randTarStatic=False,randObStatic=False,nAction=11):
+        randTarStatic=False,randObStatic=False,nAction=11,rangeLim=45):
         """value in map: 0: nothing 1: wall/obstacle 2: player 3: target"""
         # map
         self.rows = rows
@@ -173,6 +173,8 @@ class PathFindingAngle(object):
         self.player_speed = playerSpeed
         self.terminal = True
         self.steps = 0
+        self.nAction = nAction
+        self.rangeLim = rangeLim
         
         # target
         self.target = None
@@ -189,7 +191,6 @@ class PathFindingAngle(object):
         self.ob_speed_low = self.ob_speed * 0.5
         self.ob_speed_high = self.ob_speed * 1.5
         self.randObStatic = randObStatic
-        self.nAction = nAction
 
 
     def change_obdir(self,ob):
@@ -355,7 +356,7 @@ class PathFindingAngle(object):
         for i in range(self.ob_num_merge):
             self.map_s = self.obstacle[i].update(self.map_s)
 
-        self.player.set_angle(a,leftRightLimit=45,actionPossible=self.nAction)
+        self.player.set_angle(a,leftRightLimit=self.rangeLim,actionPossible=self.nAction)
         
         # 2) Try forward player movement, lidar map observation
         self.player.try_forward()
@@ -446,12 +447,12 @@ class PathFindingCNN(PathFindingAngle):
     def __init__(self, rows=200, cols=1000, lidarAngle=360,
         tarSize=5,numObstacle=0,tarDynamic=False,obDynamic=False,
         playerSpeed=0.5, tarSpeed=0.2, obSpeed=0.1,
-        randTarStatic=False,randObStatic=False,nAction=11):
+        randTarStatic=False,randObStatic=False,nAction=11,rangeLim=45):
         """value in map: 0: nothing 1: wall/obstacle 2: player 3: target"""
         super(PathFindingCNN, self).__init__(rows, cols, lidarAngle,
         tarSize,numObstacle,tarDynamic,obDynamic,
         playerSpeed, tarSpeed, obSpeed,
-        randTarStatic,randObStatic,nAction)
+        randTarStatic,randObStatic,nAction,rangeLim)
 
     def get_state(self, interval = 3):
         state = self.get_map()

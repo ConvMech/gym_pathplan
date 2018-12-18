@@ -8,9 +8,10 @@ YELLOW = (255 , 255 , 0)
 GREEN = (0 , 255 , 0)  
 WHITE = (255 , 255 , 255)
 ORANGE = (255,69,0)
+DGREEN = (34,139,34)
 
 class MapViewer(object):
-	def __init__(self, screen_width, screen_height, map_rows, map_cols):
+	def __init__(self, screen_width, screen_height, map_rows, map_cols,playerSize=20):
 		self.screen_width = screen_width
 		self.screen_height = screen_height
 		self.map_rows = map_rows
@@ -19,10 +20,10 @@ class MapViewer(object):
 		self.started = False
 
 		self.system = platform.system()
-		self.player_size = 20
+		self.player_size = playerSize
 		self.player_shape = (100,100) #col,row
 
-	def spwan_player(self):
+	def spwan_player(self,drawDir=True):
 		shape = self.player_shape
 		player = pygame.Surface(shape, pygame.SRCALPHA, 32)
 		player = player.convert_alpha()	
@@ -32,7 +33,8 @@ class MapViewer(object):
 		point_1 = [center_c+self.player_size//2,center_r]
 		point_2 = [center_c-self.player_size//2,center_r-self.player_size//2]
 		point_3 = [center_c-self.player_size//2,center_r+self.player_size//2]
-		pygame.draw.line(player, GREEN,[shape[0],shape[1]//2],[center_c,center_r],2)
+		if drawDir:
+			pygame.draw.line(player, GREEN,[shape[0],shape[1]//2],[center_c,center_r],2)
 		pygame.draw.polygon(player, GREEN, [point_1,point_2,point_3])   
 		#player.set_colorkey(WHITE)   
 		#player.fill(WHITE)
@@ -94,6 +96,7 @@ class MapViewer(object):
 
 		splayer = self.spwan_player()
 		if obs:
+			# for debugging use, can draw arbitry line to from the player
 			splayer = self.add_dash(splayer,obs[1],obs[0]*50,ORANGE)
 			splayer = self.add_dash(splayer,obs[3],obs[2]*50,BLACK)
 
@@ -140,4 +143,52 @@ class MapViewer(object):
 		if value in range(-1, 5):
 			return COLORS[value]
 		return 0xFFFF00
+
+	def trajectoryDrawer(self,map_s,playerHistory,saveName,lidarMap=False,skip=2):
+		if not self.started:
+			self.start()
+
+		i = 0
+		self.surface.fill((0, 0, 0))
+		self.screen.blit(self.surface, (0, 0))
+
+		for (i, j), value in np.ndenumerate(map_s):
+			x, y = j, i # TODO: actually I do not know if neccessary
+			if not lidarMap:
+				if value == 4:
+					value = 0
+			quad = self.screen_quad_position(x, y)
+			# print ("value is:", value)
+			color = self.get_color(int(value))
+
+			pygame.draw.rect(self.surface, color, quad)
+
+		self.screen.blit(self.surface, (0, 0))
+
+		oldPos = None
+
+		line = pygame.Surface(self.screen.get_size(), pygame.SRCALPHA, 32)
+		for player in playerHistory:
+
+			i += 1
+			splayer = self.spwan_player(drawDir=False)
+			rplayer,rect = self.rotate_player(splayer,player.theta,player.position())
+			if oldPos:
+				#print("line")
+				pygame.draw.line(line,DGREEN,
+					self.screen_position(oldPos),self.screen_position(player.position()),3)
+
+			oldPos = player.position()
+
+			if i % skip == 0:
+				self.screen.blit(rplayer,rect)
+
+		self.screen.blit(line,(0, 0))
+
+		pygame.display.flip()
+		pygame.event.get()
+		pygame.image.save(self.screen,saveName)
+
+		return
+
 

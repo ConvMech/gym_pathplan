@@ -1,6 +1,7 @@
 import pygame
 import numpy as np 
 import gym
+import copy
 from gym import error, spaces, utils
 
 from gym.envs.pathplan.path_find import PathFinding
@@ -128,9 +129,9 @@ class PathFindingTargetDynamicEnv(PathFindingObstacleEnv):
 
 class PathFindingCnnEnv(PathFindingAngleEnv):
 	def __init__(self, rows=30, cols=40, screen_size=(400,300)):
-		n_actions = 5
-		self.task = PathFindingCNN(rows, cols,lidarAngle=60,tarSize=5,numObstacle=0,
-			tarDynamic=False,obDynamic=False,playerSpeed=0.3,nAction=n_actions)
+		n_actions = 11
+		self.task = PathFindingCNN(rows, cols,lidarAngle=60,tarSize=5,numObstacle=5,
+			tarDynamic=False,obDynamic=False,playerSpeed=0.6,nAction=n_actions,rangeLim=180)
 		self.task.reset()
 		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
 		shape = self.task.get_state().shape
@@ -138,12 +139,14 @@ class PathFindingCnnEnv(PathFindingAngleEnv):
 		self.observation_space = spaces.Box(low=0, high=diag, shape=shape, dtype=np.float32)
 		self.action_space = spaces.Discrete(n_actions)
 
-	def render(self, mode='human'):
+	def render(self, mode='human',storeHistory=False):
 		map_s = self.task.lidar_map
 		if mode is 'human':
 			self.viewer.draw(map_s,self.task.player)
 		elif mode is 'array':
 			return map_s
+		if storeHistory:
+			return [copy.deepcopy(map_s),copy.deepcopy(self.task.player)]
 
 	def reset(self, test=0):
 		return self.task.reset(test,simple=False)
@@ -155,7 +158,7 @@ class PathFindingCnnRandomEnv(PathFindingCnnEnv):
 		self.task = PathFindingCNN(rows, cols,lidarAngle=60,
         tarSize=2,numObstacle=5,tarDynamic=True,obDynamic=True,
         playerSpeed=0.3, tarSpeed=0.2, obSpeed=0.1,
-        randTarStatic=True,randObStatic=True)
+        randTarStatic=True,randObStatic=True,nAction=n_actions,rangeLim=45)
 		self.task.reset()
 		self.viewer = MapViewer(screen_size[0], screen_size[1], rows, cols) #test if *(screen_size) works
 		shape = self.task.get_state().shape
