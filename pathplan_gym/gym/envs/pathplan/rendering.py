@@ -144,37 +144,52 @@ class MapViewer(object):
 			return COLORS[value]
 		return 0xFFFF00
 
-	def trajectoryDrawer(self,map_s,playerHistory,saveName,lidarMap=False,skip=2):
+	def trajectoryDrawer(self,mapHistory,playerHistory,saveName,lidarMap=False,skip=2,mapTotal=5):
 		if not self.started:
 			self.start()
 
-		i = 0
-		self.surface.fill((0, 0, 0))
-		self.screen.blit(self.surface, (0, 0))
+		mapNum = 0
+		N = mapHistory.shape[0]
+		mapSkip = N//mapTotal
+		for map_s in mapHistory:
+			mapNum += 1
+			if mapNum % mapSkip != 0 and mapNum != N:
+				continue
+			
+			if mapNum != N:
+				base = pygame.Surface(self.screen.get_size())
+				base.set_alpha(255//mapTotal)
 
-		for (i, j), value in np.ndenumerate(map_s):
-			x, y = j, i # TODO: actually I do not know if neccessary
-			if not lidarMap:
-				if value == 4:
-					value = 0
-			quad = self.screen_quad_position(x, y)
-			# print ("value is:", value)
-			color = self.get_color(int(value))
+			else:
+				base = pygame.Surface(self.screen.get_size(), pygame.SRCALPHA, 32)
+				base.set_alpha(255)
 
-			pygame.draw.rect(self.surface, color, quad)
+			for (i, j), value in np.ndenumerate(map_s):
+				x, y = j, i # TODO: actually I do not know if neccessary
+				if not lidarMap:
+					if value == 4:
+						value = 0
 
-		self.screen.blit(self.surface, (0, 0))
+				if mapNum == N and value == 0:
+					continue
+
+				quad = self.screen_quad_position(x, y)
+				color = self.get_color(int(value))
+
+				pygame.draw.rect(base, color, quad)
+
+			self.screen.blit(base, (0, 0))
 
 		oldPos = None
-
+		i = 0
 		line = pygame.Surface(self.screen.get_size(), pygame.SRCALPHA, 32)
+		
 		for player in playerHistory:
 
 			i += 1
 			splayer = self.spwan_player(drawDir=False)
 			rplayer,rect = self.rotate_player(splayer,player.theta,player.position())
 			if oldPos:
-				#print("line")
 				pygame.draw.line(line,DGREEN,
 					self.screen_position(oldPos),self.screen_position(player.position()),3)
 

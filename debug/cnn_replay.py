@@ -20,7 +20,7 @@ model = PPO2.load('Pathplan_partial', policy=CustomPolicy2)
 obs = env.reset()
 
 successCount = 0.0
-total = 10
+total = 1
 for i in range(total):
     stepHistory = []
     while True:
@@ -44,6 +44,7 @@ for i in range(total):
         name = "/Users/tommy/Workspace/rlProject/report/{}_{}.jpg".format(i,flagString)
         stepHistory = np.array(stepHistory)
         view = MapViewer(400,300,30,40,playerSize=15)
-        view.trajectoryDrawer(stepHistory[-1][0],stepHistory[:,1],name,skip=4)
+        view.trajectoryDrawer(stepHistory[:,0],stepHistory[:,1],name,skip=4)
+        time.sleep(50)
 
 print("total success rate {}%".format(100.0*successCount/total))
